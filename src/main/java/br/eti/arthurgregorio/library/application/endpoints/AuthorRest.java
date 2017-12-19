@@ -16,7 +16,7 @@
 package br.eti.arthurgregorio.library.application.endpoints;
 
 import br.eti.arthurgregorio.library.domain.entities.Author;
-import br.eti.arthurgregorio.library.domain.services.Library;
+import br.eti.arthurgregorio.library.domain.services.LibraryService;
 import java.util.List;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -38,7 +38,7 @@ import javax.ws.rs.core.Response;
 public class AuthorRest {
 
     @Inject
-    private Library library;
+    private LibraryService library;
     
     /**
      * 

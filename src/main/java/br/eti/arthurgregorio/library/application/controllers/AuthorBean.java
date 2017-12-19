@@ -15,6 +15,15 @@
  */
 package br.eti.arthurgregorio.library.application.controllers;
 
+import br.eti.arthurgregorio.library.domain.entities.Author;
+import br.eti.arthurgregorio.library.domain.services.LibraryService;
+import java.util.List;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  *
  * @author Arthur Gregorio
@@ -22,6 +31,68 @@ package br.eti.arthurgregorio.library.application.controllers;
  * @since 1.0.0
  * @version 1.0.0, 16/12/2017
  */
+@Named
+@ViewScoped
 public class AuthorBean extends AbstractBean {
 
+    @Getter
+    @Setter
+    private Author author;
+    
+    @Getter
+    private List<Author> authors;
+
+    @Inject
+    private LibraryService libraryService;
+    
+    /**
+     * 
+     */
+    public void initializeListing() {
+        this.viewState = ViewState.LISTING;
+        this.authors = this.libraryService.listAllAuthors();
+    }
+    
+    /**
+     * 
+     * @param idAuthor
+     * @param viewState 
+     */
+    public void initializeForm(long idAuthor, String viewState) {
+        
+        this.viewState = ViewState.valueOf(viewState);
+        
+        switch (this.viewState) {
+            case ADDING:
+                this.author = new Author();
+                break;
+            case EDITING:
+                this.author = this.libraryService.findAuthorById(idAuthor);
+                break;
+        }
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public String save() {
+       
+        try {
+            this.author = this.libraryService.save(this.author);
+            return "formAuthor.xhtml?faces-redirect=true&viewState=EDITING&id=" 
+                    + this.author.getId();
+        } catch (Exception ex) {
+            this.addError(false, "Nao foi possivel salvar o autor");
+            return null;
+        } 
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public String update() {
+        return "";
+    }
 }

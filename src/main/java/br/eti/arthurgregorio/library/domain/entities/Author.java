@@ -15,6 +15,7 @@
  */
 package br.eti.arthurgregorio.library.domain.entities;
 
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -42,12 +43,20 @@ public class Author extends PersistentEntity {
     @Setter
     @Column(name = "name", length = 90, nullable = false)
     private String name;
-
-    /**
-     * 
-     * @param name 
-     */
-    public Author(String name) {
-        this.name = name;
-    }
+    @Getter
+    @Setter
+    @Column(name = "surname", length = 90, nullable = false)
+    private String surname;
+    @Getter
+    @Setter
+    @Column(name = "age", length = 3, nullable = false)
+    private String age;
+    @Getter
+    @Setter
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
+    @Getter
+    @Setter
+    @Column(name = "address", length = 120)
+    private String address;
 }

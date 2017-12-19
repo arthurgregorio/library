@@ -16,6 +16,7 @@
 package br.eti.arthurgregorio.library.domain.repositories;
 
 import br.eti.arthurgregorio.library.domain.entities.Author;
+import java.util.Optional;
 import org.apache.deltaspike.data.api.EntityRepository;
 import org.apache.deltaspike.data.api.Repository;
 
@@ -34,5 +35,5 @@ public interface AuthorRepository extends EntityRepository<Author, Long> {
      * @param id
      * @return 
      */
-    Author findOptionalById(long id);
+    Optional<Author> findOptionalById(long id);
 }

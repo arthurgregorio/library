@@ -32,7 +32,7 @@ import javax.transaction.Transactional;
  * @version 1.0.0, 15/12/2017
  */
 @ApplicationScoped
-public class Library {
+public class LibraryService {
 
     @Inject
     private BookRepository bookRepository;
@@ -73,5 +73,16 @@ public class Library {
      */
     public List<Author> listAllAuthors() {
         return this.authorRepository.findAll();
+    }
+
+    /**
+     * 
+     * @param idAuthor
+     * @return 
+     */
+    public Author findAuthorById(long idAuthor) {
+        return this.authorRepository.findOptionalById(idAuthor)
+                .orElseThrow(() -> 
+                        new IllegalArgumentException("Nenhum autor localizado"));
     }
 }
