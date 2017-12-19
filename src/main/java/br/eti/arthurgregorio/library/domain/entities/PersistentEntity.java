@@ -15,6 +15,7 @@
  */
 package br.eti.arthurgregorio.library.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -46,6 +47,7 @@ public abstract class PersistentEntity implements Serializable {
     /**
      * @return se esta classe ja foi ou nao persistida
      */
+    @JsonIgnore
     public boolean isSaved(){
         return this.id != null && this.id != 0;
     }

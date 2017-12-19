@@ -4,6 +4,6 @@
        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/beans_1_1.xsd"
        bean-discovery-mode="annotated">
     <alternatives>
-        <class>org.apache.deltaspike.jpa.impl.transaction.BeanManagedUserTransactionStrategy</class>
+        <class>org.apache.deltaspike.jpa.impl.transaction.ContainerManagedTransactionStrategy</class>
     </alternatives>
 </beans>

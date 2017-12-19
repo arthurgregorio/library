@@ -16,7 +16,6 @@
 package br.eti.arthurgregorio.library.domain.repositories;
 
 import br.eti.arthurgregorio.library.domain.entities.Loan;
-import javax.transaction.Transactional;
 import org.apache.deltaspike.data.api.EntityRepository;
 import org.apache.deltaspike.data.api.Repository;
 
@@ -28,7 +27,6 @@ import org.apache.deltaspike.data.api.Repository;
  * @version 1.0.0, 15/12/2017
  */
 @Repository
-@Transactional
 public interface LoanRepository extends EntityRepository<Loan, Long> {
 
     /**

@@ -22,6 +22,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import br.eti.arthurgregorio.library.domain.repositories.AuthorRepository;
 import br.eti.arthurgregorio.library.domain.repositories.BookRepository;
+import javax.transaction.Transactional;
 
 /**
  *
@@ -43,6 +44,7 @@ public class Library {
      * @param livro
      * @return 
      */
+    @Transactional
     public Book save(Book livro) {
         return this.bookRepository.save(livro);
     }
@@ -52,6 +54,7 @@ public class Library {
      * @param autor
      * @return 
      */
+    @Transactional
     public Author save(Author autor) {
         return this.authorRepository.save(autor);
     }

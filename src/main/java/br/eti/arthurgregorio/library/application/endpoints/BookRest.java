@@ -36,7 +36,7 @@ import javax.ws.rs.core.Response;
 public class BookRest {
 
     @Inject
-    private Library livraria;
+    private Library library;
     
     /**
      * 
@@ -45,7 +45,7 @@ public class BookRest {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response listAll() {
-        final List<Book> livros = this.livraria.listAllBooks();
-        return Response.ok(livros).build();
+        final List<Book> books = this.library.listAllBooks();
+        return Response.ok(books).build();
     }
 }
