@@ -17,7 +17,6 @@ package br.eti.arthurgregorio.library.domain.services;
 
 import br.eti.arthurgregorio.library.domain.entities.Author;
 import br.eti.arthurgregorio.library.domain.entities.Book;
-import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import br.eti.arthurgregorio.library.domain.repositories.AuthorRepository;
@@ -57,22 +56,6 @@ public class LibraryService {
     @Transactional
     public Author save(Author autor) {
         return this.authorRepository.save(autor);
-    }
-
-    /**
-     * 
-     * @return 
-     */
-    public List<Book> listAllBooks() {
-        return this.bookRepository.findAll();
-    }
-
-    /**
-     * 
-     * @return 
-     */
-    public List<Author> listAllAuthors() {
-        return this.authorRepository.findAll();
     }
 
     /**

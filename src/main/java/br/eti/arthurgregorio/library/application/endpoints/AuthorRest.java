@@ -16,6 +16,7 @@
 package br.eti.arthurgregorio.library.application.endpoints;
 
 import br.eti.arthurgregorio.library.domain.entities.Author;
+import br.eti.arthurgregorio.library.domain.repositories.AuthorRepository;
 import br.eti.arthurgregorio.library.domain.services.LibraryService;
 import java.util.List;
 import javax.inject.Inject;
@@ -28,6 +29,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
+ * Rest interface for operations with book authors 
  *
  * @author Arthur Gregorio
  *
@@ -38,29 +40,32 @@ import javax.ws.rs.core.Response;
 public class AuthorRest {
 
     @Inject
-    private LibraryService library;
+    private LibraryService libraryService;
+    
+    @Inject
+    private AuthorRepository authorRepository;
     
     /**
+     * Create a new author
      * 
-     * @param author
-     * @return 
+     * @param author the authro to create
+     * @return the response of this operation
      */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(Author author) {
-        final Author created = this.library.save(author);
+        final Author created = this.libraryService.save(author);
         return Response.ok(created, MediaType.APPLICATION_JSON).build();
     }
     
     /**
-     * 
-     * @return 
+     * @return all the authors
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response listAll() {
-        final List<Author> authors = this.library.listAllAuthors();
+        final List<Author> authors = this.authorRepository.findAll();
         return Response.ok(authors).build();
     }
 }

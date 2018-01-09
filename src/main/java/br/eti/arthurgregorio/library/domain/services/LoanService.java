@@ -13,39 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package br.eti.arthurgregorio.library.application.endpoints;
+package br.eti.arthurgregorio.library.domain.services;
 
-import br.eti.arthurgregorio.library.domain.entities.Book;
-import br.eti.arthurgregorio.library.domain.repositories.BookRepository;
-import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import br.eti.arthurgregorio.library.domain.repositories.LoanRepository;
 
 /**
- * Rest interface to operations with the books
  *
  * @author Arthur Gregorio
  *
  * @since 1.0.0
  * @version 1.0.0, 15/12/2017
  */
-@Path("book")
-public class BookRest {
+@ApplicationScoped
+public class LoanService {
 
     @Inject
-    private BookRepository bookRepository;
+    private LoanRepository loanRepository;
     
-    /**
-     * @return all authors
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response listAll() {
-        final List<Book> books = this.bookRepository.findAll();
-        return Response.ok(books).build();
-    }
 }

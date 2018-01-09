@@ -15,9 +15,19 @@
  */
 package br.eti.arthurgregorio.library.application.endpoints;
 
+import br.eti.arthurgregorio.library.domain.entities.Loan;
+import br.eti.arthurgregorio.library.domain.repositories.LoanRepository;
+import br.eti.arthurgregorio.library.domain.services.LoanService;
+import java.util.List;
+import javax.inject.Inject;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
+ * Rest interface for operations with loans of books
  *
  * @author Arthur Gregorio
  *
@@ -27,4 +37,19 @@ import javax.ws.rs.Path;
 @Path("loan")
 public class LoanRest {
 
+    @Inject
+    private LoanService loanService;
+    
+    @Inject
+    private LoanRepository loanRepository;
+    
+    /**
+     * @return all loans
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listAll() {
+        final List<Loan> loans = this.loanRepository.findAll();
+        return Response.ok(loans).build();
+    }
 }

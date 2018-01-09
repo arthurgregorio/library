@@ -24,6 +24,9 @@ import org.omnifaces.util.Messages;
 import org.primefaces.context.RequestContext;
 
 /**
+ * Abstract implementation of all managed beans for this application, with this
+ * class some of the repetitive operations are shared through the other
+ * managed beans
  *
  * @author Arthur Gregorio
  *
@@ -41,9 +44,7 @@ public abstract class AbstractBean implements Serializable {
     private RequestContext requestContext;
     
     /**
-     * Caso o nome do componente default de mensagens tenha sido setado, este
-     * metodo invocado apos adicionar mensagens faz com que ele seja atualizado
-     * automaticamente
+     * 
      */
     private void updateDefaultMessages() {
         if (this.getDefaultMessagesComponentId() != null 
@@ -53,44 +54,41 @@ public abstract class AbstractBean implements Serializable {
     }
     
     /**
-     * @return o nome do componente default de mensagens da view
+     * 
+     * @return 
      */
     protected String getDefaultMessagesComponentId() {
         return "messages";
     }
     
     /**
-     * Atualiza um componente pelo seu id no contexto atual
-     *
-     * @param componentId o id do componente
+     * 
+     * @param componentId 
      */
     protected void updateComponent(String componentId) {
         this.requestContext.update(componentId);
     }
 
     /**
-     * Executa um JavaScript na pagina pelo FacesContext atual
-     *
-     * @param script o script a ser executado
+     * 
+     * @param script 
      */
     protected void executeScript(String script) {
         this.requestContext.execute(script);
     }
 
     /**
-     * Apenas abre uma dialog pelo seu widgetvar
      * 
-     * @param widgetVar o widgetvar para abri-la
+     * @param widgetVar 
      */
     protected void openDialog(String widgetVar) {
         this.executeScript("PF('" + widgetVar + "').show()");
     }
     
     /**
-     * Dado o id de um dialog, atualiza a mesma e depois abre pelo widgetvar
      * 
-     * @param id o id da dialog para atualiza-la
-     * @param widgetVar o widgetvar para abri-la
+     * @param id
+     * @param widgetVar 
      */
     protected void updateAndOpenDialog(String id, String widgetVar) {
         this.updateComponent(id);
@@ -98,18 +96,16 @@ public abstract class AbstractBean implements Serializable {
     }
 
     /**
-     * Fecha uma dialog aberta previamente
-     *
-     * @param widgetVar o widgetvar da dialog
+     * 
+     * @param widgetVar 
      */
     protected void closeDialog(String widgetVar) {
         this.executeScript("PF('" + widgetVar + "').hide()");
     }
 
     /**
-     * Dado um componente, atualiza o mesmo e depois temporiza o seu fechamento
      * 
-     * @param componentId o id do componente
+     * @param componentId 
      */
     protected void temporizeHiding(String componentId) {
         this.updateComponent(componentId);
@@ -117,9 +113,8 @@ public abstract class AbstractBean implements Serializable {
     }
 
     /**
-     * Redireciona o usuario para um determinada URL, caso haja um erro, loga 
      * 
-     * @param url a url para o cara ser redirecionado
+     * @param url 
      */
     protected void redirectTo(String url) {
         try {
@@ -131,11 +126,10 @@ public abstract class AbstractBean implements Serializable {
     }
     
     /**
-     * Adiciona uma mensagem de informacao na tela
      * 
-     * @param message a mensagem
-     * @param parameters os parametros da mensagem
-     * @param updateDefault se devemos ou nao atualizar o componente default
+     * @param updateDefault
+     * @param message
+     * @param parameters 
      */
     protected void addInfo(boolean updateDefault, String message, Object... parameters) {
         Messages.addInfo(null, message, parameters);
@@ -143,11 +137,10 @@ public abstract class AbstractBean implements Serializable {
     }
     
     /**
-     * Adiciona uma mensagem de erro na tela
      * 
-     * @param message a mensagem
-     * @param parameters os parametros da mensagem
-     * @param updateDefault se devemos ou nao atualizar o componente default
+     * @param updateDefault
+     * @param message
+     * @param parameters 
      */
     protected void addError(boolean updateDefault, String message, Object... parameters) {
         Messages.addError(null, message, parameters);
@@ -155,11 +148,10 @@ public abstract class AbstractBean implements Serializable {
     }
     
     /**
-     * Adiciona uma mensagem de aviso na tela
      * 
-     * @param message a mensagem
-     * @param parameters os parametros da mensagem
-     * @param updateDefault se devemos ou nao atualizar o componente default
+     * @param updateDefault
+     * @param message
+     * @param parameters 
      */
     protected void addWarning(boolean updateDefault, String message, Object... parameters) {
         Messages.addWarn(null, message, parameters);
@@ -167,7 +159,7 @@ public abstract class AbstractBean implements Serializable {
     }
 
     /**
-     * Enum para controle do estado de execucao da tela
+     * 
      */
     protected enum ViewState {
         ADDING,

@@ -16,6 +16,7 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
 import br.eti.arthurgregorio.library.domain.entities.Author;
+import br.eti.arthurgregorio.library.domain.repositories.AuthorRepository;
 import br.eti.arthurgregorio.library.domain.services.LibraryService;
 import java.util.List;
 import javax.faces.view.ViewScoped;
@@ -45,20 +46,23 @@ public class AuthorBean extends AbstractBean {
     @Inject
     private LibraryService libraryService;
     
+    @Inject
+    private AuthorRepository authorRepository;
+    
     /**
      * 
      */
     public void initializeListing() {
         this.viewState = ViewState.LISTING;
-        this.authors = this.libraryService.listAllAuthors();
+        this.authors = this.authorRepository.findAll();
     }
     
     /**
      * 
-     * @param idAuthor
+     * @param id
      * @param viewState 
      */
-    public void initializeForm(long idAuthor, String viewState) {
+    public void initializeForm(long id, String viewState) {
         
         this.viewState = ViewState.valueOf(viewState);
         
@@ -67,7 +71,7 @@ public class AuthorBean extends AbstractBean {
                 this.author = new Author();
                 break;
             case EDITING:
-                this.author = this.libraryService.findAuthorById(idAuthor);
+                this.author = this.libraryService.findAuthorById(id);
                 break;
         }
     }
