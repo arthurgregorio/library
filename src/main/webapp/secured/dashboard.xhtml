@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:of="http://omnifaces.org/functions"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/baseTemplate.xhtml">
+
+    <ui:define name="pageTitle">
+        #{messages['dashboard.page-title']}
+    </ui:define>
+
+    <ui:define name="pageDescription">
+        #{messages['dashboard.page-description']}
+    </ui:define>
+
+    <ui:define name="breadcrumb">
+        <li class="active"><a href="dashboard.xhtml">#{breadcrumb['dashboard']}</a></li>
+    </ui:define>
+
+    <ui:define name="content">
+             
+    </ui:define>
+
+    <ui:define name="popups">
+        
+    </ui:define>
+</ui:composition>

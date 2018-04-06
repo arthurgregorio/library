@@ -1,0 +1,121 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:o="http://omnifaces.org/ui"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template/baseTemplate.xhtml">
+
+    <ui:param name="activeMenu" value="groups"/>
+
+    <f:metadata>
+        <f:viewAction action="#{groupBean.initialize(param.id, param.viewState)}"/>
+    </f:metadata>
+
+    <ui:define name="pageTitle">
+        #{messages['group.page-title']}
+    </ui:define>
+
+    <ui:define name="pageDescription">
+        <h:outputText rendered="#{groupBean.viewState eq 'ADDING'}"
+                      value="#{messages['group.page-description-including']}"/>
+        <o:outputFormat id="pageDescription" 
+                        rendered="#{groupBean.viewState eq 'EDITING'}" 
+                        value="#{messages['group.page-description-editing']}">
+            <f:param value="#{groupBean.value.name}"/>
+        </o:outputFormat>
+    </ui:define>
+
+    <ui:define name="breadcrumb">
+        <li><a href="#">#{breadcrumb['tools']}</a></li>
+        <li><a href="listUsers.xhtml">#{breadcrumb['tools.group']}</a></li>
+        <li jsf:rendered="#{groupBean.viewState eq 'ADDING'}" 
+            class="active"><a href="#">#{breadcrumb['including']}</a></li>
+        <li jsf:rendered="#{groupBean.viewState eq 'EDITING'}" 
+            class="active"><a href="#">#{breadcrumb['editing']}</a></li>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="groupForm" prependId="false">
+            <div class="row">
+                <div class="col-md-12">
+                    <p:messages id="messages" autoUpdate="false" closable="true" />
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <p:selectBooleanCheckbox value="#{groupBean.value.blocked}"
+                                                 itemLabel="#{messages['group.form.blocked']}"/>
+                    </h3>
+                </div>
+
+                <div class="box-body row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <p:outputLabel for="inGroup" 
+                                               value="#{messages['group.form.parent']}"/>
+                                <p:selectOneMenu id="inGroup" 
+                                                 value="#{groupBean.value.parent}" 
+                                                 converter="omnifaces.SelectItemsConverter">
+                                    <f:selectItem itemValue="#{null}"
+                                                  noSelectionOption="true"
+                                                  itemLabel="#{menu['select-one']}" />
+                                    <f:selectItems var="group" 
+                                                   itemValue="#{group}"
+                                                   itemLabel="#{group.name}"
+                                                   value="#{groupBean.data}" /> 
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <p:outputLabel for="inName" 
+                                               value="#{messages['group.form.name']}"/>
+                                <p:inputText id="inName" 
+                                             maxlength="90"
+                                             styleClass="form-control"
+                                             value="#{groupBean.value.name}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <h4>#{messages['group.form.authorizations']}</h4>
+                        <p:tree id="authorizationsTree"
+                                var="node"  
+                                cache="false" 
+                                animate="true"
+                                dynamic="true"
+                                highlight="false" 
+                                selectionMode="checkbox"
+                                value="#{groupBean.treeRoot}"
+                                selection="#{groupBean.selectedAuthorizations}">
+                            <p:treeNode >
+                                <h:outputText value="#{permission[groupBean.split(node)]}"/>
+                            </p:treeNode>
+                        </p:tree>
+                    </div>
+                </div>
+
+                <div class="box-footer align-right">
+                    <p:commandButton update="groupForm"
+                                     value="#{menu['save']}" 
+                                     action="#{groupBean.doSave()}"
+                                     styleClass="btn btn-flat btn-success"
+                                     rendered="#{groupBean.viewState eq 'ADDING'}"/>
+                    <p:commandButton value="#{menu['update']}" 
+                                     action="#{groupBean.doUpdate()}"
+                                     update="groupForm pageDescription"
+                                     styleClass="btn btn-flat btn-success"
+                                     rendered="#{groupBean.viewState eq 'EDITING'}"/>
+                    <p:spacer width="5"/>
+                    <p:commandButton immediate="true"
+                                     value="#{menu['back']}" 
+                                     action="#{groupBean.changeToListing()}"
+                                     styleClass="btn btn-flat btn-primary"/>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

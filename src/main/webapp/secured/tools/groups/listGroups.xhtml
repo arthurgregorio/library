@@ -1,0 +1,141 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:li="http://xmlns.jcp.org/jsf/composite/library/ui"
+                template="/template/baseTemplate.xhtml">
+
+    <ui:param name="activeMenu" value="groups"/>
+
+    <f:metadata>
+        <f:viewAction action="#{groupBean.initialize()}" />
+    </f:metadata>
+
+    <ui:define name="pageTitle">
+        #{messages['group.page-title']}
+    </ui:define>
+
+    <ui:define name="pageDescription">
+        #{messages['group.page-description']}
+    </ui:define>
+
+    <ui:define name="breadcrumb">
+        <li><a href="#">#{breadcrumb['tools']}</a></li>
+        <li class="active"><a href="listGroups.xhtml">#{breadcrumb['tools.group']}</a></li>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="row">
+                <div class="col-md-12">
+                <p:messages autoUpdate="false" globalOnly="false" closable="true" />
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-header with-border">
+                <h:form id="controlsForm">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <p:selectOneMenu value="#{groupBean.filter.entityStatus}"
+                                             converter="omnifaces.GenericEnumConverter">
+                                <f:selectItems var="entityStatus"
+                                               itemValue="#{entityStatus}"
+                                               itemLabel="#{enums[entityStatus]}"
+                                               value="#{groupBean.filter.entityStatusValues}"/> 
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="input-group">
+                                <p:inputText id="inSearch"
+                                             size="50" 
+                                             styleClass="form-control"
+                                             value="#{groupBean.filter.value}"  
+                                             placeholder="#{messages['filter.group']}" />
+                                <div class="input-group-btn">
+                                    <p:commandButton update="itemsListing"
+                                                     value="#{menu['search']}" 
+                                                     onstart="PF('blocker').show()"
+                                                     oncomplete="PF('blocker').hide()"
+                                                     styleClass="btn btn-flat btn-primary"
+                                                     actionListener="#{groupBean.updateListing()}" />
+                                    <p:spacer width="10"/>
+                                    <p:commandButton icon="fa fa-trash-o"
+                                                     onstart="PF('blocker').show()"
+                                                     oncomplete="PF('blocker').hide()"
+                                                     update="controlsForm itemsListing"
+                                                     styleClass="btn btn-flat btn-danger"
+                                                     actionListener="#{groupBean.clearFilters()}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="box-tools pull-right">
+                                <p:commandButton value="#{menu['add']}" 
+                                                 action="#{groupBean.changeToAdd()}"
+                                                 styleClass="btn btn-flat btn-primary"/>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+
+            <div jsf:id="boxBody" class="box-body">
+                <h:form id="itemsListing">
+                    <p:dataTable rows="20"
+                                 var="group" 
+                                 lazy="true"
+                                 rowKey="#{group.id}"
+                                 selectionMode="single" 
+                                 paginatorPosition="bottom"
+                                 selection="#{groupBean.value}" 
+                                 paginatorAlwaysVisible="false"
+                                 value="#{groupBean.dataModel}" 
+                                 emptyMessage="#{messages['list.empty']}">
+
+                        <p:ajax event="rowSelect"
+                                listener="#{groupBean.changeToDetail()}" /> 
+
+                        <p:column headerText="#{messages['group.list.name']}">
+                            <p:graphicImage width="18"
+                                            height="18"
+                                            library="library" 
+                                            rendered="#{not group.blocked}"
+                                            name="img/ui-icon-unblocked.png" 
+                                            title="#{messages['list.unblocked']}"/>
+                            <p:graphicImage width="18"
+                                            height="18"
+                                            library="library" 
+                                            rendered="#{group.blocked}"
+                                            name="img/ui-icon-blocked.png" 
+                                            title="#{messages['list.blocked']}"/>
+                            <p:spacer width="5"/>
+                            #{group.name}
+                        </p:column>
+                        <p:column headerText="#{messages['group.list.parent']}">
+                            #{group.parent.name}
+                        </p:column>
+                        <p:column width="10%"
+                                  styleClass="align-center"
+                                  headerText="#{messages['list.actions']}">
+                            <p:commandButton immediate="true"
+                                             icon="fa fa-edit" 
+                                             styleClass="btn btn-flat btn-default"
+                                             action="#{groupBean.changeToEdit(group.id)}" 
+                                             rendered="#{userSessionBean.isPermitted(permissions.GROUP_UPDATE)}"/>
+                            <p:spacer width="5"/>
+                            <p:commandButton immediate="true"
+                                             icon="fa fa-trash-o"
+                                             styleClass="btn btn-flat btn-danger"
+                                             action="#{groupBean.changeToDelete(group.id)}"
+                                             rendered="#{userSessionBean.isPermitted(permissions.GROUP_DELETE)}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+            <li:blocker target="boxBody"/>
+        </div>
+    </ui:define>
+</ui:composition>

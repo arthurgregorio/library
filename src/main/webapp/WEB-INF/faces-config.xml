@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+                
+    <factory>
+        <exception-handler-factory>
+            br.eti.arthurgregorio.library.infrastructure.jsf.exception.CustomExceptionHandlerFactory
+        </exception-handler-factory>
+    </factory>
+    
+    <application>
+        <!--default messges bundle-->
+        <resource-bundle>  
+            <base-name>i18n.messages</base-name>  
+            <var>messages</var>
+        </resource-bundle>  
+        <resource-bundle>  
+            <base-name>i18n.enums</base-name>  
+            <var>enums</var>
+        </resource-bundle>  
+        <resource-bundle>  
+            <base-name>ValidationMessages</base-name>  
+            <var>validation</var>
+        </resource-bundle>  
+        <resource-bundle>  
+            <base-name>i18n.breadcrumb</base-name>  
+            <var>breadcrumb</var>
+        </resource-bundle>  
+        <resource-bundle>  
+            <base-name>i18n.menu</base-name>  
+            <var>menu</var>
+        </resource-bundle>
+        <resource-bundle>  
+            <base-name>i18n.permission</base-name>  
+            <var>permission</var>
+        </resource-bundle>
+         
+        <!--locale configs-->
+        <locale-config>  
+            <default-locale>pt_BR</default-locale>  
+            <supported-locale>pt_BR</supported-locale>
+            <supported-locale>en_US</supported-locale>
+            <supported-locale>es_ES</supported-locale>
+        </locale-config>  
+    </application>
+</faces-config>

@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.com.arthurgregorio</groupId>
-    <artifactId>Library</artifactId>
+    <artifactId>library</artifactId>
     <version>1.0.0</version>
     <packaging>war</packaging>
 
@@ -14,6 +14,7 @@
     </properties>
     
     <dependencies>
+        <!--jee7 api-->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -21,156 +22,239 @@
             <scope>provided</scope>
         </dependency>
         
-        <dependency>
-            <groupId>org.primefaces</groupId>  
-            <artifactId>primefaces</artifactId>  
-            <version>6.1</version>  
-        </dependency>
-        <dependency>
-            <groupId>org.primefaces.extensions</groupId>  
-            <artifactId>primefaces-extensions</artifactId>  
-            <version>6.1.1</version>  
-            <exclusions>
-                <exclusion>
-                    <groupId>org.primefaces</groupId>  
-                    <artifactId>primefaces</artifactId>  
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>commons-lang3</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.omnifaces</groupId>
-            <artifactId>omnifaces</artifactId>
-            <version>2.6.6</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>de.larmic.butterfaces</groupId>
-            <artifactId>components</artifactId>
-            <version>2.1.24</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>23.5-jre</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.18</version>
-        </dependency>       
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.7.4</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>2.7.4</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-jdk8</artifactId>
-            <version>2.7.4</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-hibernate5</artifactId>
-            <version>2.7.4</version>
-        </dependency>
-        
+        <!--hibernate-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.0.10.Final</version>
+            <version>5.1.10.Final</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml</groupId>
+                    <artifactId>classmate</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-java8</artifactId>
-            <version>5.0.10.Final</version>
+            <version>5.1.10.Final</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-envers</artifactId>
+            <version>5.1.10.Final</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.2.4.Final</version>
+            <version>5.3.5.Final</version>
+            <scope>provided</scope>
             <exclusions>
                 <exclusion>
-                    <groupId>org.jboss.logging</groupId>
-                    <artifactId>jboss-logging</artifactId>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
                 </exclusion>
             </exclusions>
-            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>5.1.10.Final</version>
         </dependency>
         
+        <!--deltaspike-->
         <dependency>
             <groupId>org.apache.deltaspike.modules</groupId>
             <artifactId>deltaspike-data-module-api</artifactId>
-            <version>1.8.0</version>
-            <scope>compile</scope>
+            <version>1.8.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.deltaspike.modules</groupId>
             <artifactId>deltaspike-jpa-module-api</artifactId>
-            <version>1.8.0</version>
-            <scope>compile</scope>
+            <version>1.8.1</version>
         </dependency>
-        
         <dependency>
             <groupId>org.apache.deltaspike.modules</groupId>
             <artifactId>deltaspike-data-module-impl</artifactId>
-            <version>1.8.0</version>
+            <version>1.8.1</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.deltaspike.modules</groupId>
             <artifactId>deltaspike-jpa-module-impl</artifactId>
-            <version>1.8.0</version>
+            <version>1.8.1</version>
             <scope>runtime</scope>
+        </dependency>     
+        
+        <!--primefaces-->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>6.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces.extensions</groupId>  
+            <artifactId>primefaces-extensions</artifactId>  
+            <version>6.2</version>  
+            <exclusions>
+                <exclusion>
+                    <groupId>org.primefaces</groupId>  
+                    <artifactId>primefaces</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency> 
+        
+        <!--omnifaces--> 
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+            <version>2.6.7</version>
+        </dependency>  
+        
+        <!--jackson-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.8.9</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.8.9</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jdk8</artifactId>
+            <version>2.8.9</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.8.9</version>
+            <scope>provided</scope>
         </dependency>
         
+        <!--utilidades-->
         <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-core</artifactId>
-            <version>1.4.0</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+        </dependency>   
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.7</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-web</artifactId>
-            <version>1.4.0</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.6-jre</version>
         </dependency>
         
+        <!--mustache-->
         <dependency>
-            <groupId>de.svenkubiak</groupId>
-            <artifactId>jBCrypt</artifactId>
-            <version>0.4.1</version>
+            <groupId>com.github.spullara.mustache.java</groupId>
+            <artifactId>compiler</artifactId>
+            <version>0.9.5</version>
+        </dependency>
+        
+        <!--shiro-ee-->
+        <dependency>
+            <groupId>br.eti.arthurgregorio</groupId>
+            <artifactId>shiro-ee</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+        
+        <!--SL4J-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>ALPHA</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <application.version>
+                    ${project.version}-ALPHA
+                </application.version>
+                <skip.tests>false</skip.tests>
+                <jsf.stage>Development</jsf.stage>
+                <ldap.enabled>false</ldap.enabled>
+                <ldap.url>ldap://localhost</ldap.url>
+                <ldap.baseDn>OU=Usuarios,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
+                <ldap.user>CN=usuaribind,OU=Aplicacoes,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
+                <ldap.password>minha-senha</ldap.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>BETA</id>
+            <properties>
+                <application.version>
+                    ${project.version}-BETA
+                </application.version>
+                <skip.tests>false</skip.tests>
+                <jsf.stage>SystemTest</jsf.stage>
+                <ldap.enabled>false</ldap.enabled>
+                <ldap.url>ldap://localhost</ldap.url>
+                <ldap.baseDn>OU=Usuarios,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
+                <ldap.user>CN=usuaribind,OU=Aplicacoes,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
+                <ldap.password>minha-senha</ldap.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>RC</id>
+            <properties>
+                <application.version>
+                    ${project.version}-RC
+                </application.version>
+                <skip.tests>false</skip.tests>
+                <jsf.stage>Production</jsf.stage>
+                <ldap.enabled>false</ldap.enabled>
+                <ldap.url>ldap://localhost</ldap.url>
+                <ldap.baseDn>OU=Usuarios,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
+                <ldap.user>CN=usuaribind,OU=Aplicacoes,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
+                <ldap.password>minha-senha</ldap.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>RELEASE</id>
+            <properties>
+                <application.version>
+                    ${project.version}-RELEASE
+                </application.version>
+                <skip.tests>false</skip.tests>
+                <jsf.stage>Production</jsf.stage>
+                <ldap.enabled>false</ldap.enabled>
+                <ldap.url>ldap://localhost</ldap.url>
+                <ldap.baseDn>OU=Usuarios,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
+                <ldap.user>CN=usuaribind,OU=Aplicacoes,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
+                <ldap.password>minha-senha</ldap.password>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.7.0</version>
                 <configuration>
-                    <source>1.8</source>    
+                    <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
             </plugin>
@@ -180,8 +264,26 @@
                 <version>3.2.0</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <webResources>
+                        <resource>
+                            <filtering>true</filtering>
+                            <directory>src/main/webapp</directory>
+                            <includes>
+                                <include>**/web.xml</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
                 </configuration>
             </plugin>
         </plugins>
+        
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>        
     </build>
 </project>

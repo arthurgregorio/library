@@ -1,0 +1,14 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template/errorTemplate.xhtml">
+    
+    <ui:define name="headline">
+        <h2 class="headline text-maroon">401</h2>
+    </ui:define>
+    <ui:define name="message">
+        <i class="fa fa-warning text-maroon"></i> #{messages['401.message']}
+    </ui:define>
+    <ui:define name="details">
+        #{messages['401.details']}
+    </ui:define>
+</ui:composition>

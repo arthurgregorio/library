@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1">
+<web-app version="3.1" 
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     
-    <!--JSF configuration-->
+    <!--jsf servlet mapping-->    
     <servlet>
         <servlet-name>FacesServlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -14,27 +13,57 @@
         <servlet-name>FacesServlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-
-    <!--other configs-->
-    <session-config>
-        <session-timeout>30</session-timeout>
-        <tracking-mode>COOKIE</tracking-mode>
-    </session-config>
+    
+    <!--ferce https-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>App</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    
+    <!--gzip compression filter for requests-->
+    <filter>
+        <filter-name>gzipResponseFilter</filter-name>
+        <filter-class>org.omnifaces.filter.GzipResponseFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>gzipResponseFilter</filter-name>
+        <servlet-name>FacesServlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+       
+    <!--some web definitions-->
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+    <session-config>
+        <session-timeout>40</session-timeout>
+    </session-config>
     
-    <!--default theme for primefaces-->
+    <!--primefaces default theme-->
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>omega</param-value>
-    </context-param>
+        <param-value>bootstrap</param-value>
+    </context-param>  
+    <context-param>
+        <param-name>primefaces.FONT_AWESOME</param-name>
+        <param-value>true</param-value>
+    </context-param>        
+    <context-param>
+        <param-name>primefaces.MOVE_SCRIPTS_TO_BOTTOM</param-name>
+        <param-value>true</param-value>
+    </context-param>        
     
-    <!--Mojarra configs--> 
+    <!--mojarra configs-->
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
-    </context-param> 
+        <param-value>Production</param-value>
+    </context-param>   
     <context-param>
         <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
         <param-value>true</param-value>
@@ -56,7 +85,7 @@
         <param-value>server</param-value>
     </context-param>
     
-    <!-- tipos mime -->
+    <!--the mime type-->
     <mime-mapping>
         <extension>ico</extension>
         <mime-type>image/x-icon</mime-type>
@@ -66,10 +95,6 @@
         <mime-type>application/font-woff</mime-type>
     </mime-mapping>
     <mime-mapping>
-        <extension>woff2</extension>
-        <mime-type>application/font-woff2</mime-type>
-    </mime-mapping>
-    <mime-mapping>
         <extension>ttf</extension>
         <mime-type>application/font-sfnt</mime-type>
     </mime-mapping>
@@ -77,8 +102,22 @@
         <extension>eot</extension>
         <mime-type>application/vnd.ms-fontobject</mime-type>
     </mime-mapping>
-    <mime-mapping>
-        <extension>otf</extension>
-        <mime-type>font/opentype</mime-type>
-    </mime-mapping>
+    
+    <!--the error pages mapping-->
+    <error-page>      
+        <error-code>403</error-code>
+        <location>/error/401.xhtml</location>  
+    </error-page>
+    <error-page>      
+        <error-code>401</error-code>
+        <location>/error/401.xhtml</location>  
+    </error-page>
+    <error-page>      
+        <error-code>404</error-code>
+        <location>/error/404.xhtml</location>  
+    </error-page>
+    <error-page>      
+        <error-code>500</error-code>
+        <location>/error/500.xhtml</location>  
+    </error-page>
 </web-app>
