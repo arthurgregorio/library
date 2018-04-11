@@ -4,11 +4,26 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
                 
+    <!--custom eception handler to the default errors-->
     <factory>
         <exception-handler-factory>
             br.eti.arthurgregorio.library.infrastructure.jsf.exception.CustomExceptionHandlerFactory
         </exception-handler-factory>
     </factory>
+    
+    <!--custom renderer to bootstrap style fields-->
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.InputNumberRenderer</renderer-type>
+            <renderer-class>br.eti.arthurgregorio.library.infrastructure.primefaces.CustomInputNumberRenderer</renderer-class>
+        </renderer>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.CalendarRenderer</renderer-type>
+            <renderer-class>br.eti.arthurgregorio.library.infrastructure.primefaces.CustomCalendarRenderer</renderer-class>
+        </renderer>
+    </render-kit>  
     
     <application>
         <!--default messges bundle-->
