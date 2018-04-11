@@ -11,6 +11,7 @@ The core technologies:
 - Mojarra for JSF 2.2 + Primefaces 6.2
 - Apache Delta Spike Data Module for database querying and repositories functionality
 - Apache Shiro 1.4 through [ShiroEE](https://github.com/arthurgregorio/shiro-ee) for Security
+- Maven for building and dependency management
 
 The extras:
 
@@ -23,7 +24,7 @@ The extras:
 
 The demo utilizes custom implementation of [AdminLTE](https://adminlte.io/) integrated with Boostrap 3 and Primefaces for a better UI with modern features and mobile support.
 
-## How to: run the project
+## How to: configure
 
 First of all, you will need to download the latest version of Wildfly application server. This is the homologated version, maybe with a little bit of changes ~~or no~~ you can run the this on Payara, Glassfish or any other JEE 7 server.
 
@@ -54,6 +55,7 @@ Download Wildfly [here](http://wildfly.org/downloads/) and configure the datasou
     </validation>
 </datasource>
 ```
+
 And these lines to the mail subsystem (search for ```mail-session```) to enable the demo sending e-mail messages:
 
 ```xml
@@ -61,6 +63,7 @@ And these lines to the mail subsystem (search for ```mail-session```) to enable 
     <smtp-server outbound-socket-binding-ref="my-email-socket" username="my@email-account.com" password="my-secret"/>
 </mail-session>
 ```
+
 And the e-mail socket to the ```socket-binding-group``` at the end of the file:
 
 ```xml
@@ -100,8 +103,48 @@ CREATE SCHEMA security
 CREATE SCHEMA security_audit
     AUTHORIZATION sa_library;
 ```
-If you want to se the e-mail part of the demo working, configure the e-mail session on the 
 
+## How to: run
 
-All the infrastructure set, now is time to run the application
+Build the project. On the root folder run: 
 
+```shell
+mvn clean package
+```
+
+This will trigger the maven build to work with the default profile, ___ALPHA___, with the following configurations available on the ___pom.xml___ file:
+
+```xml
+<profile>
+    <id>ALPHA</id>
+    <activation>
+        <activeByDefault>true</activeByDefault>
+    </activation>
+    <properties>
+        <application.version>
+            ${project.version}-ALPHA
+        </application.version>
+        <skip.tests>false</skip.tests>
+        <jsf.stage>Development</jsf.stage>
+        <ldap.enabled>false</ldap.enabled>
+        <ldap.url>ldap://localhost</ldap.url>
+        <ldap.baseDn>OU=Usuarios,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
+        <ldap.user>CN=usuaribind,OU=Aplicacoes,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
+        <ldap.password>minha-senha</ldap.password>
+    </properties>
+</profile>
+```
+
+The configuration also have other profiles for you to configure according to your need: 
+
+- **BETA** for beta releases
+- **RC** for release candidate releases 
+- **RELEASE** for the final, production ready releases
+
+To use a specific profile, run the maven build with:
+
+```shell
+mvn -P(the-profile) clean package 
+```
+
+After the build, open the wildfly admin console on the web browser and in the deployments section, upload the war file created by the build in the target folder (named ___library-1.0.0-(selected-profile)___) inside the project and access it on the default URL: https://localhost:8080/, and you're done! Enjoy the demo.
