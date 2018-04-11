@@ -73,4 +73,14 @@ public interface UserRepository extends DefaultRepository<User> {
     default SingularAttribute<User, Boolean> getBlockedProperty() {
         return User_.blocked;
     }
+
+    /**
+     * {@inheritDoc }
+     * 
+     * @param criteria 
+     */
+    @Override
+    public default void setOrder(Criteria<User, User> criteria) {
+        criteria.orderAsc(User_.name);
+    }
 }

@@ -57,7 +57,7 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
             criteria.eq(this.getBlockedProperty(), blocked);
         }
                 
-        criteria.orderDesc(PersistentEntity_.id);
+        this.setOrder(criteria);
         
         return criteria.createQuery()
                 .setFirstResult(start)
@@ -71,10 +71,23 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
      * @return a list of all unblocked entities
      */
     default List<T> findAllUnblocked() {
-        return criteria()
-                .eq(this.getBlockedProperty(), false)
-                .orderDesc(PersistentEntity_.id)
-                .getResultList();
+        
+        final Criteria<T, T> criteria = criteria()
+                .eq(this.getBlockedProperty(), false);
+
+        this.setOrder(criteria);
+                
+        return criteria.getResultList();
+    }
+    
+    /**
+     * Use this method to set the default order to all the queries using the 
+     * default repository
+     * 
+     * @param criteria the criteria to be used
+     */
+    default void setOrder(Criteria<T, T> criteria) {
+        throw new RuntimeException("getBlockProperty not implemented for query");
     }
 
     /**

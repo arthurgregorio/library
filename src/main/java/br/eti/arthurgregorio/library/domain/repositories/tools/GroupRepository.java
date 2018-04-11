@@ -47,4 +47,14 @@ public interface GroupRepository extends DefaultRepository<Group> {
     default SingularAttribute<Group, Boolean> getBlockedProperty() {
         return Group_.blocked;
     }
+    
+    /**
+     * {@inheritDoc }
+     * 
+     * @param criteria 
+     */
+    @Override
+    public default void setOrder(Criteria<Group, Group> criteria) {
+        criteria.orderAsc(Group_.name);
+    }
 }
