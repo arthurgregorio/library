@@ -2,7 +2,7 @@
 
 A simple demo application to show how to work with the default technologies of JavaEE version 7.
 
-This conceptual architecture makes of the following frameworks:
+This conceptual architecture makes use of the following frameworks:
 
 The core technologies:
 
@@ -104,7 +104,11 @@ CREATE SCHEMA security_audit
     AUTHORIZATION sa_library;
 ```
 
-## How to: run
+## How to: run on IDE
+
+Just import the maven project, and deploy to you already configured Wildfly server. Remember to first configure the infrastructure.
+
+## How to: run by hands
 
 Build the project. On the root folder run: 
 
