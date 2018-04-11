@@ -8,9 +8,9 @@ The core technologies:
 
 - Hibernate 5 for JPA 2.1
 - Weld 2.4 for CDI 1.1
-- Mojarra for JSF 2.2 + Primefaces 6.2
+- Mojarra for JSF 2.2 + Primefaces 6.2 + AdminLTE 2.4 + Bootstrap 3
 - Apache Delta Spike Data Module for database querying and repositories functionality
-- Apache Shiro 1.4 through [ShiroEE](https://github.com/arthurgregorio/shiro-ee) for Security
+- Apache Shiro 1.4 through [ShiroEE](https://github.com/arthurgregorio/shiro-ee) for Security with LDAP/AD and database authentication support
 - Maven for building and dependency management
 
 The extras:
