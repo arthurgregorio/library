@@ -247,7 +247,7 @@
     </profiles>
 
     <build>
-        <finalName>${project.artifactId}-${project.version}</finalName>
+        <finalName>${project.artifactId}-${application.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
