@@ -112,7 +112,7 @@ Build the project. On the root folder run:
 mvn clean package
 ```
 
-This will trigger the maven build to work with the default profile, ___ALPHA___, with the following configurations available on the ___pom.xml___ file:
+This will trigger the maven build to work with the default profile, *ALPHA*, with the following configurations available on the *pom.xml* file:
 
 ```xml
 <profile>
@@ -137,9 +137,9 @@ This will trigger the maven build to work with the default profile, ___ALPHA___,
 
 The configuration also have other profiles for you to configure according to your need: 
 
-- **BETA** for beta releases
-- **RC** for release candidate releases 
-- **RELEASE** for the final, production ready releases
+- *BETA* for beta releases
+- *RC* for release candidate releases 
+- *RELEASE* for the final, production ready releases
 
 To use a specific profile, run the maven build with:
 
@@ -147,4 +147,4 @@ To use a specific profile, run the maven build with:
 mvn -P(the-profile) clean package 
 ```
 
-After the build, open the wildfly admin console on the web browser and in the deployments section, upload the war file created by the build in the target folder (named ___library-1.0.0-(selected-profile)___) inside the project and access it on the default URL: https://localhost:8080/, and you're done! Enjoy the demo.
+After the build, open the wildfly admin console on the web browser and in the deployments section, upload the war file created by the build in the target folder (named *library-1.0.0-(selected-profile)*) inside the project and access it on the default URL: https://localhost:8080/, and you're done! Enjoy the demo.
