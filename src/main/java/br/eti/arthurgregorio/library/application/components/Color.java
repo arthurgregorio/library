@@ -4,7 +4,6 @@ import com.google.common.base.Preconditions;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * RGB color implementation to use with color pickers on the UI
