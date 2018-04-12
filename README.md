@@ -110,7 +110,7 @@ CREATE SCHEMA security_audit
 
 ## How to: run on IDE
 
-Just import the maven project, and deploy to you already configured Wildfly server. Remember to first configure the infrastructure.
+Just import the maven project and deploy to you already configured Wildfly server. Remember to first configure the infrastructure.
 
 ## How to: run by hands
 
