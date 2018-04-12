@@ -2,9 +2,9 @@
 
 A simple demo application to show how to work with the default technologies of JavaEE version 7.
 
-This conceptual architecture makes use of the following frameworks:
+This conceptual architecture makes use of the following technologies:
 
-The core technologies:
+The core:
 
 - Hibernate 5 for JPA 2.1
 - Weld 2.4 for CDI 1.1
@@ -22,11 +22,15 @@ The extras:
 - Lombok, Google Guava and Coomons Lang for class level utilities
 - Mustache for e-mail templating 
 
-The demo utilizes custom implementation of [AdminLTE](https://adminlte.io/) integrated with Boostrap 3 and Primefaces for a better UI with modern features and mobile support.
+The demo makes use of a custom implementation of [AdminLTE](https://adminlte.io/) integrated with Boostrap 3 and Primefaces for a better UI with modern features and mobile support.
+
+And also, inside the application you can find (already functional) a simple CRUD of Users and User Groups with permission based authentication and LDAP/AD integration with local bind accounts, all of this provided by ShiroEE.
+
+It's not much say, that if you want a production ready architecture, this is the project that you are looking for.
 
 ## How to: configure
 
-First of all, you will need to download the latest version of Wildfly application server. This is the homologated version, maybe with a little bit of changes ~~or no~~ you can run the this on Payara, Glassfish or any other JEE 7 server.
+First of all, you will need to download the latest version of Wildfly application server. This is the homologated version, maybe, with a little bit of changes ~~or no~~ you can run this on Payara, Glassfish or any other JEE 7 server.
 
 Download Wildfly [here](http://wildfly.org/downloads/) and configure the datasource for the application by editing the ``` standalone.xml``` or ```standalone-full.xml``` (you will know which one to change) to add this lines to the datasource section of the file:
 
