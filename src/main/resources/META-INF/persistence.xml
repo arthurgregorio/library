@@ -8,9 +8,9 @@
         
         <properties>
             <property name="javax.persistence.validation.mode" value="none"/>
-            
+            <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
             <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="none"/>
             <property name="hibernate.connection.autocommit" value="false"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
         </properties>

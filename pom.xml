@@ -65,6 +65,13 @@
             <version>5.1.10.Final</version>
         </dependency>
         
+        <!--flyway-->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>5.0.7</version>
+        </dependency>
+        
         <!--deltaspike-->
         <dependency>
             <groupId>org.apache.deltaspike.modules</groupId>
