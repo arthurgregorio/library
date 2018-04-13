@@ -89,6 +89,16 @@ CREATE USER sa_library WITH
   NOCREATEROLE
   NOREPLICATION
   ENCRYPTED PASSWORD 'sa_library';
+ 
+ -- the databse
+ CREATE DATABASE library
+    WITH 
+    OWNER = sa_library
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.utf8'
+    LC_CTYPE = 'en_US.utf8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
 ```
 
 The tables and the initial data (default user, group and authorizations) will be created by Flyway with the migrations strategy.
