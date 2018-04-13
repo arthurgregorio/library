@@ -12,6 +12,7 @@ The core:
 - Apache Delta Spike Data Module for database querying and repositories functionality
 - Apache Shiro 1.4 through [ShiroEE](https://github.com/arthurgregorio/shiro-ee) for Security with LDAP/AD and database authentication support
 - Maven for building and dependency management
+- Flyway for database migrations
 
 The extras:
 
@@ -88,25 +89,9 @@ CREATE USER sa_library WITH
   NOCREATEROLE
   NOREPLICATION
   ENCRYPTED PASSWORD 'sa_library';
-
--- the database
-CREATE DATABASE library
-    WITH 
-    OWNER = sa_library
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'en_US.utf8'
-    LC_CTYPE = 'en_US.utf8'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1;
-    
--- the schemes
-CREATE SCHEMA audit
-    AUTHORIZATION sa_library;
-CREATE SCHEMA security
-    AUTHORIZATION sa_library;
-CREATE SCHEMA security_audit
-    AUTHORIZATION sa_library;
 ```
+
+The tables and the initial data (default user, group and authorizations) will be created by Flyway with the migrations strategy.
 
 ## How to: run on IDE
 
