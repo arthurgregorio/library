@@ -26,7 +26,7 @@ The demo makes use of a custom implementation of [AdminLTE](https://adminlte.io/
 
 And also, inside the application you can find (already functional) a simple CRUD of Users and User Groups with permission based authentication and LDAP/AD integration with local bind accounts, all of this provided by ShiroEE.
 
-It's not much say, that if you want a production ready architecture, this is the project that you are looking for.
+It's not much say, that if you want a **production ready architecture**, this is the project that you are looking for.
 
 ## How to: configure
 
@@ -110,7 +110,7 @@ CREATE SCHEMA security_audit
 
 ## How to: run on IDE
 
-Just import the maven project, and deploy to you already configured Wildfly server. Remember to first configure the infrastructure.
+Just import the maven project and deploy to you already configured Wildfly server. Remember to first configure the infrastructure.
 
 ## How to: run by hands
 
