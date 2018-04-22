@@ -56,7 +56,7 @@ public class Group extends PersistentEntity {
     @JoinColumn(name = "id_parent")
     private Group parent;
     
-    @OneToMany(mappedBy = "group", fetch = EAGER, cascade = {REMOVE})
+    @OneToMany(mappedBy = "group", fetch = EAGER, cascade = REMOVE)
     private final List<Grant> grants;
     
     /**
