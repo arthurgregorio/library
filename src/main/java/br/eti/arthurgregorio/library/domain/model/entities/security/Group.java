@@ -91,7 +91,7 @@ public class Group extends PersistentEntity {
      * 
      * @param grant 
      */
-    public void addRole(Grant grant) {
+    public void addGrant(Grant grant) {
         this.grants.add(grant);
     }
     
@@ -99,7 +99,7 @@ public class Group extends PersistentEntity {
      * 
      * @param grants 
      */
-    public void addRoles(List<Grant> grants) {
+    public void addGrants(List<Grant> grants) {
         this.grants.addAll(grants);
     }
 
@@ -113,7 +113,6 @@ public class Group extends PersistentEntity {
         if (this.parent != null) {
             groupGrants.addAll(this.parent.getGrants());
         }
-        
         return Collections.unmodifiableList(groupGrants);
     }
 
