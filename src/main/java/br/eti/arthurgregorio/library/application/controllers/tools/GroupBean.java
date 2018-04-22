@@ -7,6 +7,7 @@ import static br.eti.arthurgregorio.library.application.components.NavigationMan
 import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.UPDATE_PAGE;
 import br.eti.arthurgregorio.library.application.controllers.FormBean;
 import br.eti.arthurgregorio.library.application.components.ViewState;
+import br.eti.arthurgregorio.library.application.components.table.Page;
 import br.eti.arthurgregorio.library.domain.model.entities.security.Authorization;
 import br.eti.arthurgregorio.library.domain.model.entities.security.Grant;
 import br.eti.arthurgregorio.library.domain.model.entities.security.Group;
@@ -102,7 +103,7 @@ public class GroupBean extends FormBean<Group> {
      * @return
      */
     @Override
-    public List<Group> load(int first, int pageSize, String sortField, SortOrder sortOrder) {
+    public Page<Group> load(int first, int pageSize, String sortField, SortOrder sortOrder) {
         return this.groupRepository.findAllBy(this.filter.getValue(),
                 this.filter.getEntityStatusValue(), first, pageSize);
     }

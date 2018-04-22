@@ -1,5 +1,6 @@
 package br.eti.arthurgregorio.library.domain.repositories;
 
+import br.eti.arthurgregorio.library.application.components.table.Page;
 import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity;
 import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity_;
 import java.util.List;
@@ -34,7 +35,7 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
     Optional<T> findOptionalById(Long id);
     
     /**
-     * Generic search method
+     * Generic search method with lazy pagination support
      * 
      * To use this method you need to implement {@link #getRestrictions(java.lang.String)}
      * and {@link #getBlockedProperty()}
@@ -45,7 +46,9 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
      * @param pageSize the size of the page
      * @return the list of objects found
      */
-    default List<T> findAllBy(String filter, Boolean blocked, int start, int pageSize) {
+    default Page<T> findAllBy(String filter, Boolean blocked, int start, int pageSize) {
+        
+        final long totalRows = this.countPages(filter, blocked);
         
         final Criteria<T, T> criteria = criteria();
         
@@ -59,12 +62,34 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
                 
         this.setOrder(criteria);
         
-        return criteria.createQuery()
+        final List<T> data = criteria.createQuery()
                 .setFirstResult(start)
                 .setMaxResults(pageSize)
                 .getResultList();
+        
+        return Page.of(data, totalRows);
     }
 
+    /**
+     * 
+     * @param filter
+     * @param blocked
+     * @return 
+     */
+    default long countPages(String filter, Boolean blocked) {
+        
+        final Criteria<T, T> criteria = criteria()
+                .or(this.getRestrictions(filter));
+        
+        if (blocked != null) {
+            criteria.eq(this.getBlockedProperty(), blocked);
+        }
+        
+        return criteria
+                .select(Long.class, count(PersistentEntity_.id))
+                .getSingleResult();
+    }
+    
     /**
      * Generic method to find all unblocked entities
      * 
@@ -87,7 +112,7 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
      * @param criteria the criteria to be used
      */
     default void setOrder(Criteria<T, T> criteria) {
-        throw new RuntimeException("getBlockProperty not implemented for query");
+        criteria.orderAsc(PersistentEntity_.id);
     }
 
     /**

@@ -6,6 +6,7 @@ import static br.eti.arthurgregorio.library.application.components.NavigationMan
 import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.LIST_PAGE;
 import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.UPDATE_PAGE;
 import br.eti.arthurgregorio.library.application.components.ViewState;
+import br.eti.arthurgregorio.library.application.components.table.Page;
 import br.eti.arthurgregorio.library.domain.model.entities.security.User;
 import br.eti.arthurgregorio.library.domain.model.entities.security.StoreType;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
@@ -93,7 +94,7 @@ public class UserBean extends FormBean<User> {
      * @return
      */
     @Override
-    public List<User> load(int first, int pageSize, String sortField, SortOrder sortOrder) {
+    public Page<User> load(int first, int pageSize, String sortField, SortOrder sortOrder) {
         return this.userRepository.findAllBy(this.filter.getValue(),
                 this.filter.getEntityStatusValue(), first, pageSize);
     }
