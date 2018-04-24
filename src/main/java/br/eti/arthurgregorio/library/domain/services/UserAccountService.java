@@ -91,12 +91,12 @@ public class UserAccountService implements UserDetailsProvider {
     public void update(User user) {
         
         // validate the email
-        final Optional<User> emailOptional = this.userRepository
+        final Optional<User> userOptional = this.userRepository
                 .findOptionalByEmail(user.getEmail());
         
-        if (emailOptional.isPresent()) {
+        if (userOptional.isPresent()) {
             
-            final User found = emailOptional.get();
+            final User found = userOptional.get();
             
             if (!found.getUsername().equals(user.getUsername())) {
                 throw new BusinessLogicException("user.email-duplicated");
@@ -116,6 +116,8 @@ public class UserAccountService implements UserDetailsProvider {
                 // crypt the user password
                 user.setPassword(this.passwordEncoder.encryptPassword(
                         user.getPassword()));            
+            } else {
+                user.setPassword(userOptional.get().getPassword());
             }
         }
         
