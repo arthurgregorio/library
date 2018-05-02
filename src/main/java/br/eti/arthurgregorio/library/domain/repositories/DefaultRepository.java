@@ -48,7 +48,7 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
      */
     default Page<T> findAllBy(String filter, Boolean blocked, int start, int pageSize) {
         
-        final long totalRows = this.countPages(filter, blocked);
+        final int totalRows = this.countPages(filter, blocked);
         
         final Criteria<T, T> criteria = criteria();
         
@@ -76,7 +76,7 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
      * @param blocked
      * @return 
      */
-    default long countPages(String filter, Boolean blocked) {
+    default int countPages(String filter, Boolean blocked) {
         
         final Criteria<T, T> criteria = criteria()
                 .or(this.getRestrictions(filter));
@@ -86,7 +86,7 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
         }
         
         return criteria
-                .select(Long.class, count(PersistentEntity_.id))
+                .select(Integer.class, count(PersistentEntity_.id))
                 .getSingleResult();
     }
     
