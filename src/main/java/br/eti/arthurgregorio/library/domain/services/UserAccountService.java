@@ -117,7 +117,9 @@ public class UserAccountService implements UserDetailsProvider {
                 user.setPassword(this.passwordEncoder.encryptPassword(
                         user.getPassword()));            
             } else {
-                user.setPassword(userOptional.get().getPassword());
+                final Optional<User> actualUser = this.userRepository
+                        .findOptionalByUsername(user.getUsername());
+                user.setPassword(actualUser.get().getPassword());
             }
         }
         
