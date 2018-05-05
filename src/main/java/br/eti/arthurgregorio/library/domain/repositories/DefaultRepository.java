@@ -86,8 +86,9 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
         }
         
         return criteria
-                .select(Integer.class, count(PersistentEntity_.id))
-                .getSingleResult();
+                .select(Long.class, count(PersistentEntity_.id))
+                .getSingleResult()
+                .intValue();
     }
     
     /**
