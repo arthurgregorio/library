@@ -17,7 +17,7 @@ The core:
 The extras:
 
 - Database audit with Hibernate Envers 5
-- Hiberante Validator for Bean Validation
+- Hibernate Validator for Bean Validation
 - Omnifaces and PrimefacesExt for JSF utilities
 - Jackson for JSON support
 - Lombok, Google Guava and Coomons Lang for class level utilities
