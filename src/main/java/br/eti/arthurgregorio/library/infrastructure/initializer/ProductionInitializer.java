@@ -1,67 +1,54 @@
-package br.eti.arthurgregorio.library.infrastructure;
+package br.eti.arthurgregorio.library.infrastructure.initializer;
 
+import org.apache.deltaspike.core.api.exclude.Exclude;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.MigrationInfo;
 import org.slf4j.Logger;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static org.apache.deltaspike.core.api.projectstage.ProjectStage.Development;
 
 /**
- * This class is the start point of the basic configurations for the application
+ * The Production {@link EnvironmentInitializer}
  * 
- * Through here whe configure the default user and all the data that need to be initialized in the database before the
- * first start
- * 
- * This class is a EJB and runs on every start of the environment
- * 
+ * This one use database migrations strategy provided by FlywayDB
+ *
  * @author Arthur Gregorio
  *
  * @version 1.0.0
- * @since 1.0.0, 27/02/2018
+ * @since 1.3.1, 20/08/2018
  */
-@Startup
-@Singleton
-@TransactionManagement(TransactionManagementType.BEAN)
-public class Bootstrap {
+@RequestScoped
+@Exclude(ifProjectStage = Development.class)
+public class ProductionInitializer implements EnvironmentInitializer {
 
     @Inject
     private Logger logger;
-
-    @Resource(name = "java:/datasources/LibraryDS")
+    
+    @Resource(lookup = "java:/datasources/ProtocoloDS")
     private DataSource dataSource;
-
-    /**
-     * Initialize and do the job
-     */
-    @PostConstruct
-    protected void initialize() {
-        this.logger.info("Bootstraping application....");
-        this.checkDatabase();
-        this.logger.info("Bootstraping finished...");
-    }
     
     /**
-     * 
+     * {@inheritDoc }
      */
-    private void checkDatabase() {
+    @Override
+    public void initialize() {
         
+        this.logger.warn("Initializing application in production mode");
+
         checkNotNull(this.dataSource, "No datasource found for migrations");
  
         final Flyway flyway = new Flyway();
         
+        flyway.setDataSource(this.dataSource);
+        
         flyway.setLocations("db/migration");
         flyway.setBaselineOnMigrate(true);
-        
-        flyway.setDataSource(this.dataSource);
         
         final MigrationInfo migrationInfo = flyway.info().current();
  
