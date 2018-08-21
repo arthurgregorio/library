@@ -22,8 +22,8 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode
+@Table(name = "revisions")
 @RevisionEntity(RevisionListener.class)
-@Table(name = "revisions", schema = DefaultSchemes.AUDIT)
 public class Revision implements Serializable {
 
     @Id
