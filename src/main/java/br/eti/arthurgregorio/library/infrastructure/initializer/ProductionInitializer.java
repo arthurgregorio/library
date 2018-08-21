@@ -30,7 +30,7 @@ public class ProductionInitializer implements EnvironmentInitializer {
     @Inject
     private Logger logger;
     
-    @Resource(lookup = "java:/datasources/ProtocoloDS")
+    @Resource(lookup = "java:/datasources/LibraryDS")
     private DataSource dataSource;
     
     /**
