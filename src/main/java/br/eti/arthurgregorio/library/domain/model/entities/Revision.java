@@ -1,6 +1,5 @@
 package br.eti.arthurgregorio.library.domain.model.entities;
 
-import br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes;
 import lombok.*;
 import org.hibernate.envers.RevisionEntity;
 import org.hibernate.envers.RevisionNumber;
