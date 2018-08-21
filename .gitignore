@@ -27,6 +27,6 @@ hs_err_pid*
 /settings.xml
 /faces-config.NavData
 
-# intellij
+# intelliJ
 .idea
 library.yml

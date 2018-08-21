@@ -12,7 +12,7 @@ import java.io.IOException;
  * @author Arthur Gregorio
  *
  * @version 1.0.0
- * @since 2.2.0, 03/02/2016
+ * @since 1.0.0, 03/02/2016
  */
 public class BootstrapCalendarRenderer extends CalendarRenderer {
 

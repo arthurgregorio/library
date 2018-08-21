@@ -12,7 +12,7 @@ import javax.persistence.AttributeConverter;
  * @version 1.0.0
  * @since 1.0.0, 22/01/2017
  */
-public class ColorConverter implements AttributeConverter<Color, String>{
+public class ColorConverter implements AttributeConverter<Color, String> {
 
     /**
      * {@inheritDoc }
@@ -28,11 +28,11 @@ public class ColorConverter implements AttributeConverter<Color, String>{
     /**
      * {@inheritDoc }
      * 
-     * @param dbData
+     * @param data
      * @return 
      */
     @Override
-    public Color convertToEntityAttribute(String dbData) {
-        return dbData != null ? Color.parse(dbData) : null;
+    public Color convertToEntityAttribute(String data) {
+        return data != null ? Color.parse(data) : null;
     }
 }
