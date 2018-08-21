@@ -24,12 +24,12 @@ public final class LazyFilter {
      * Private constructor to prevent misuse 
      */
     private LazyFilter() {
-       this.entityStatus = EntityStatus.UNBLOCKED; 
+        this.entityStatus = EntityStatus.ACTIVE;
     }
-    
+
     /**
      * This replace the default constructor to build instances of this filter
-     * 
+     *
      * @return a instance of this filter
      */
     public static LazyFilter getInstance() {
@@ -41,33 +41,33 @@ public final class LazyFilter {
      */
     public void clear() {
         this.value = null;
-        this.entityStatus = EntityStatus.UNBLOCKED;
+        this.entityStatus = EntityStatus.ACTIVE;
     }
-    
+
     /**
      * The status value, if the entity to be queried is blocked, unblocked or if all entities will returned
-     * 
+     *
      * @return the status value
      */
     public Boolean getEntityStatusValue() {
         return entityStatus.value();
     }
-    
+
     /**
      * @return the values to be used on the selection box of the status
      */
     public EntityStatus[] getEntityStatusValues() {
         return EntityStatus.values();
     }
-    
+
     /**
      * The enum representation of the possible entity status
      */
     public enum EntityStatus {
 
         ALL("entity-status.all", null),
-        BLOCKED("entity-status.blocked", Boolean.TRUE),
-        UNBLOCKED("entity-status.unblocked", Boolean.FALSE);
+        ACTIVE("entity-status.active", Boolean.TRUE),
+        INACTIVE("entity-status.inactive", Boolean.FALSE);
 
         private final Boolean value;
         private final String description;
@@ -85,7 +85,7 @@ public final class LazyFilter {
 
         /**
          * {@inheritDoc }
-         * 
+         *
          * @return
          */
         @Override
