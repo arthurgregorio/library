@@ -1,8 +1,8 @@
 package br.eti.arthurgregorio.library.domain.services;
 
 import br.eti.arthurgregorio.library.application.components.MessageSource;
-import br.eti.arthurgregorio.library.domain.model.entities.security.StoreType;
-import br.eti.arthurgregorio.library.domain.model.entities.security.User;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.StoreType;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.User;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.model.mail.SimpleMailMessage;
 import br.eti.arthurgregorio.library.domain.repositories.tools.UserRepository;
