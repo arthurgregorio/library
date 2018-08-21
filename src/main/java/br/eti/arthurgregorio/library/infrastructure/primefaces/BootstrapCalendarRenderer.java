@@ -1,12 +1,10 @@
 package br.eti.arthurgregorio.library.infrastructure.primefaces;
 
-import java.io.IOException;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.calendar.CalendarRenderer;
-import org.primefaces.context.RequestContext;
-import org.primefaces.util.HTML;
+
+import javax.faces.context.FacesContext;
+import java.io.IOException;
 
 /**
  * Customization for bootstrap 3 compatibility in the {@link Calendar} component

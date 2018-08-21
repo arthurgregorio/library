@@ -4,8 +4,7 @@ import javax.faces.context.ExceptionHandler;
 import javax.faces.context.ExceptionHandlerFactory;
 
 /**
- * Simple {@link ExceptionHandlerFactory} to customize the exception handling 
- * in the application
+ * Simple {@link ExceptionHandlerFactory} to customize the exception handling in the application
  *
  * @author Arthur Gregorio
  *

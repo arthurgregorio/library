@@ -1,10 +1,11 @@
 package br.eti.arthurgregorio.library.infrastructure.cdi;
 
+import org.primefaces.context.RequestContext;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
-import org.primefaces.context.RequestContext;
 
 /**
  * The faces resources producer 

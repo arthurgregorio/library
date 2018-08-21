@@ -1,7 +1,7 @@
 package br.eti.arthurgregorio.library.infrastructure.utilities;
 
 /**
- * The defaul schemes definition for this application
+ * The default schemes definition for this application
  *
  * @author Arthur Gregorio
  *

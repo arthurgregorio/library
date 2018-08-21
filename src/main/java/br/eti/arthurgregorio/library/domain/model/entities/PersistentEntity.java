@@ -1,14 +1,11 @@
 package br.eti.arthurgregorio.library.domain.model.entities;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import javax.persistence.*;
 
 /**
  * The default implementation of a entity in the application. 

@@ -2,7 +2,12 @@ package br.eti.arthurgregorio.library.infrastructure.jsf.exception;
 
 import br.eti.arthurgregorio.library.application.components.MessageSource;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
-import java.util.Iterator;
+import org.hibernate.exception.ConstraintViolationException;
+import org.omnifaces.config.WebXml;
+import org.omnifaces.util.Exceptions;
+import org.omnifaces.util.Messages;
+import org.primefaces.PrimeFaces;
+
 import javax.ejb.EJBException;
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
@@ -11,23 +16,15 @@ import javax.faces.context.ExceptionHandlerWrapper;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.PhaseId;
-import static javax.servlet.RequestDispatcher.ERROR_EXCEPTION;
-import static javax.servlet.RequestDispatcher.ERROR_EXCEPTION_TYPE;
-import static javax.servlet.RequestDispatcher.ERROR_MESSAGE;
-import static javax.servlet.RequestDispatcher.ERROR_REQUEST_URI;
-import static javax.servlet.RequestDispatcher.ERROR_STATUS_CODE;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.RollbackException;
-import org.hibernate.exception.ConstraintViolationException;
-import org.omnifaces.config.WebXml;
-import org.omnifaces.util.Exceptions;
-import org.omnifaces.util.Messages;
-import org.primefaces.PrimeFaces;
+import java.util.Iterator;
+
+import static javax.servlet.RequestDispatcher.*;
 
 /**
- * The customized {@link ExceptionHandlerWrapper} to make the handling of 
- * exceptions more easy for the managed beans
+ * The customized {@link ExceptionHandlerWrapper} to make the handling of exceptions more easy for the managed beans
  *
  * @author Arthur Gregorio
  *
@@ -70,12 +67,11 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
     }
 
     /**
-     * Method to handle the generic exception and take a decision of witch 
-     * step to take after identify the type of the exception.
+     * Method to handle the generic exception and take a decision of witch step to take after identify the type of the
+     * exception.
      * 
-     * For {@link BusinessLogicException} or {@link ConstraintViolationException} 
-     * display a simple message on the UI, if unknow exception is given, call 
-     * the error page configured in the web.xml
+     * For {@link BusinessLogicException} or {@link ConstraintViolationException} display a simple message on the UI,
+     * if unknown exception is given, call the error page configured in the web.xml
      * 
      * @param context the faces context to use on the handling process
      */
@@ -130,7 +126,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
         request.setAttribute(ERROR_REQUEST_URI, request.getHeader("Referer"));
         request.setAttribute(ERROR_STATUS_CODE, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 
-        final String errorPage = getErroPage(ex);
+        final String errorPage = getErrorPage(ex);
 
         context.getApplication().getNavigationHandler()
                 .handleNavigation(context, null, errorPage);
@@ -144,7 +140,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
      * @param exception the exception type to check
      * @return the page
      */
-    private String getErroPage(Throwable exception) {
+    private String getErrorPage(Throwable exception) {
 
         if (exception instanceof EJBException && exception.getCause() != null) {
             exception = exception.getCause();
@@ -166,8 +162,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
 
         final String i18nMessage = MessageSource.get(ex.getMessage());
         
-        Messages.add(FacesMessage.SEVERITY_ERROR, null, 
-                i18nMessage, ex.getParameters());
+        Messages.add(FacesMessage.SEVERITY_ERROR, null, i18nMessage, ex.getParameters());
 
         context.renderResponse();
         
@@ -186,8 +181,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
             throw new FacesException(ex);
         }
 
-        Messages.add(FacesMessage.SEVERITY_ERROR, null, 
-                MessageSource.get("error.core.constraint-violation"));
+        Messages.add(FacesMessage.SEVERITY_ERROR, null, MessageSource.get("error.core.constraint-violation"));
 
         context.renderResponse();
         
@@ -195,7 +189,7 @@ public class CustomExceptionHandler extends ExceptionHandlerWrapper {
     }
     
     /**
-     * After display the message, temporie the hiding of the message box
+     * After display the message, temporize the hiding of the message box
      */
     private void temporizeHiding() {
         PrimeFaces.current().executeScript("setTimeout(\"$(\'#messages\').slideUp(300)\", 8000)");

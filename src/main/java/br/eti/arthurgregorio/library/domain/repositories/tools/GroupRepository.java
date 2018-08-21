@@ -1,12 +1,13 @@
 package br.eti.arthurgregorio.library.domain.repositories.tools;
 
-import br.eti.arthurgregorio.library.domain.model.entities.security.Group;
-import br.eti.arthurgregorio.library.domain.model.entities.security.Group_;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.Group;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.Group_;
 import br.eti.arthurgregorio.library.domain.repositories.DefaultRepository;
-import java.util.Optional;
-import javax.persistence.metamodel.SingularAttribute;
 import org.apache.deltaspike.data.api.Repository;
 import org.apache.deltaspike.data.api.criteria.Criteria;
+
+import javax.persistence.metamodel.SingularAttribute;
+import java.util.Optional;
 
 /**
  * The user groups repository
@@ -44,8 +45,8 @@ public interface GroupRepository extends DefaultRepository<Group> {
      * @return 
      */
     @Override
-    default SingularAttribute<Group, Boolean> getBlockedProperty() {
-        return Group_.blocked;
+    default SingularAttribute<Group, Boolean> getEntityStateProperty() {
+        return Group_.active;
     }
     
     /**

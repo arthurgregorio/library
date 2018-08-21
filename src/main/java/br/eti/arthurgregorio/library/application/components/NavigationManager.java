@@ -1,15 +1,15 @@
 package br.eti.arthurgregorio.library.application.components;
 
+import lombok.Getter;
+
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.faces.context.FacesContext;
-import lombok.Getter;
 
 /**
- * This class holds a mechanism to make the navigation though the pages more 
- * easy if you are working with default CRUD operations and a padronized way of
- * building the pages
+ * This class holds a mechanism to make the navigation though the pages more easy if you are working with default
+ * CRUD operations and a standardized way of building the pages
  *
  * @author Arthur Gregorio
  *
@@ -72,7 +72,7 @@ public final class NavigationManager {
     }
     
     /**
-     * Make a redirect throug the external context to the given page
+     * Make a redirect through the external context to the given page
      * 
      * @param pageType the {@link PageType} to go
      * @param parameters the parameters to use on the redirect

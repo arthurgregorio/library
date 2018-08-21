@@ -1,14 +1,14 @@
 package br.eti.arthurgregorio.library.domain.repositories.tools;
 
-import br.eti.arthurgregorio.library.domain.model.entities.security.StoreType;
-import br.eti.arthurgregorio.library.domain.model.entities.security.User;
-import br.eti.arthurgregorio.library.domain.model.entities.security.User_;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.StoreType;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.User;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.User_;
 import br.eti.arthurgregorio.library.domain.repositories.DefaultRepository;
-import java.util.List;
-import java.util.Optional;
-import javax.persistence.metamodel.SingularAttribute;
 import org.apache.deltaspike.data.api.Repository;
 import org.apache.deltaspike.data.api.criteria.Criteria;
+
+import javax.persistence.metamodel.SingularAttribute;
+import java.util.Optional;
 
 /**
  * The user accounts repository
@@ -23,17 +23,17 @@ public interface UserRepository extends DefaultRepository<User> {
 
     /**
      * 
-     * @param blocked
-     * @return 
-     */
-    List<User> findAllByBlocked(boolean blocked);
-    
-    /**
-     * 
      * @param email
      * @return 
      */
     Optional<User> findOptionalByEmail(String email);
+    
+    /**
+     * 
+     * @param username
+     * @return 
+     */
+    Optional<User> findOptionalByUsername(String username);
     
     /**
      * 
@@ -42,13 +42,6 @@ public interface UserRepository extends DefaultRepository<User> {
      * @return 
      */
     Optional<User> findOptionalByEmailAndStoreType(String email, StoreType storeType);
-    
-    /**
-     * 
-     * @param username
-     * @return 
-     */
-    Optional<User> findOptionalByUsername(String username);
 
     /**
      * {@inheritDoc }
@@ -70,8 +63,8 @@ public interface UserRepository extends DefaultRepository<User> {
      * @return 
      */
     @Override
-    default SingularAttribute<User, Boolean> getBlockedProperty() {
-        return User_.blocked;
+    default SingularAttribute<User, Boolean> getEntityStateProperty() {
+        return User_.active;
     }
 
     /**

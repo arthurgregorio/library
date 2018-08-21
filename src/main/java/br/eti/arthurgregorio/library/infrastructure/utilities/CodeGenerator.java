@@ -1,8 +1,7 @@
 package br.eti.arthurgregorio.library.infrastructure.utilities;
 
 /**
- * Class that's generate sequences of random codes to use in unique 
- * identifications of certain objects of this application
+ * Class that's generate sequences of random codes to use in unique identifications of certain objects
  *
  * @author Arthur Gregorio
  *

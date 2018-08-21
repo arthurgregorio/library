@@ -7,15 +7,16 @@ import br.eti.arthurgregorio.shiroee.config.RealmConfiguration;
 import br.eti.arthurgregorio.shiroee.config.ldap.LdapUserProvider;
 import br.eti.arthurgregorio.shiroee.realm.JdbcSecurityRealm;
 import br.eti.arthurgregorio.shiroee.realm.LdapSecurityRealm;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.realm.Realm;
+
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The main security configuration of this application.

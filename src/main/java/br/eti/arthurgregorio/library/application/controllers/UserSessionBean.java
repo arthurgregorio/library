@@ -1,22 +1,22 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
-import br.eti.arthurgregorio.library.domain.model.entities.security.User;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.User;
 import br.eti.arthurgregorio.library.domain.repositories.tools.UserRepository;
-import br.eti.arthurgregorio.library.infrastructure.cdi.qualifier.PrincipalUsername;
-import java.io.Serializable;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
-import javax.inject.Named;
+import br.eti.arthurgregorio.library.infrastructure.cdi.qualifier.AuthenticatedUser;
 import lombok.Getter;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.Serializable;
+
 /**
- * The controller of the session bean. This class hold the current user on the
- * application and his data
+ * The controller of the session bean. This class hold the current user on the application and his data
  * 
  * @author Arthur Gregorio
  *
@@ -90,7 +90,7 @@ public class UserSessionBean implements Serializable {
      * @return the current principal user object
      */
     @Produces
-    @PrincipalUsername 
+    @AuthenticatedUser
     User producePrincipal() {
         return this.principal;
     }

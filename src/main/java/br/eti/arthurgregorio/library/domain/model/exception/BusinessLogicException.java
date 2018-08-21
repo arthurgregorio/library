@@ -1,7 +1,8 @@
 package br.eti.arthurgregorio.library.domain.model.exception;
 
-import javax.ejb.ApplicationException;
 import lombok.Getter;
+
+import javax.ejb.ApplicationException;
 
 /**
  * This class represents all the business exceptions of the application

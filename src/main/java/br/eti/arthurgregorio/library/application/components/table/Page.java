@@ -7,8 +7,7 @@ import java.util.List;
 import lombok.Getter;
 
 /**
- * This class is a basic representation of the data to be provided to the 
- * datatable component from Primefaces. 
+ * This class is a basic representation of the data to be provided to the data table component from Primefaces.
  * 
  * In this we ship all the metadata to the pagination work 
  *

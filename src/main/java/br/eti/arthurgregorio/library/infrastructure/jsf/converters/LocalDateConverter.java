@@ -1,11 +1,11 @@
 package br.eti.arthurgregorio.library.infrastructure.jsf.converters;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *  Simple JSF converter to provide {@link LocalDate} support to the UI

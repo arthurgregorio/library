@@ -3,6 +3,7 @@ package br.eti.arthurgregorio.library.infrastructure.shiro;
 import br.eti.arthurgregorio.shiroee.config.HttpSecurityConfiguration;
 import br.eti.arthurgregorio.shiroee.config.http.HttpSecurityBuilder;
 import br.eti.arthurgregorio.shiroee.config.http.PermissionHttpSecurityBuilder;
+
 import javax.enterprise.context.ApplicationScoped;
 
 /**

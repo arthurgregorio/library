@@ -1,22 +1,14 @@
 package br.eti.arthurgregorio.library.domain.model.entities;
 
 import br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.envers.RevisionEntity;
 import org.hibernate.envers.RevisionNumber;
 import org.hibernate.envers.RevisionTimestamp;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * The revision entity to store all the audit revisions of the other entities

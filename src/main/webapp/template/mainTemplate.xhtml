@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <h:head>
+        <title>#{messages['application.name']}</title>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="mobile-web-app-capable" content="yes"/>
+        <meta name="description" content="My JEE Application" />
+        <meta name="keywords" content="some, key, words" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['application:images/favicon.png']}"/>
+
+        <h:outputStylesheet library="bootstrap" name="css/bootstrap.min.css"/>
+        <h:outputStylesheet library="adminlte" name="css/adminlte.min.css"/>
+        <h:outputStylesheet library="adminlte" name="css/all-skins.min.css"/>
+        <h:outputStylesheet library="pace" name="css/theme.css"/>
+        <h:outputStylesheet library="application" name="css/lte-custom.css"/>
+        <h:outputStylesheet library="application" name="css/pf-custom.css"/>
+        <h:outputStylesheet library="application" name="css/utilities.css"/>
+
+        <ui:insert name="head" />
+    </h:head>
+
+    <h:body styleClass="hold-transition layout-top-nav wysihtml5-supported #{profileBean.currentTheme}">
+        <div class="wrapper">
+            <header class="main-header">
+                <nav class="navbar navbar-static-top">
+                    <div class="navbar-header">
+                        <a href="/secured/dashboard.xhtml" class="navbar-brand">
+                            #{messages['application.name']}
+                        </a>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <i class="fa fa-bars"/>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                        <ui:include src="/template/mainMenu.xhtml"/>
+                    </div>
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <pe:gravatar id="userImage"
+                                                 value="#{userSessionBean.principal.email}"/>
+                                    <span class="hidden-xs">#{userSessionBean.principal.name}</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="user-header">
+                                        <pe:gravatar style="border-radius: 50%"
+                                                     value="#{userSessionBean.principal.email}"/>
+                                        <p>
+                                            #{userSessionBean.principal.name}
+                                            <small>#{userSessionBean.principal.groupName}</small>
+                                        </p>
+                                    </li>
+                                    <li class="user-footer">
+                                        <h:form>
+                                            <div class="pull-left">
+                                                <p:commandLink value="#{menu['change-password']}"
+                                                               styleClass="btn btn-flat btn-primary" 
+                                                               actionListener="#{profileBean.showChangePasswordPopup()}"
+                                                               rendered="#{userSessionBean.principal.storeType eq 'LOCAL'}"/>
+                                            </div>
+                                            <div class="pull-right">
+                                                <a class="btn btn-flat btn-danger" href="/logout">#{menu['logout']}</a>
+                                            </div>
+                                        </h:form>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"/></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <div class="content-wrapper">
+                <section class="content-header">
+                    <h1>
+                        <ui:insert name="pageTitle" />
+                        <small><ui:insert name="pageDescription" /></small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li>
+                            <p:link href="/contabil/index.xhtml">
+                                <i class="fa fa-home"/>
+                                Home
+                            </p:link>
+                        </li>
+                        <ui:insert name="breadcrumb" />
+                    </ol>
+                </section>
+                <section class="content">
+                    <ui:insert name="content" />
+                </section>
+            </div>
+            <footer class="main-footer">
+                Arthur Gregorio <b>|</b> AG.Software <b>|</b>
+                <a href="mailto:contato@arthurgregorio.eti.br">#{menu['report-problem']}</a>
+                <div class="pull-right hidden-xs">
+                    <strong>#{utilitiesBean.applicationVersion}</strong>
+                </div>
+            </footer>
+            <ui:include src="sidebar.xhtml"/>
+        </div>
+
+        <ui:insert name="popups" />      
+        <ui:include src="/secured/dialogChangePassword.xhtml"/>
+    </h:body>
+
+    <h:outputScript library="bootstrap" name="js/bootstrap.min.js" target="head"/>
+    <h:outputScript library="pace" name="js/pace.min.js" target="head"/>
+    <h:outputScript library="adminlte" name="js/adminlte.min.js" target="head"/>
+    <h:outputScript library="application" name="js/application.js" target="head"/>
+</html>

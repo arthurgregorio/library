@@ -3,19 +3,20 @@ package br.eti.arthurgregorio.library.domain.model.mail;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.infrastructure.mail.MailContentProvider;
 import br.eti.arthurgregorio.library.infrastructure.mail.MailMessage;
-import static com.google.common.base.Preconditions.checkNotNull;
-import java.util.ArrayList;
-import java.util.List;
-import javax.mail.Address;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.mail.Address;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
- * Simple implementation of the {@link MailMessage} with a build and a fluent 
- * interface to construct e-mail messages
+ * Simple implementation of the {@link MailMessage} with a build and a fluent interface to construct e-mail messages
  *
  * @author Arthur Gregorio
  *
@@ -192,15 +193,14 @@ public class SimpleMailMessage implements MailMessage {
         /**
          * Convert a string to a {@link Address}
          * 
-         * @param address the string addres
+         * @param address the string address
          * @return the {@link InternetAddress} implementation of {@link Address}
          */
         private InternetAddress toAddress(String address) {
             try {
                 return new InternetAddress(address);
             } catch (AddressException ex) {
-                throw new BusinessLogicException(
-                        "error.core.email-address-invalid", ex, address);
+                throw new BusinessLogicException("error.core.email-address-invalid", ex, address);
             }
         }
     }

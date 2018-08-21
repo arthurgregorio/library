@@ -1,12 +1,13 @@
 package br.eti.arthurgregorio.library.domain.repositories.tools;
 
-import br.eti.arthurgregorio.library.domain.model.entities.security.Authorization;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.Authorization;
 import br.eti.arthurgregorio.library.domain.repositories.DefaultRepository;
-import java.util.Optional;
 import org.apache.deltaspike.data.api.Repository;
 
+import java.util.Optional;
+
 /**
- * The repository of authorization
+ * The repository of authorizations
  *
  * @author Arthur Gregorio
  *

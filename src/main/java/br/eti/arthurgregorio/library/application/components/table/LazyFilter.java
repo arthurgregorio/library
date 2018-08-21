@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * This filter implementation is a helper class to help the lazy loading feature
- * of the datatables 
+ * This filter implementation is a helper class to help the lazy loading feature of the data tables
  *
  * @author Arthur Gregorio
  *
@@ -29,7 +28,7 @@ public final class LazyFilter {
     }
     
     /**
-     * This replace the default construtor to build istances of this filter
+     * This replace the default constructor to build instances of this filter
      * 
      * @return a instance of this filter
      */
@@ -46,8 +45,7 @@ public final class LazyFilter {
     }
     
     /**
-     * The status value, if the entity to be queried is blocked, unblocked or 
-     * if all entities will returned
+     * The status value, if the entity to be queried is blocked, unblocked or if all entities will returned
      * 
      * @return the status value
      */

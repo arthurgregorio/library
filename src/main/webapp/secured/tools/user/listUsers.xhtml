@@ -1,0 +1,152 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:ap="http://xmlns.jcp.org/jsf/composite/application/ui"
+                template="/template/mainTemplate.xhtml">
+
+    <f:metadata>
+        <f:viewAction action="#{userBean.initialize()}"/>
+    </f:metadata>
+
+    <ui:define name="pageTitle">
+        #{messages['user.page-title']}
+    </ui:define>
+
+    <ui:define name="pageDescription">
+        #{messages['user.page-description']}
+    </ui:define>
+
+    <ui:define name="breadcrumb">
+        <li><a href="#">#{breadcrumb['tools']}</a></li>
+        <li class="active"><a href="listUsers.xhtml">#{breadcrumb['tools.users']}</a></li>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="row">
+            <div class="col-md-12">
+                <p:messages id="messages" closable="true" />
+            </div>
+        </div>
+        <div class="box box-#{profileBean.currentThemeColorName}">
+            <div class="box-header with-border">
+                <h:form id="controlsForm">
+                    <p:defaultCommand target="btSearch"/>
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <p:selectOneMenu value="#{userBean.filter.entityStatus}"
+                                             converter="omnifaces.GenericEnumConverter">
+                                <f:selectItems var="entityStatus"
+                                               itemValue="#{entityStatus}"
+                                               itemLabel="#{enums[entityStatus]}"
+                                               value="#{userBean.filter.entityStatusValues}"/> 
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="input-group">
+                                <p:inputText id="inSearch"
+                                             size="50" 
+                                             styleClass="form-control"
+                                             value="#{userBean.filter.value}"
+                                             placeholder="#{messages['filter.user']}" />
+                                <div class="input-group-btn">
+                                    <p:commandButton id="btSearch"
+                                                     update="itemsList"
+                                                     value="#{menu['search']}" 
+                                                     onstart="PF('blocker').show()"
+                                                     oncomplete="PF('blocker').hide()"
+                                                     styleClass="btn btn-flat btn-primary"
+                                                     actionListener="#{userBean.updateListing()}" />
+                                    <p:spacer width="10"/>
+                                    <p:commandButton icon="fa fa-trash-o"
+                                                     onstart="PF('blocker').show()"
+                                                     update="controlsForm itemsList"
+                                                     title="#{menu['clear-filters']}"
+                                                     oncomplete="PF('blocker').hide()"
+                                                     styleClass="btn btn-flat btn-danger"
+                                                     actionListener="#{userBean.clearFilters()}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="box-tools pull-right">
+                                <p:commandButton value="#{menu['add']}" 
+                                                 action="#{userBean.changeToAdd()}"
+                                                 styleClass="btn btn-flat btn-primary"/>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+            <div jsf:id="boxBody" class="box-body">
+                <h:form id="itemsList">
+                    <p:dataTable rows="20" 
+                                 var="user" 
+                                 lazy="true"
+                                 paginator="true"
+                                 rowKey="#{user.id}"
+                                 selectionMode="single" 
+                                 paginatorPosition="bottom"
+                                 selection="#{userBean.value}"
+                                 value="#{userBean.dataModel}" 
+                                 paginatorAlwaysVisible="false"
+                                 emptyMessage="#{messages['list.empty']}">
+
+                        <p:ajax event="rowSelect"
+                                listener="#{userBean.changeToDetail()}" /> 
+
+                        <p:column headerText="#{messages['user.list.name']}">
+                            <p:graphicImage width="24"
+                                            height="32"
+                                            library="application" 
+                                            name="images/inactive.png" 
+                                            rendered="#{not user.active}"
+                                            title="#{messages['list.inactive']}"/>
+                            <p:graphicImage width="24"
+                                            height="32"
+                                            library="application" 
+                                            name="images/active.png" 
+                                            rendered="#{user.active}"
+                                            title="#{messages['list.active']}"/>
+                            <p:spacer width="5"/>
+                            #{user.name}
+                        </p:column>
+                        <p:column width="15%"
+                                  styleClass="align-center"
+                                  headerText="#{messages['user.list.username']}" >
+                            #{user.username}
+                        </p:column>
+                        <p:column styleClass="align-center"
+                                  headerText="#{messages['user.list.group']}">
+                            #{user.groupName}
+                        </p:column>
+                        <p:column styleClass="align-center"
+                                  headerText="#{messages['user.list.store-type']}">
+                            #{enums[user.storeType]}
+                        </p:column>
+                        <p:column width="10%"
+                                  styleClass="align-center"
+                                  headerText="#{messages['list.actions']}">
+                            <p:commandButton immediate="true"
+                                             icon="fa fa-edit"
+                                             title="#{menu['edit']}"
+                                             styleClass="btn btn-flat btn-default"
+                                             action="#{userBean.changeToEdit(user.id)}" 
+                                             rendered="#{userSessionBean.isPermitted(permissions.USER_UPDATE)}"/>
+                            <p:spacer width="5"/>
+                            <p:commandButton immediate="true"
+                                             icon="fa fa-trash-o"
+                                             title="#{menu['delete']}"
+                                             styleClass="btn btn-flat btn-danger"
+                                             action="#{userBean.changeToDelete(user.id)}"
+                                             rendered="#{userSessionBean.isPermitted(permissions.USER_DELETE)}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+            <ap:blocker target="boxBody"/>
+        </div>
+    </ui:define>
+</ui:composition>

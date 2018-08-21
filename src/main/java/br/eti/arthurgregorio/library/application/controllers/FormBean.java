@@ -1,31 +1,28 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
-import br.eti.arthurgregorio.library.application.components.ViewState;
 import br.eti.arthurgregorio.library.application.components.NavigationManager;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.ADD_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.DELETE_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.DETAIL_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.LIST_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.UPDATE_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.Parameter.of;
+import br.eti.arthurgregorio.library.application.components.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.LazyDataProvider;
 import br.eti.arthurgregorio.library.application.components.table.LazyFilter;
 import br.eti.arthurgregorio.library.application.components.table.LazyModel;
 import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.model.LazyDataModel;
 
+import java.util.List;
+
+import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.*;
+import static br.eti.arthurgregorio.library.application.components.NavigationManager.Parameter.of;
+
 /**
- * The abstract form controller, this class hold all the commom functionalities 
- * that a single form will have.
+ * The abstract form controller, this class hold all the common functionalities that a single form will have.
  * 
- * This class already implement the lazy loadin support for primefaces with 
- * the implementation of the {@link LazyDataProvider}
+ * This class already implement the lazy loading support for primefaces with  the implementation of the
+ * {@link LazyDataProvider}
  *
- * @param <T> the type to be manipulated with this controller, needs to be a 
- * class of the domain model child of the {@link PersistentEntity}
+ * @param <T> the type to be manipulated with this controller, needs to be a class of the domain model child of the
+ * {@link PersistentEntity}
  *
  * @author Arthur Gregorio
  *

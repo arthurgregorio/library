@@ -1,10 +1,11 @@
 package br.eti.arthurgregorio.library.domain.repositories.tools;
 
-import br.eti.arthurgregorio.library.domain.model.entities.security.Grant;
-import br.eti.arthurgregorio.library.domain.model.entities.security.Group;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.Grant;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.Group;
 import br.eti.arthurgregorio.library.domain.repositories.DefaultRepository;
-import java.util.List;
 import org.apache.deltaspike.data.api.Repository;
+
+import java.util.List;
 
 /**
  * The repository of grants 

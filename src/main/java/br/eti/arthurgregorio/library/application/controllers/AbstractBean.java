@@ -1,18 +1,18 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
 import br.eti.arthurgregorio.library.application.components.MessageSource;
-import java.io.Serializable;
-import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
-import javax.inject.Inject;
 import org.omnifaces.util.Messages;
 import org.primefaces.PrimeFaces;
 import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 
+import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
+import javax.inject.Inject;
+import java.io.Serializable;
+
 /**
- * The base bean of the controllers of this application, this class contains all
- * the basic methods to all the controllers
+ * The base bean of the controllers of this application, this class contains all the basic methods to all the controllers
  *
  * @author Arthur Gregorio
  *

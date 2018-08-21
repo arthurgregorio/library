@@ -1,9 +1,10 @@
 package br.eti.arthurgregorio.library.application.components;
 
 import com.google.common.base.Preconditions;
-import java.util.concurrent.ThreadLocalRandom;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * RGB color implementation to use with color pickers on the UI

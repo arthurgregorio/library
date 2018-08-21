@@ -1,6 +1,9 @@
 package br.eti.arthurgregorio.library.infrastructure;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.flywaydb.core.Flyway;
+import org.flywaydb.core.api.MigrationInfo;
+import org.slf4j.Logger;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
@@ -9,15 +12,14 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
 import javax.sql.DataSource;
-import org.flywaydb.core.Flyway;
-import org.flywaydb.core.api.MigrationInfo;
-import org.slf4j.Logger;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * This class is the start point of the basic configurations for the application
  * 
- * Through here whe configure the default user and all the data that need to be
- * initialized in the database before the first start
+ * Through here whe configure the default user and all the data that need to be initialized in the database before the
+ * first start
  * 
  * This class is a EJB and runs on every start of the environment
  * 

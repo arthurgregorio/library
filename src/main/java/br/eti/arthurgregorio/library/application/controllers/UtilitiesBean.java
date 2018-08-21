@@ -7,8 +7,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 /**
- * Utilities controller to provide common data to all the pages in the 
- * application
+ * Utilities controller to provide common data to all the pages in the application
  *
  * @author Arthur Gregorio
  *

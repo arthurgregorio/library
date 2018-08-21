@@ -1,28 +1,27 @@
 package br.eti.arthurgregorio.library.application.controllers.tools;
 
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.ADD_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.DELETE_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.DETAIL_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.LIST_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.UPDATE_PAGE;
 import br.eti.arthurgregorio.library.application.components.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.Page;
-import br.eti.arthurgregorio.library.domain.model.entities.security.User;
-import br.eti.arthurgregorio.library.domain.model.entities.security.StoreType;
+import br.eti.arthurgregorio.library.application.controllers.FormBean;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.Group;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.StoreType;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.User;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.repositories.tools.GroupRepository;
 import br.eti.arthurgregorio.library.domain.repositories.tools.UserRepository;
 import br.eti.arthurgregorio.library.domain.services.UserAccountService;
+import br.eti.arthurgregorio.library.infrastructure.utilities.Configurations;
 import br.eti.arthurgregorio.shiroee.config.ldap.LdapUser;
 import br.eti.arthurgregorio.shiroee.config.ldap.LdapUserProvider;
-import java.util.List;
+import lombok.Getter;
+import org.primefaces.model.SortOrder;
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import br.eti.arthurgregorio.library.application.controllers.FormBean;
-import br.eti.arthurgregorio.library.domain.model.entities.security.Group;
-import lombok.Getter;
-import org.primefaces.model.SortOrder;
+import java.util.List;
+
+import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.*;
 
 /**
  * The controller for the user accounts operations
@@ -57,7 +56,7 @@ public class UserBean extends FormBean<User> {
     public void initialize() {
         this.viewState = ViewState.LISTING;
     }
-    
+
     /**
      *
      * @param id
@@ -68,13 +67,13 @@ public class UserBean extends FormBean<User> {
 
         this.viewState = ViewState.valueOf(viewState);
 
-        this.groups = this.groupRepository.findAllUnblocked();
+        this.groups = this.groupRepository.findAllActive();
         this.value = this.userRepository.findOptionalById(id)
                 .orElseGet(User::new);
     }
 
     /**
-     * 
+     *
      */
     @Override
     protected void initializeNavigationManager() {
@@ -106,7 +105,7 @@ public class UserBean extends FormBean<User> {
     public void doSave() {
         this.localAccountService.save(this.value);
         this.value = new User();
-        this.addInfo(true, "user.saved");
+        this.addInfo(true, "saved");
     }
 
     /**
@@ -115,7 +114,7 @@ public class UserBean extends FormBean<User> {
     @Override
     public void doUpdate() {
         this.localAccountService.update(this.value);
-        this.addInfo(true, "user.updated");
+        this.addInfo(true, "updated");
     }
 
     /**
@@ -125,14 +124,21 @@ public class UserBean extends FormBean<User> {
     @Override
     public String doDelete() {
         this.localAccountService.delete(this.value);
+        this.addInfoAndKeep("deleted");
         return this.changeToListing();
     }
 
     /**
-     * Method to find a given username on the LDAP repository and attach them
-     * to a local account for binding pourpouses
+     * Method to find a given username on the LDAP repository and attach them to
+     * a local account for binding pourpouses
      */
     public void findUserOnLdap() {
+
+        final boolean ldapEnable = Configurations.getAsBoolean("ldap.enabled");
+
+        if (!ldapEnable) {
+            throw new BusinessLogicException("error.user.ldap-not-enabled");
+        }
 
         final String username = this.value.getUsername();
 
