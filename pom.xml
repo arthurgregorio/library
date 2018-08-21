@@ -194,11 +194,11 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <application.version>
-                    ${project.version}-ALPHA
-                </application.version>
-                <skip.tests>false</skip.tests>
-                <jsf.stage>Development</jsf.stage>
+                <application.version>${project.version}-ALPHA</application.version>
+                <skip.tests>true</skip.tests>
+                <project.stage>Development</project.stage>
+                <orm.show_sql>true</orm.show_sql>
+                <orm.ddl_auto>update</orm.ddl_auto>
                 <ldap.enabled>false</ldap.enabled>
                 <ldap.url>ldap://localhost</ldap.url>
                 <ldap.baseDn>OU=Usuarios,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
@@ -209,11 +209,11 @@
         <profile>
             <id>BETA</id>
             <properties>
-                <application.version>
-                    ${project.version}-BETA
-                </application.version>
+                <application.version>${project.version}-BETA</application.version>
                 <skip.tests>false</skip.tests>
-                <jsf.stage>SystemTest</jsf.stage>
+                <project.stage>SystemTest</project.stage>
+                <orm.show_sql>true</orm.show_sql>
+                <orm.ddl_auto>none</orm.ddl_auto>
                 <ldap.enabled>false</ldap.enabled>
                 <ldap.url>ldap://localhost</ldap.url>
                 <ldap.baseDn>OU=Usuarios,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
@@ -224,11 +224,11 @@
         <profile>
             <id>RC</id>
             <properties>
-                <application.version>
-                    ${project.version}-RC
-                </application.version>
+                <application.version>${project.version}-RC</application.version>
                 <skip.tests>false</skip.tests>
-                <jsf.stage>Production</jsf.stage>
+                <project.stage>Production</project.stage>
+                <orm.show_sql>false</orm.show_sql>
+                <orm.ddl_auto>none</orm.ddl_auto>
                 <ldap.enabled>false</ldap.enabled>
                 <ldap.url>ldap://localhost</ldap.url>
                 <ldap.baseDn>OU=Usuarios,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
@@ -239,11 +239,11 @@
         <profile>
             <id>RELEASE</id>
             <properties>
-                <application.version>
-                    ${project.version}-RELEASE
-                </application.version>
+                <application.version>${project.version}-RELEASE</application.version>
                 <skip.tests>false</skip.tests>
-                <jsf.stage>Production</jsf.stage>
+                <project.stage>Production</project.stage>
+                <orm.show_sql>false</orm.show_sql>
+                <orm.ddl_auto>none</orm.ddl_auto>
                 <ldap.enabled>false</ldap.enabled>
                 <ldap.url>ldap://localhost</ldap.url>
                 <ldap.baseDn>OU=Usuarios,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>

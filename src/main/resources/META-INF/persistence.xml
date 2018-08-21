@@ -7,12 +7,13 @@
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         
         <properties>
-            <property name="javax.persistence.validation.mode" value="none"/>
-            <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="none"/>
+            <property name="hibernate.show_sql" value="${orm.show_sql}"/>
+            <property name="hibernate.hbm2ddl.auto" value="${orm.ddl_auto}"/>
             <property name="hibernate.connection.autocommit" value="false"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
+
+            <!--Tell to wildfly to use the 5.2 module of hibernate if it is installed-->
+            <!--<property name="jboss.as.jpa.providerModule" value="org.hibernate:5.2" />-->
         </properties>
     </persistence-unit>
 </persistence>
