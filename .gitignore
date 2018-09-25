@@ -20,7 +20,12 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# IDE settings
 /target/
 /nb-configuration.xml
 /settings.xml
 /faces-config.NavData
+
+library.iml
+.idea
