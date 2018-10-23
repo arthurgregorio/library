@@ -31,11 +31,10 @@ public interface LazyDataProvider<T extends PersistentEntity> {
     Page<T> load(int first, int pageSize, String sortField, SortOrder sortOrder);
     
     /**
-     * Used to retrieve data from databse with multisorting from data component
+     * Used to retrieve data from database with multi-sorting from data component
      *
-     * If you don't want to use multisorting, theres no need to implement this
-     * method because it already have a default implementation with empty list
-     * return
+     * If you don't want to use multi-sorting, there's no need to implement this method because it already have a
+     * default implementation with empty list return
      *
      * @param first the start of the pagination
      * @param pageSize the maximum size of the page

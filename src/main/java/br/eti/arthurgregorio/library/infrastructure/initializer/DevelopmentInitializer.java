@@ -29,7 +29,7 @@ import static org.apache.deltaspike.core.api.projectstage.ProjectStage.SystemTes
  * @author Arthur Gregorio
  *
  * @version 1.0.0
- * @since 2.0.0, 23/10/2018
+ * @since 1.3.1, 20/08/2018
  */
 @RequestScoped
 @Exclude(ifProjectStage = {Production.class, SystemTest.class})

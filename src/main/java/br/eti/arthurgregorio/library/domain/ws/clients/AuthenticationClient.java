@@ -6,8 +6,9 @@ import feign.Param;
 import feign.RequestLine;
 
 /**
+ * A {@link BearerToken} authentication client sample
  *
- * @author Arthur Gregório
+ * @author Arthur Gregorio
  *
  * @version 1.0.0
  * @since 2.0.0, 23/10/2018
@@ -15,12 +16,13 @@ import feign.RequestLine;
 public interface AuthenticationClient {
 
     /**
+     * Create a simple client to authenticate a request to the REST server
      *
-     * @param userName
-     * @param password
-     * @return
+     * @param username the username
+     * @param password the password
+     * @return the bearer token with the authorization token
      */
-    @RequestLine("POST /autorizador/oauth/token")
+    @RequestLine("POST /oauth/token")
     @Body("grant_type=password&username={username}&password={password}")
-    BearerToken createToken(@Param("username") String userName, @Param("password") String password);
+    BearerToken createToken(@Param("username") String username, @Param("password") String password);
 }

@@ -5,8 +5,7 @@ import lombok.Getter;
 
 import java.util.Collections;
 import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import java.util.Objects;
 
 /**
  * This class is a basic representation of the data to be provided to the data table component from Primefaces.
@@ -34,7 +33,7 @@ public final class Page<T extends PersistentEntity> {
      * @param totalPages the total of possible pages
      */
     private Page(List<T> content, int totalPages) {
-        this.content = checkNotNull(content);
+        this.content = Objects.requireNonNull(content);
         this.totalPages = totalPages;
     }
 

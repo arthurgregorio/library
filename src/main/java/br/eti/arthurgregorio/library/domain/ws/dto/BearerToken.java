@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
+ * A value holder for a {@link BearerToken} authentication/authorization process
  *
  * @author Arthur Gregorio
  *
@@ -38,7 +39,7 @@ public class BearerToken {
     private final long creationTime;
 
     /**
-     *
+     * Constructor
      */
     public BearerToken() {
         this.validity = 3500L;
@@ -46,12 +47,13 @@ public class BearerToken {
     }
 
     /**
+     * Constructor
      *
-     * @param accessToken
-     * @param tokenType
-     * @param expiresIn
-     * @param scope
-     * @param jti
+     * @param accessToken the access token
+     * @param tokenType the type of the token
+     * @param expiresIn when it will expire
+     * @param scope the scope of this authentication token
+     * @param jti the jti value
      */
     public BearerToken(String accessToken, String tokenType, long expiresIn, String scope, String jti) {
         this();
@@ -63,8 +65,9 @@ public class BearerToken {
     }
 
     /**
+     * To check if this token is valid or not
      *
-     * @return
+     * @return true if this token is valid, false otherwise
      */
     public boolean isValid() {
         final long actualTime = System.currentTimeMillis();

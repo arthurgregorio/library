@@ -7,7 +7,7 @@ package br.eti.arthurgregorio.library.infrastructure.initializer;
  * @author Arthur Gregorio
  *
  * @version 1.0.0
- * @since 2.0.0, 23/10/2018
+ * @since 1.3.1, 20/08/2018
  */
 public interface EnvironmentInitializer {
 

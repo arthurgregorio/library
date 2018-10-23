@@ -81,7 +81,7 @@ public class ProfileBean extends AbstractBean {
     }
     
     /**
-     *
+     * Change the user password
      */
     public void changePassword() {
         
@@ -94,7 +94,7 @@ public class ProfileBean extends AbstractBean {
     }
     
     /**
-     * 
+     * Show the password change dialog
      */
     public void showChangePasswordPopup() {
         this.passwordChangeDTO = new PasswordChangeDTO();

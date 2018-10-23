@@ -7,8 +7,7 @@ import org.primefaces.model.SortOrder;
 
 import java.util.List;
 import java.util.Map;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import java.util.Objects;
 
 /**
  * This abstraction when used enable lazy loading on primefaces data table
@@ -30,7 +29,7 @@ public class LazyModel<T extends PersistentEntity> extends LazyDataModel<T> {
      * @param provider the data provider for this model
      */
     public LazyModel(LazyDataProvider<T> provider) {
-        this.provider = checkNotNull(provider);
+        this.provider = Objects.requireNonNull(provider);
     }
 
     /**
