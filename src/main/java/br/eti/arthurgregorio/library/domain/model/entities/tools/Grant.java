@@ -1,19 +1,17 @@
 package br.eti.arthurgregorio.library.domain.model.entities.tools;
 
 import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity;
-import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.SECURITY;
-import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.SECURITY_AUDIT;
+import lombok.*;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.envers.AuditTable;
-import org.hibernate.envers.Audited;
+
+import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.SECURITY;
+import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.SECURITY_AUDIT;
 
 /**
  * The grant for authorization entity

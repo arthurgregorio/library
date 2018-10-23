@@ -1,17 +1,19 @@
 package br.eti.arthurgregorio.library.application.components.table;
 
 import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity;
-import static com.google.common.base.Preconditions.checkNotNull;
-import java.util.List;
-import java.util.Map;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
 
+import java.util.List;
+import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
- * This abstraction when used enable lazy loading on primefaces datatable
+ * This abstraction when used enable lazy loading on primefaces data table
  *
- * @param <T> the type of this datamodel
+ * @param <T> the type of this data model
  *
  * @author Arthur Gregorio
  *
