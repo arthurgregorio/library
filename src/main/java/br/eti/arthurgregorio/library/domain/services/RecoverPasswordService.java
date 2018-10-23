@@ -1,8 +1,8 @@
 package br.eti.arthurgregorio.library.domain.services;
 
 import br.eti.arthurgregorio.library.application.components.MessageSource;
-import br.eti.arthurgregorio.library.domain.model.entities.security.StoreType;
-import br.eti.arthurgregorio.library.domain.model.entities.security.User;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.StoreType;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.User;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.model.mail.SimpleMailMessage;
 import br.eti.arthurgregorio.library.domain.repositories.tools.UserRepository;
@@ -10,16 +10,18 @@ import br.eti.arthurgregorio.library.infrastructure.mail.MailContentProvider;
 import br.eti.arthurgregorio.library.infrastructure.mail.MailMessage;
 import br.eti.arthurgregorio.library.infrastructure.mail.MustacheProvider;
 import br.eti.arthurgregorio.library.infrastructure.utilities.CodeGenerator;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import br.eti.arthurgregorio.library.infrastructure.utilities.Configurations;
+import br.eti.arthurgregorio.shiroee.auth.PasswordEncoder;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
- * The service responsible for all the operations about the password recovery 
- * process
+ * The service responsible for all the operations about the password recovery process
  *
  * @author Arthur Gregorio
  *
@@ -33,6 +35,9 @@ public class RecoverPasswordService {
     private UserRepository userRepository;
 
     @Inject
+    private PasswordEncoder passwordEncoder;
+    
+    @Inject
     private Event<MailMessage> mailSender;
 
     /**
@@ -45,26 +50,24 @@ public class RecoverPasswordService {
 
         final User user = this.userRepository
                 .findOptionalByEmailAndStoreType(email, StoreType.LOCAL)
-                .orElseThrow(() -> new BusinessLogicException(
-                        "error.recover-password.user-not-found"));
+                .orElseThrow(() -> BusinessLogicException.create("error.recover-password.user-not-found"));
 
         final String newPassword = CodeGenerator.alphanumeric(8);
 
-        user.setPassword(newPassword);
+        user.setPassword(this.passwordEncoder.encryptPassword(newPassword));
 
         this.userRepository.saveAndFlushAndRefresh(user);
 
         final MailMessage mailMessage = SimpleMailMessage.getBuilder()
-                .from("no-reply@pti.org.br")
+                .from(Configurations.get("email.no-reply-address"))
                 .to(user.getEmail())
                 .withTitle(MessageSource.get("recover-password.email.title"))
                 .withContent(this.buildContent(user, newPassword))
                 .build();
-
         try {
             this.mailSender.fire(mailMessage);
         } catch (Exception ex) {
-            throw new BusinessLogicException("error.core.sending-mail-error");
+            throw BusinessLogicException.create("error.core.sending-mail-error");
         }
     }
 

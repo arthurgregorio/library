@@ -1,12 +1,13 @@
 package br.eti.arthurgregorio.library.domain.repositories.tools;
 
-import br.eti.arthurgregorio.library.domain.model.entities.security.Authorization;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.Authorization;
 import br.eti.arthurgregorio.library.domain.repositories.DefaultRepository;
-import java.util.Optional;
 import org.apache.deltaspike.data.api.Repository;
 
+import java.util.Optional;
+
 /**
- * The repository of authorization
+ * The {@link Authorization} repository
  *
  * @author Arthur Gregorio
  *
@@ -17,10 +18,11 @@ import org.apache.deltaspike.data.api.Repository;
 public interface AuthorizationRepository extends DefaultRepository<Authorization> {
 
     /**
-     * 
-     * @param functionality
-     * @param permission
-     * @return 
+     * Find an {@link Authorization} by the functionality and the permission
+     *
+     * @param functionality the functionality of the {@link Authorization}
+     * @param permission the permission of the {@link Authorization}
+     * @return an {@link Optional} of the {@link Authorization}
      */
     Optional<Authorization> findOptionalByFunctionalityAndPermission(String functionality, String permission);
 }

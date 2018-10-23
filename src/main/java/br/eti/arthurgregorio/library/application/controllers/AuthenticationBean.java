@@ -1,14 +1,15 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
-import br.eti.arthurgregorio.shiroee.auth.Credential;
 import br.eti.arthurgregorio.shiroee.auth.Authenticator;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import br.eti.arthurgregorio.shiroee.auth.Credential;
 import lombok.Getter;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
+
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * The authentication controller 
@@ -29,8 +30,8 @@ public class AuthenticationBean extends AbstractBean {
     private Authenticator authenticator;
 
     /**
-     * Initialize the controler, if the user is already logged-in this method
-     * return the url to the dashboard page, if not, stay in the login page
+     * Initialize the controller, if the user is already logged-in this method return the url to the dashboard page,
+     * if not, stay in the login page
      * 
      * @return the dashboard outcome or empty to stay in the login page
      */
@@ -53,7 +54,7 @@ public class AuthenticationBean extends AbstractBean {
             this.authenticator.login(this.credential);
             return "/secured/dashboard.xhtml?faces-redirect=true";
         } catch (UnknownAccountException ex) {
-            this.addError(true, "error.authentication.unknow-account");
+            this.addError(true, "error.authentication.unknown-account");
         } catch (IncorrectCredentialsException ex) {
             this.addError(true, "error.authentication.incorrect-credentials");
         } catch (AuthenticationException ex) {

@@ -7,8 +7,8 @@ import static br.eti.arthurgregorio.library.application.components.NavigationMan
 import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.UPDATE_PAGE;
 import br.eti.arthurgregorio.library.application.components.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.Page;
-import br.eti.arthurgregorio.library.domain.model.entities.security.User;
-import br.eti.arthurgregorio.library.domain.model.entities.security.StoreType;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.User;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.StoreType;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.repositories.tools.GroupRepository;
 import br.eti.arthurgregorio.library.domain.repositories.tools.UserRepository;
@@ -20,7 +20,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import br.eti.arthurgregorio.library.application.controllers.FormBean;
-import br.eti.arthurgregorio.library.domain.model.entities.security.Group;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.Group;
+import br.eti.arthurgregorio.library.infrastructure.utilities.Configurations;
 import lombok.Getter;
 import org.primefaces.model.SortOrder;
 
@@ -45,36 +46,35 @@ public class UserBean extends FormBean<User> {
     private GroupRepository groupRepository;
 
     @Inject
-    private LdapUserProvider ldapUserProvider;
+    private UserAccountService userAccountService;
 
     @Inject
-    private UserAccountService localAccountService;
+    private LdapUserProvider ldapUserProvider;
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void initialize() {
-        this.viewState = ViewState.LISTING;
+        super.initialize();
+        this.temporizeHiding(this.getDefaultMessagesComponentId());
     }
-    
+
     /**
+     * {@inheritDoc}
      *
      * @param id
      * @param viewState
      */
     @Override
-    public void initialize(long id, String viewState) {
-
-        this.viewState = ViewState.valueOf(viewState);
-
-        this.groups = this.groupRepository.findAllUnblocked();
-        this.value = this.userRepository.findOptionalById(id)
-                .orElseGet(User::new);
+    public void initialize(long id, ViewState viewState) {
+        this.viewState = viewState;
+        this.groups = this.groupRepository.findAllActive();
+        this.value = this.userRepository.findOptionalById(id).orElseGet(User::new);
     }
 
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     protected void initializeNavigationManager() {
@@ -86,6 +86,7 @@ public class UserBean extends FormBean<User> {
     }
 
     /**
+     * {@inheritDoc}
      *
      * @param first
      * @param pageSize
@@ -95,61 +96,70 @@ public class UserBean extends FormBean<User> {
      */
     @Override
     public Page<User> load(int first, int pageSize, String sortField, SortOrder sortOrder) {
-        return this.userRepository.findAllBy(this.filter.getValue(),
-                this.filter.getEntityStatusValue(), first, pageSize);
+        return this.userRepository.findAllBy(this.filter.getValue(), this.filter.getEntityStatusValue(), first, pageSize);
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void doSave() {
-        this.localAccountService.save(this.value);
+        this.userAccountService.save(this.value);
         this.value = new User();
-        this.addInfo(true, "user.saved");
+        this.addInfo(true, "saved");
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void doUpdate() {
-        this.localAccountService.update(this.value);
-        this.addInfo(true, "user.updated");
+        this.userAccountService.update(this.value);
+        this.addInfo(true, "updated");
     }
 
     /**
+     * {@inheritDoc}
      *
      * @return
      */
     @Override
     public String doDelete() {
-        this.localAccountService.delete(this.value);
+        this.userAccountService.delete(this.value);
+        this.addInfoAndKeep("deleted");
         return this.changeToListing();
     }
 
     /**
-     * Method to find a given username on the LDAP repository and attach them
-     * to a local account for binding pourpouses
+     * Method to find a given user on the LDAP/AD directory
      */
     public void findUserOnLdap() {
+
+        final boolean ldapEnable = Configurations.getAsBoolean("ldap.enabled");
+
+        if (!ldapEnable) {
+            throw new IllegalStateException("error.user.ldap-not-enabled");
+        }
 
         final String username = this.value.getUsername();
 
         final LdapUser userDetails = this.ldapUserProvider
                 .search(username)
-                .orElseThrow(() -> new BusinessLogicException(
-                        "error.user.not-found-ldap", username));
+                .orElseThrow(() -> BusinessLogicException.create("error.user.not-found-ldap", username));
 
         this.value.setUsername(userDetails.getSAMAccountName());
         this.value.setEmail(userDetails.getMail());
         this.value.setName(userDetails.getName());
+
+
     }
 
     /**
-     * @return
+     * Get the possible values for the storage place of an {@link User}
+     *
+     * @return an array with {@link StoreType} values
      */
-    public StoreType[] getStoreTypeValues() {
+    public StoreType[] getStoreTypes() {
         return StoreType.values();
     }
 }

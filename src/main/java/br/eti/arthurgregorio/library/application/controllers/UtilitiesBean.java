@@ -1,14 +1,14 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
 import br.eti.arthurgregorio.library.infrastructure.utilities.Configurations;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
- * Utilities controller to provide common data to all the pages in the 
- * application
+ * Utilities controller to provide common data to all the pages in the application
  *
  * @author Arthur Gregorio
  *

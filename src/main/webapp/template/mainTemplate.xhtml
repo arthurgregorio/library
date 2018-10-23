@@ -7,52 +7,58 @@
       xmlns:pe="http://primefaces.org/ui/extensions">
 
     <h:head>
-        <title>Library</title>
+        <title>#{messages['application.name']}</title>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="mobile-web-app-capable" content="yes"/>
-        <meta name="description" content="My JEE Application" />
-        <meta name="keywords" content="some, key, words" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 
-        <link rel="shortcut icon" type="image/x-icon" href="#{resource['library:img/favicon.png']}"/>
+        <meta http-equiv="refresh" content="#{request.session.maxInactiveInterval};url=/logout"/>
+
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['application:images/favicon.png']}"/>
 
         <h:outputStylesheet library="bootstrap" name="css/bootstrap.min.css"/>
         <h:outputStylesheet library="adminlte" name="css/adminlte.min.css"/>
         <h:outputStylesheet library="adminlte" name="css/all-skins.min.css"/>
-        <h:outputStylesheet library="library" name="css/custom.css"/>
-        <h:outputStylesheet library="library" name="css/common.css"/>
+        <h:outputStylesheet library="pace" name="css/theme.css"/>
+        <h:outputStylesheet library="application" name="css/pf-custom.css"/>
+        <h:outputStylesheet library="application" name="css/lte-custom.css"/>
+        <h:outputStylesheet library="application" name="css/common.css"/>
 
+        <link rel="stylesheet"
+              crossorigin="anonymous"
+              href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+              integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" />
+        
         <ui:insert name="head" />
     </h:head>
-    <h:body styleClass="sidebar-mini skin-blue">
+    
+    <h:body styleClass="hold-transition layout-top-nav wysihtml5-supported #{profileBean.currentTheme}">
         <div class="wrapper">
             <header class="main-header">
-                <a href="/secured/dashboard.xhtml" class="logo">
-                    <span class="logo-mini">
-                        <b>Lib</b>
-                    </span>
-                    <span class="logo-lg">
-                        <b>Library</b>
-                    </span>
-                </a>
-                <nav class="navbar navbar-static-top" role="navigation">
-                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
+                <nav class="navbar navbar-static-top">
+                    <div class="navbar-header">
+                        <a href="/secured/dashboard.xhtml" class="navbar-brand">
+                            #{messages['application.name']}
+                        </a>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <i class="fa fa-bars"/>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                        <ui:include src="/template/mainMenu.xhtml"/>
+                    </div>
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <pe:gravatar value="#{userSessionBean.principal.email}"/> 
-                                    <span class="hidden-xs">#{userSessionBean.principal.username}</span>
+                                    <pe:gravatar id="userImage"
+                                                 value="#{userSessionBean.principal.email}"/>
+                                    <span class="hidden-xs">#{userSessionBean.principal.name}</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="user-header">
-                                        <pe:gravatar style="border-radius: 50%;"
+                                        <pe:gravatar style="border-radius: 50%"
                                                      value="#{userSessionBean.principal.email}"/>
                                         <p>
                                             #{userSessionBean.principal.name}
@@ -74,17 +80,13 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li>
+                                <a href="#" data-toggle="control-sidebar"><i class="fa fa-cogs"/></a>
+                            </li>
                         </ul>
                     </div>
                 </nav>
-            </header>            
-
-            <aside class="main-sidebar">
-                <section class="sidebar">
-                    <ui:include src="mainMenu.xhtml"/>
-                </section>
-            </aside>    
-
+            </header>
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>
@@ -93,8 +95,8 @@
                     </h1>
                     <ol class="breadcrumb">
                         <li>
-                            <p:link href="/contabil/index.xhtml">
-                                <i class="fa fa-home"></i>
+                            <p:link outcome="/secured/dashboard.xhtml">
+                                <i class="fa fa-home"/>
                                 Home
                             </p:link>
                         </li>
@@ -105,14 +107,14 @@
                     <ui:insert name="content" />
                 </section>
             </div>
-
             <footer class="main-footer">
-                <strong>Library JEE Demo</strong>, #{utilitiesBean.currentYear}, 
+                AG.Software <b>|</b>
                 <a href="mailto:contato@arthurgregorio.eti.br">#{menu['report-problem']}</a>
                 <div class="pull-right hidden-xs">
-                    <strong>#{utilsBean.applicationVersion}</strong>
+                    <strong>#{utilitiesBean.applicationVersion}</strong>
                 </div>
             </footer>
+            <ui:include src="sidebar.xhtml"/>
         </div>
 
         <ui:insert name="popups" />      
@@ -120,5 +122,9 @@
     </h:body>
 
     <h:outputScript library="bootstrap" name="js/bootstrap.min.js" target="head"/>
+    <h:outputScript library="pace" name="js/pace.min.js" target="head"/>
     <h:outputScript library="adminlte" name="js/adminlte.min.js" target="head"/>
+    <h:outputScript library="application" name="js/application.js" target="head"/>
+    
+    <ui:insert name="scripts" />
 </html>

@@ -3,21 +3,22 @@ package br.eti.arthurgregorio.library.domain.repositories;
 import br.eti.arthurgregorio.library.application.components.table.Page;
 import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity;
 import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity_;
-import java.util.List;
-import java.util.Optional;
-import javax.persistence.metamodel.SingularAttribute;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import org.apache.deltaspike.data.api.EntityRepository;
 import org.apache.deltaspike.data.api.criteria.Criteria;
 import org.apache.deltaspike.data.api.criteria.CriteriaSupport;
 
+import javax.persistence.metamodel.SingularAttribute;
+import java.util.List;
+import java.util.Optional;
+
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 /**
  * The default implementation of a repository in the application
  * 
- * Every repository should extend this class to get some features that are not
- * default in the basic Deltaspike implementation
+ * Every repository should extend this class to get some features that are not default in Deltaspike implementation
  *
- * @param <T> the type of
+ * @param <T> the type of the repository
  * 
  * @author Arthur Gregorio
  *
@@ -35,20 +36,18 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
     Optional<T> findOptionalById(Long id);
     
     /**
-     * Generic search method with lazy pagination support
-     * 
-     * To use this method you need to implement {@link #getRestrictions(java.lang.String)}
-     * and {@link #getBlockedProperty()}
+     * Generic search method with lazy pagination support. To use this method you must implement
+     * {@link #getRestrictions(java.lang.String)} and {@link #getEntityStateProperty()}
      * 
      * @param filter the string filter to use
-     * @param blocked the object status of the entity, null means all states
+     * @param active the object status of the entity, null means all states
      * @param start the start page
      * @param pageSize the size of the page
      * @return the list of objects found
      */
-    default Page<T> findAllBy(String filter, Boolean blocked, int start, int pageSize) {
+    default Page<T> findAllBy(String filter, Boolean active, int start, int pageSize) {
         
-        final int totalRows = this.countPages(filter, blocked);
+        final int totalRows = this.countPages(filter, active);
         
         final Criteria<T, T> criteria = criteria();
         
@@ -56,8 +55,8 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
             criteria.or(this.getRestrictions(filter));
         } 
         
-        if (blocked != null) {
-            criteria.eq(this.getBlockedProperty(), blocked);
+        if (active != null) {
+            criteria.eq(this.getEntityStateProperty(), active);
         }
                 
         this.setOrder(criteria);
@@ -71,18 +70,18 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
     }
 
     /**
+     * Count the pages for pagination purpose
      * 
-     * @param filter
-     * @param blocked
-     * @return 
+     * @param filter the filter to use in count process
+     * @param active if consider only active or inactive entities
+     * @return the total of pages
      */
-    default int countPages(String filter, Boolean blocked) {
+    default int countPages(String filter, Boolean active) {
         
-        final Criteria<T, T> criteria = criteria()
-                .or(this.getRestrictions(filter));
+        final Criteria<T, T> criteria = criteria().or(this.getRestrictions(filter));
         
-        if (blocked != null) {
-            criteria.eq(this.getBlockedProperty(), blocked);
+        if (active != null) {
+            criteria.eq(this.getEntityStateProperty(), active);
         }
         
         return criteria
@@ -92,14 +91,14 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
     }
     
     /**
-     * Generic method to find all unblocked entities
+     * Generic method to find all inactive entities
      * 
-     * @return a list of all unblocked entities
+     * @return a list of all inactive entities
      */
-    default List<T> findAllUnblocked() {
+    default List<T> findAllInactive() {
         
         final Criteria<T, T> criteria = criteria()
-                .eq(this.getBlockedProperty(), false);
+                .eq(this.getEntityStateProperty(), false);
 
         this.setOrder(criteria);
                 
@@ -107,8 +106,22 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
     }
     
     /**
-     * Use this method to set the default order to all the queries using the 
-     * default repository
+     * Generic method to find all active entities
+     * 
+     * @return the list of all active entities
+     */
+    default List<T> findAllActive() {
+        
+        final Criteria<T, T> criteria = criteria()
+                .eq(this.getEntityStateProperty(), true);
+
+        this.setOrder(criteria);
+                
+        return criteria.getResultList();
+    }
+    
+    /**
+     * Use this method to set the default order to all the queries using the default repository
      * 
      * @param criteria the criteria to be used
      */
@@ -117,9 +130,8 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
     }
 
     /**
-     * This method shoud be implemented if the user needs to use the generic 
-     * type search with the {@link #findAllBy(java.lang.String, java.lang.Boolean, int, int)}
-     * method
+     * This method should be implemented if the user needs to use the generic type search with the
+     * {@link #findAllBy(java.lang.String, java.lang.Boolean, int, int)} method
      * 
      * With this we can detect all the restrictions to build the criteria 
      * 
@@ -131,14 +143,12 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
     }
     
     /**
-     * This method shoud be implemented if the user needs to use the generic 
-     * type search with the {@link #findAllBy(java.lang.String, java.lang.Boolean, int, int)}
-     * method
+     * This method should be implemented if the user needs to use the generic type search with the
+     * {@link #findAllBy(java.lang.String, java.lang.Boolean, int, int)} method
      * 
-     * @return the attribute responsible for representing the blocked property
-     * of the entity
+     * @return the attribute responsible for representing the entity state
      */
-    default SingularAttribute<T, Boolean> getBlockedProperty() {
+    default SingularAttribute<T, Boolean> getEntityStateProperty() {
         throw new RuntimeException("getBlockProperty not implemented for query");
     }
 }

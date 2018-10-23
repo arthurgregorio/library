@@ -1,11 +1,14 @@
 package br.eti.arthurgregorio.library.infrastructure.utilities;
 
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import java.util.MissingResourceException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
- * The class that hold the configurations of the application reading the default 
- * properties file under the resources folder in the classpath
+ * The class that hold the configurations of the application reading the default properties file under the resources
+ * folder in the classpath
  *
  * @author Arthur Gregorio
  *
@@ -15,41 +18,63 @@ import java.util.ResourceBundle;
 public final class Configurations {
 
     private static final ResourceBundle CONFIG_PROPERTIES;
-    
+
     static {
         CONFIG_PROPERTIES = ResourceBundle.getBundle("application");
     }
-    
+
     /**
-     * For a given configuration key return his value if the key exists 
-     * 
-     * @param configurationKey the key to the configuration
-     * @return the configuration
+     * Search in the configuration source for a key and retrieve his value, as {@link String}
+     *
+     * @param configuration the configuration to search his value
+     * @return the value for this configuration
      */
-    public static String get(String configurationKey) {
+    public static String get(String configuration) {
         try {
-            return CONFIG_PROPERTIES.getString(configurationKey);
+            return CONFIG_PROPERTIES.getString(Objects.requireNonNull(configuration));
         } catch (MissingResourceException ex) {
             return null;
         }
     }
 
     /**
-     * 
-     * 
-     * @param configurationKey
-     * @return 
+     * Same as {@link #get(String)} but return the value as {@link Boolean}
+     *
+     * @param configuration the configuration to search his value
+     * @return the value for this configuration
      */
-    public static boolean getAsBoolean(String configurationKey) {
-        return Boolean.valueOf(get(configurationKey));
+    public static boolean getAsBoolean(String configuration) {
+        return Boolean.valueOf(Objects.requireNonNull(get(configuration)));
     }
-    
+
     /**
-     * 
-     * @param configurationKey
-     * @return 
+     * Same as {@link #get(String)} but return the value as {@link Integer}
+     *
+     * @param configuration the configuration to search his value
+     * @return the value for this configuration
      */
-    public static int getAsInteger(String configurationKey) {
-        return Integer.valueOf(get(configurationKey));
+    public static int getAsInteger(String configuration) {
+        return Integer.valueOf(Objects.requireNonNull(get(configuration)));
+    }
+
+    /**
+     * Retrieve the base URL of the application
+     *
+     * @return the base URL
+     */
+    public static String getBaseURL() {
+
+        final FacesContext facesContext = FacesContext.getCurrentInstance();
+
+        final HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+
+        final StringBuilder builder = new StringBuilder();
+
+        String actualPath = request.getRequestURL().toString();
+
+        builder.append(actualPath.replace(request.getRequestURI(), ""));
+        builder.append(request.getContextPath());
+
+        return builder.toString();
     }
 }

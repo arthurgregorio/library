@@ -7,15 +7,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
     <h:head>
-        <title>Application</title>
+        <title>#{messages['application.name']}</title>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="mobile-web-app-capable" content="yes"/>
-        <meta name="description" content="My JEE Application" />
-        <meta name="keywords" content="some, key, words" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 
-        <link rel="shortcut icon" type="image/x-icon" href="#{resource['library:img/favicon.png']}"/>
+        <meta http-equiv="refresh" content="#{request.session.maxInactiveInterval};url=/logout"/>
+
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['application:images/favicon.png']}"/>
 
         <h:outputStylesheet library="bootstrap" name="css/bootstrap.min.css"/>
         <h:outputStylesheet library="adminlte" name="css/adminlte.min.css"/>
@@ -23,7 +23,7 @@
 
         <style type="text/css">
             .content-wrapper {
-                margin-left: 0px;
+                margin-left: 0;
                 padding: 5% 15%;
             }
         </style>        
@@ -39,7 +39,7 @@
                             <h3>
                                 <ui:insert name="message" />
                             </h3>
-                            <p>
+                            <div>
                                 <ui:insert name="details" />
                                 <ul>
                                     <li><b>#{messages['exception.requested-uri']}:</b> <a
@@ -52,18 +52,18 @@
                                     </li>
                                     <li><b>#{messages['exception.message']}:</b> #{requestScope['javax.servlet.error.message']}</li>
                                 </ul>
-                            </p>
+                            </div>
                             <p>
                                 <a href="/secured/dashboard.xhtml">#{messages['exception.return-dashboard']}</a>
                             </p>
-                            <p jsf:rendered="#{not empty requestScope['javax.servlet.error.exception_stacktrace']}">
+                            <div jsf:rendered="#{not empty requestScope['javax.servlet.error.exception_stacktrace']}">
                                 #{messages['exception.stack']}
                                 <div style="overflow: auto;">
                                     <pre>
                                         #{of:printStackTrace(requestScope['javax.servlet.error.exception_stacktrace'])}
                                     </pre>
                                 </div>
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </section>

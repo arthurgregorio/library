@@ -5,11 +5,11 @@
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
     <h:head>
-        <title>Library</title>
+        <title>#{messages['application.name']}</title>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="mobile-web-app-capable" content="yes"/>
@@ -17,13 +17,15 @@
         <meta name="keywords" content="some, key, words" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 
-        <link rel="shortcut icon" type="image/x-icon" href="#{resource['library:img/favicon.png']}"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['application:images/favicon.png']}"/>
 
         <h:outputStylesheet library="bootstrap" name="css/bootstrap.min.css"/>
         <h:outputStylesheet library="adminlte" name="css/adminlte.min.css"/>
         <h:outputStylesheet library="adminlte" name="css/all-skins.min.css"/>
-        <h:outputStylesheet library="library" name="css/custom.css"/>
-        <h:outputStylesheet library="library" name="css/common.css"/>
+        <h:outputStylesheet library="pace" name="css/theme.css"/>
+        <h:outputStylesheet library="application" name="css/pf-custom.css"/>
+        <h:outputStylesheet library="application" name="css/lte-custom.css"/>
+        <h:outputStylesheet library="application" name="css/common.css"/>
 
         <f:metadata>
             <f:viewAction action="#{authenticationBean.initialize()}"/>
@@ -33,7 +35,7 @@
     <h:body styleClass="hold-transition login-page">
         <div class="login-box">
             <div class="login-logo">
-                <a href="index.xhtml">Library</a>
+                <a href="index.xhtml">#{messages['application.name']}</a>
             </div>
             <div class="login-box-body">
                 <p class="login-box-msg">#{messages['authentication.welcome-message']}</p>
@@ -47,7 +49,7 @@
                                      styleClass="form-control" 
                                      value="#{authenticationBean.credential.username}" 
                                      placeholder="#{messages['authentication.username']}"/>
-                        <span class="fa fa-user form-control-feedback"></span>
+                        <span class="fa fa-user form-control-feedback"/>
                     </div>
                     <div class="form-group has-feedback">
                         <p:password pt:autocorrect="off"
@@ -55,7 +57,7 @@
                                     styleClass="form-control" 
                                     value="#{authenticationBean.credential.password}" 
                                     placeholder="#{messages['authentication.password']}"/>
-                        <span class="fa fa-lock form-control-feedback"></span>
+                        <span class="fa fa-lock form-control-feedback"/>
                     </div>
                     <div class="row">
                         <div class="col-xs-8" style="padding-top: 10px;">
@@ -79,6 +81,7 @@
         <ui:include src="dialogRecoverPassword.xhtml"/>
         
         <h:outputScript library="bootstrap" name="js/bootstrap.min.js" target="head"/>
+        <h:outputScript library="pace" name="js/pace.min.js" target="head"/>
         <h:outputScript library="adminlte" name="js/adminlte.min.js" target="head"/>
     </h:body>
 </html>

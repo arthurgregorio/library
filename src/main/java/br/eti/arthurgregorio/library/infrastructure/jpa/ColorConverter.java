@@ -4,8 +4,7 @@ import br.eti.arthurgregorio.library.application.components.Color;
 import javax.persistence.AttributeConverter;
 
 /**
- * A simple JPA converter to use in conjunction of {@link Color} for persistent
- * pourpouse 
+ * A simple JPA converter to use in conjunction of {@link Color} for persistent purpose
  *
  * @author Arthur Gregorio
  *

@@ -8,7 +8,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
 /**
- *  Simple JSF converter to provide {@link LocalDate} support to the UI
+ * Simple JSF converter to provide {@link LocalDate} support to the UI
  * 
  * @author Arthur Gregorio
  *

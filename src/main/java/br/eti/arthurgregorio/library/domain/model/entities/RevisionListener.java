@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.domain.model.entities;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import org.apache.shiro.SecurityUtils;
 
 /**
@@ -23,7 +23,7 @@ public class RevisionListener implements org.hibernate.envers.RevisionListener {
         
         final Revision revision = (Revision) revisionEntity;
         
-        revision.setCreatedOn(LocalDateTime.now());
+        revision.setCreatedOn(new Date());
         revision.setCreatedBy(this.getLoggedUser());
     }
     
@@ -36,7 +36,7 @@ public class RevisionListener implements org.hibernate.envers.RevisionListener {
         try {
             return String.valueOf(SecurityUtils.getSubject().getPrincipal());
         } catch (Exception ex) {
-            return "unknow";
+            return "unknown";
         }
     }
 }

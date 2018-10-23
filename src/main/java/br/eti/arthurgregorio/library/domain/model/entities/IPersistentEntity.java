@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * The basic entity definition for all the classes in the application
  * 
- * @param <T> the type of
+ * @param <T> type of this entity
  *
  * @author Arthur Gregorio
  *

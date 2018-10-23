@@ -4,10 +4,8 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:li="http://xmlns.jcp.org/jsf/composite/library/ui"
-                template="/template/baseTemplate.xhtml">
-
-    <ui:param name="activeMenu" value="groups"/>
+                xmlns:ap="http://xmlns.jcp.org/jsf/composite/application/ui"
+                template="/template/mainTemplate.xhtml">
 
     <f:metadata>
         <f:viewAction action="#{groupBean.initialize()}" />
@@ -27,14 +25,12 @@
     </ui:define>
 
     <ui:define name="content">
-
         <div class="row">
                 <div class="col-md-12">
                 <p:messages closable="true" />
             </div>
         </div>
-
-        <div class="box">
+        <div class="box box-#{profileBean.currentThemeColorName}">
             <div class="box-header with-border">
                 <h:form id="controlsForm">
                     <div class="row">
@@ -62,8 +58,9 @@
                                                      styleClass="btn btn-flat btn-primary"
                                                      actionListener="#{groupBean.updateListing()}" />
                                     <p:spacer width="10"/>
-                                    <p:commandButton icon="fa fa-trash-o"
+                                    <p:commandButton icon="fa fa-trash"
                                                      onstart="PF('blocker').show()"
+                                                     title="#{menu['clear-filters']}"
                                                      oncomplete="PF('blocker').hide()"
                                                      update="controlsForm itemsListing"
                                                      styleClass="btn btn-flat btn-danger"
@@ -75,13 +72,13 @@
                             <div class="box-tools pull-right">
                                 <p:commandButton value="#{menu['add']}" 
                                                  action="#{groupBean.changeToAdd()}"
-                                                 styleClass="btn btn-flat btn-primary"/>
+                                                 styleClass="btn btn-flat btn-primary"
+                                                 rendered="#{userSessionBean.isPermitted(permissions.GROUP_ADD)}"/>
                             </div>
                         </div>
                     </div>
                 </h:form>
             </div>
-
             <div jsf:id="boxBody" class="box-body">
                 <h:form id="itemsListing">
                     <p:dataTable rows="20"
@@ -96,21 +93,22 @@
                                  emptyMessage="#{messages['list.empty']}">
 
                         <p:ajax event="rowSelect"
-                                listener="#{groupBean.changeToDetail()}" /> 
+                                listener="#{groupBean.changeToDetail()}"
+                                disabled="#{not userSessionBean.isPermitted(permissions.GROUP_DETAIL)}"/>
 
                         <p:column headerText="#{messages['group.list.name']}">
-                            <p:graphicImage width="18"
-                                            height="18"
-                                            library="library" 
-                                            rendered="#{not group.blocked}"
-                                            name="img/ui-icon-unblocked.png" 
-                                            title="#{messages['list.unblocked']}"/>
-                            <p:graphicImage width="18"
-                                            height="18"
-                                            library="library" 
-                                            rendered="#{group.blocked}"
-                                            name="img/ui-icon-blocked.png" 
-                                            title="#{messages['list.blocked']}"/>
+                            <p:graphicImage width="24"
+                                            height="32"
+                                            library="application" 
+                                            name="images/inactive.png" 
+                                            rendered="#{not group.active}"
+                                            title="#{messages['list.inactive']}"/>
+                            <p:graphicImage width="24"
+                                            height="32"
+                                            library="application" 
+                                            name="images/active.png" 
+                                            rendered="#{group.active}"
+                                            title="#{messages['list.active']}"/>
                             <p:spacer width="5"/>
                             #{group.name}
                         </p:column>
@@ -122,12 +120,14 @@
                                   headerText="#{messages['list.actions']}">
                             <p:commandButton immediate="true"
                                              icon="fa fa-edit" 
+                                             title="#{menu['edit']}"
                                              styleClass="btn btn-flat btn-default"
                                              action="#{groupBean.changeToEdit(group.id)}" 
                                              rendered="#{userSessionBean.isPermitted(permissions.GROUP_UPDATE)}"/>
                             <p:spacer width="5"/>
                             <p:commandButton immediate="true"
-                                             icon="fa fa-trash-o"
+                                             icon="fa fa-times"
+                                             title="#{menu['delete']}"
                                              styleClass="btn btn-flat btn-danger"
                                              action="#{groupBean.changeToDelete(group.id)}"
                                              rendered="#{userSessionBean.isPermitted(permissions.GROUP_DELETE)}"/>
@@ -135,7 +135,7 @@
                     </p:dataTable>
                 </h:form>
             </div>
-            <li:blocker target="boxBody"/>
+            <ap:blocker target="boxBody"/>
         </div>
     </ui:define>
 </ui:composition>

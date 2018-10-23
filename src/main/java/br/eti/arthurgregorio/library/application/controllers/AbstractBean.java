@@ -1,18 +1,16 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
 import br.eti.arthurgregorio.library.application.components.MessageSource;
-import java.io.Serializable;
+import org.omnifaces.util.Messages;
+import org.primefaces.PrimeFaces;
+
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
-import org.omnifaces.util.Messages;
-import org.primefaces.PrimeFaces;
-import org.primefaces.context.RequestContext;
-import org.slf4j.Logger;
+import java.io.Serializable;
 
 /**
- * The base bean of the controllers of this application, this class contains all
- * the basic methods to all the controllers
+ * The basic implementation of a controller/managed bean
  *
  * @author Arthur Gregorio
  *
@@ -22,28 +20,23 @@ import org.slf4j.Logger;
 public abstract class AbstractBean implements Serializable {
 
     @Inject
-    protected Logger logger;
-
-    @Inject
     protected FacesContext facesContext;
-    @Inject
-    protected RequestContext requestContext;
 
     /**
-     * 
-     * @return 
+     * @return the name of the default messages component, by default is <code>messages</code>
      */
     protected String getDefaultMessagesComponentId() {
         return "messages";
     }
 
     /**
-     * 
-     * @param message
-     * @return 
+     * Method to translate i18n keys to the corresponding text
+     *
+     * @param i18nKey the i18n key
+     * @return the i18nKey
      */
-    protected String translate(String message) {
-        return MessageSource.get(message);
+    protected String translate(String i18nKey) {
+        return MessageSource.get(i18nKey);
     }
 
     /**
@@ -86,17 +79,19 @@ public abstract class AbstractBean implements Serializable {
     }
 
     /**
-     * 
-     * @param widgetVar 
+     * Convenience method to open dialogs
+     *
+     * @param widgetVar the name of the dialog to be opened
      */
     protected void openDialog(String widgetVar) {
         this.executeScript("PF('" + widgetVar + "').show()");
     }
 
     /**
-     * 
-     * @param id
-     * @param widgetVar 
+     * Same as {@link #openDialog(String)} but before open it, a update by the component ID is performed
+     *
+     * @param id the dialog component id
+     * @param widgetVar the name of the dialog to be opened
      */
     protected void updateAndOpenDialog(String id, String widgetVar) {
         this.updateComponent(id);
@@ -104,39 +99,43 @@ public abstract class AbstractBean implements Serializable {
     }
 
     /**
-     * 
-     * @param widgetVar 
+     * Convenience method to close dialogs
+     *
+     * @param widgetVar the name of the dialog to close
      */
     protected void closeDialog(String widgetVar) {
         this.executeScript("PF('" + widgetVar + "').hide()");
     }
 
     /**
-     * 
+     * Update the default messages component
      */
     protected void updateDefaultMessages() {
         this.temporizeHiding(this.getDefaultMessagesComponentId());
     }
 
     /**
-     * 
-     * @param componentId 
+     * Method to put a timer in and after the time expires, hide the component
+     *
+     * @param componentId the component id
      */
     protected void temporizeHiding(String componentId) {
         this.executeScript("setTimeout(\"$(\'#" + componentId + "\').slideUp(300)\", 8000)");
     }
 
     /**
-     * 
-     * @param componentId 
+     * Convenience method to update one component by the client id
+     *
+     * @param componentId the id of the component
      */
     protected void updateComponent(String componentId) {
         PrimeFaces.current().ajax().update(componentId);
     }
 
     /**
-     * 
-     * @param script 
+     * Convenience method to execute scripts on the front-end
+     *
+     * @param script the script to be executed
      */
     protected void executeScript(String script) {
         PrimeFaces.current().executeScript(script);

@@ -1,10 +1,12 @@
 package br.eti.arthurgregorio.library.application.components;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import java.util.ResourceBundle;
-import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.faces.context.FacesContext;
+import java.util.ResourceBundle;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * This is a helper class to obtain the i18n messages through the given key
@@ -19,14 +21,10 @@ public final class MessageSource {
     private static final Logger LOG;
     private static final ResourceBundle MESSAGES;
     
-    /**
-     * Initialize the base properties
-     */
     static {
         final FacesContext facesContext = FacesContext.getCurrentInstance();
         
-        MESSAGES = ResourceBundle.getBundle("i18n.messages", 
-                facesContext.getApplication().getDefaultLocale());
+        MESSAGES = ResourceBundle.getBundle("i18n.messages", facesContext.getApplication().getDefaultLocale());
         
         LOG = LoggerFactory.getLogger(MessageSource.class);
     }

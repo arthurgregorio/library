@@ -1,19 +1,20 @@
 package br.eti.arthurgregorio.library.application.components.table;
 
 import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity;
-import java.util.List;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
 import org.primefaces.model.SortOrder;
 
+import java.util.List;
+
 /**
- * The data provider for better use of lazy datamodel with Primefaces
+ * The data provider for better use of lazy data model with Primefaces
  *
  * @param <T> the type of data for the provider to provide
  *
  * @author Arthur Gregorio
  *
- * @version 1.1.0
+ * @version 1.0.0
  * @since 1.0.0, 19/03/2018
  */
 public interface LazyDataProvider<T extends PersistentEntity> {

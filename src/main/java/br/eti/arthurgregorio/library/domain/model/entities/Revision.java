@@ -1,8 +1,7 @@
 package br.eti.arthurgregorio.library.domain.model.entities;
 
-import br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,8 +29,8 @@ import org.hibernate.envers.RevisionTimestamp;
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode
+@Table(name = "revisions")
 @RevisionEntity(RevisionListener.class)
-@Table(name = "revisions", schema = DefaultSchemes.AUDIT)
 public class Revision implements Serializable {
 
     @Id
@@ -41,13 +40,10 @@ public class Revision implements Serializable {
     @Column(name = "id", unique = true, updatable = false)
     private Long id;
     @Getter
-    @RevisionTimestamp
-    @Column(name = "timestamp", nullable = false)    
-    private Long timestamp;
-    @Getter
     @Setter
+    @RevisionTimestamp
     @Column(name = "created_on", nullable = false)
-    private LocalDateTime createdOn;
+    private Date createdOn;
     @Getter
     @Setter
     @Column(name = "created_by", length = 45, nullable = false)

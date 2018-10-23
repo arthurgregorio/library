@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<faces-config version="2.2"
-              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
-                
-    <!--custom eception handler to the default errors-->
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
+              version="2.3">
+
+    <!--custom exception handler to the default errors-->
     <factory>
         <exception-handler-factory>
             br.eti.arthurgregorio.library.infrastructure.jsf.exception.CustomExceptionHandlerFactory
         </exception-handler-factory>
     </factory>
-    
+
     <!--custom renderer to bootstrap style fields-->
     <render-kit>
         <renderer>
@@ -23,41 +23,41 @@
             <renderer-type>org.primefaces.component.CalendarRenderer</renderer-type>
             <renderer-class>br.eti.arthurgregorio.library.infrastructure.primefaces.BootstrapCalendarRenderer</renderer-class>
         </renderer>
-    </render-kit>  
-    
+    </render-kit>
+
     <application>
-        <!--default messges bundle-->
-        <resource-bundle>  
-            <base-name>i18n.messages</base-name>  
+        <!--message bundles-->
+        <resource-bundle>
+            <base-name>i18n.messages</base-name>
             <var>messages</var>
-        </resource-bundle>  
-        <resource-bundle>  
-            <base-name>i18n.enums</base-name>  
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>i18n.enums</base-name>
             <var>enums</var>
-        </resource-bundle>  
-        <resource-bundle>  
-            <base-name>ValidationMessages</base-name>  
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>ValidationMessages</base-name>
             <var>validation</var>
-        </resource-bundle>  
-        <resource-bundle>  
-            <base-name>i18n.breadcrumb</base-name>  
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>i18n.breadcrumb</base-name>
             <var>breadcrumb</var>
-        </resource-bundle>  
-        <resource-bundle>  
-            <base-name>i18n.menu</base-name>  
+        </resource-bundle>
+        <resource-bundle>
+            <base-name>i18n.menu</base-name>
             <var>menu</var>
         </resource-bundle>
-        <resource-bundle>  
-            <base-name>i18n.permission</base-name>  
+        <resource-bundle>
+            <base-name>i18n.permission</base-name>
             <var>permission</var>
         </resource-bundle>
-         
+
         <!--locale configs-->
-        <locale-config>  
-            <default-locale>pt_BR</default-locale>  
+        <locale-config>
+            <default-locale>pt_BR</default-locale>
             <supported-locale>pt_BR</supported-locale>
             <supported-locale>en_US</supported-locale>
             <supported-locale>es_ES</supported-locale>
-        </locale-config>  
+        </locale-config>
     </application>
 </faces-config>

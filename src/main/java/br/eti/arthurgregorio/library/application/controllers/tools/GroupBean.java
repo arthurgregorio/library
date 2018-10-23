@@ -8,10 +8,10 @@ import static br.eti.arthurgregorio.library.application.components.NavigationMan
 import br.eti.arthurgregorio.library.application.controllers.FormBean;
 import br.eti.arthurgregorio.library.application.components.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.Page;
-import br.eti.arthurgregorio.library.domain.model.entities.security.Authorization;
-import br.eti.arthurgregorio.library.domain.model.entities.security.Grant;
-import br.eti.arthurgregorio.library.domain.model.entities.security.Group;
-import br.eti.arthurgregorio.library.domain.model.entities.security.Permissions;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.Authorization;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.Grant;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.Group;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.Permissions;
 import br.eti.arthurgregorio.library.domain.repositories.tools.GroupRepository;
 import br.eti.arthurgregorio.library.domain.services.UserAccountService;
 import java.util.ArrayList;
@@ -55,35 +55,39 @@ public class GroupBean extends FormBean<Group> {
     private UserAccountService userAccountService;
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void initialize() {
-        this.viewState = ViewState.LISTING;
+        super.initialize();
+        this.temporizeHiding(this.getDefaultMessagesComponentId());
     }
 
     /**
+     * {@inheritDoc}
      *
      * @param id
      * @param viewState
      */
     @Override
-    public void initialize(long id, String viewState) {
+    public void initialize(long id, ViewState viewState) {
 
-        // capturamos o estado da tela 
-        this.viewState = ViewState.valueOf(viewState);
+        this.viewState = viewState;
 
-        this.data = this.groupRepository.findAllUnblocked();
+        this.data = this.groupRepository.findAllActive();
+
+        this.createAuthorizationsTree();
+
         this.value = this.groupRepository.findOptionalById(id)
                 .orElseGet(Group::new);
 
-        // cria e seleciona as permissoes na tree
-        this.createAuthorizationsTree();
-        this.selectAuthorizations();
+        if (this.viewState != ViewState.ADDING) {
+            this.selectAuthorizations();
+        }
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     protected void initializeNavigationManager() {
@@ -95,6 +99,7 @@ public class GroupBean extends FormBean<Group> {
     }
 
     /**
+     * {@inheritDoc}
      *
      * @param first
      * @param pageSize
@@ -109,40 +114,42 @@ public class GroupBean extends FormBean<Group> {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void doSave() {
         this.userAccountService.save(this.value, this.parseAuthorizations());
         this.value = new Group();
         this.unselectAuthorizations();
-        this.addInfo(true, "group.saved");
+        this.addInfo(true, "saved");
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void doUpdate() {
         this.userAccountService.update(this.value, this.parseAuthorizations());
-        this.addInfo(true, "group.updated");
+        this.addInfo(true, "updated");
     }
 
     /**
+     * {@inheritDoc}
      *
      * @return
      */
     @Override
     public String doDelete() {
         this.userAccountService.delete(this.value);
+        this.addInfoAndKeep("deleted");
         return this.changeToListing();
     }
 
     /**
      * This method parse the authorizations selected on the tree by the user to
      * the objects of the domain model
-     * 
-     * @return the list of authorizations 
+     *
+     * @return the list of authorizations
      */
     private List<Authorization> parseAuthorizations() {
 
@@ -182,12 +189,10 @@ public class GroupBean extends FormBean<Group> {
                             = new DefaultTreeNode(functionality, this.treeRoot);
 
                     authorizations.stream()
-                            .filter(authz -> authz.isFunctionality(functionality))
+                            .filter(auth -> auth.isFunctionality(functionality))
                             .map(Authorization::getFullPermission)
-                            .forEach(authz -> {
-                                functionalityNode.getChildren().add(
-                                        new DefaultTreeNode(authz, functionalityNode));
-                            });
+                            .forEach(auth -> functionalityNode.getChildren()
+                                    .add(new DefaultTreeNode(auth, functionalityNode)));
 
                     this.treeRoot.getChildren().add(functionalityNode);
                 });
@@ -204,9 +209,7 @@ public class GroupBean extends FormBean<Group> {
                 .map(TreeNode::getChildren)
                 .forEach(childs -> {
                     if (!childs.isEmpty()) {
-                        childs.stream().forEach(child -> {
-                            child.setSelected(false);
-                        });
+                        childs.forEach(child -> child.setSelected(false));
                     }
                 });
     }
@@ -250,7 +253,7 @@ public class GroupBean extends FormBean<Group> {
      * Helper method to prevent rewriting of the i18n code on each authorization
      *
      * @param nodeDescription the node description
-     * @return the part of the nod to bem parsed in the i18n
+     * @return the part of the nod to be parsed in the i18n
      */
     public String split(String nodeDescription) {
         final String splited[] = nodeDescription.split(":");

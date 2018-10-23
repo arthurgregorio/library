@@ -199,7 +199,7 @@ public class SimpleMailMessage implements MailMessage {
             try {
                 return new InternetAddress(address);
             } catch (AddressException ex) {
-                throw new BusinessLogicException(
+                throw BusinessLogicException.create(
                         "error.core.email-address-invalid", ex, address);
             }
         }

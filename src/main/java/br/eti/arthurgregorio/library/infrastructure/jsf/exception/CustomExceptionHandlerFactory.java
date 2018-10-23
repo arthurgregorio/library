@@ -4,8 +4,7 @@ import javax.faces.context.ExceptionHandler;
 import javax.faces.context.ExceptionHandlerFactory;
 
 /**
- * Simple {@link ExceptionHandlerFactory} to customize the exception handling 
- * in the application
+ * Simple {@link ExceptionHandlerFactory} to customize the exception handling in the application
  *
  * @author Arthur Gregorio
  *
@@ -14,15 +13,13 @@ import javax.faces.context.ExceptionHandlerFactory;
  */
 public class CustomExceptionHandlerFactory extends ExceptionHandlerFactory {
 
-    private final ExceptionHandlerFactory parent;
-
     /**
      * Constructor...
      * 
      * @param parent the parent factory
      */
     public CustomExceptionHandlerFactory(ExceptionHandlerFactory parent) {
-        this.parent = parent;
+        super(parent);
     }
 
     /**
@@ -32,6 +29,6 @@ public class CustomExceptionHandlerFactory extends ExceptionHandlerFactory {
      */
     @Override
     public ExceptionHandler getExceptionHandler() {
-        return new CustomExceptionHandler(this.parent.getExceptionHandler());
+        return new CustomExceptionHandler(this.getWrapped().getExceptionHandler());
     }
 }

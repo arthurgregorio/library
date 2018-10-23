@@ -4,6 +4,7 @@ import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicExcepti
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -60,7 +61,7 @@ public class MustacheProvider implements MailContentProvider {
             this.mustache.execute(writer, this.data)
                 .flush();
         } catch (IOException ex) {
-            throw new BusinessLogicException("error.core.email-content-error", ex);
+            throw BusinessLogicException.create("error.core.email-content-error", ex);
         }
         
         return writer.toString();

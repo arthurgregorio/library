@@ -5,7 +5,7 @@ import lombok.Setter;
 
 /**
  * This filter implementation is a helper class to help the lazy loading feature
- * of the datatables 
+ * of the data tables
  *
  * @author Arthur Gregorio
  *
@@ -25,7 +25,7 @@ public final class LazyFilter {
      * Private constructor to prevent misuse 
      */
     private LazyFilter() {
-       this.entityStatus = EntityStatus.UNBLOCKED; 
+       this.entityStatus = EntityStatus.ACTIVE; 
     }
     
     /**
@@ -42,7 +42,7 @@ public final class LazyFilter {
      */
     public void clear() {
         this.value = null;
-        this.entityStatus = EntityStatus.UNBLOCKED;
+        this.entityStatus = EntityStatus.ACTIVE;
     }
     
     /**
@@ -68,8 +68,8 @@ public final class LazyFilter {
     public enum EntityStatus {
 
         ALL("entity-status.all", null),
-        BLOCKED("entity-status.blocked", Boolean.TRUE),
-        UNBLOCKED("entity-status.unblocked", Boolean.FALSE);
+        ACTIVE("entity-status.active", Boolean.TRUE),
+        INACTIVE("entity-status.inactive", Boolean.FALSE);
 
         private final Boolean value;
         private final String description;

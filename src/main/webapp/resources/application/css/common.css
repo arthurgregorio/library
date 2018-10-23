@@ -1,0 +1,53 @@
+@charset "utf-8";
+
+/* 
+    All common css to be used across the application
+
+    Author     : Arthur Gregorio
+    Created on : 19/01/2016
+*/
+
+/*some utilities*/
+.align-right {
+    text-align: right;
+}
+.align-center {
+    text-align: center;
+}
+.margin-t-15 {
+    margin-top: 15px;
+}
+.margin-t-30 {
+    margin-top: 30px;
+}
+.padding-t-25 {
+    padding-top: 25px;
+}
+
+/*theme selection block*/
+.skin-block {
+    float:left;
+    width: 33.33333%;
+    padding: 5px;
+}
+.skin-logo {
+    display:block;
+    width: 20%;
+    float: left;
+    height: 7px;
+}
+
+/*remove the browser input controls*/
+input[type=number] {
+    -moz-appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/*in all td use middle alignment*/
+td {
+    vertical-align: middle;
+}

@@ -5,14 +5,15 @@
         <jta-data-source>java:/datasources/LibraryDS</jta-data-source>
 
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
-        
+
         <properties>
-            <property name="javax.persistence.validation.mode" value="none"/>
-            <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="none"/>
+            <property name="hibernate.show_sql" value="${orm.show_sql}"/>
+            <property name="hibernate.hbm2ddl.auto" value="${orm.ddl_auto}"/>
             <property name="hibernate.connection.autocommit" value="false"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
+
+            <!--disable bean validation on save/update operations-->
+            <property name="javax.persistence.validation.mode" value="none"/>
         </properties>
     </persistence-unit>
 </persistence>

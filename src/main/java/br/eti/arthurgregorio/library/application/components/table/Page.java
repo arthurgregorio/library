@@ -1,14 +1,15 @@
 package br.eti.arthurgregorio.library.application.components.table;
 
 import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity;
-import static com.google.common.base.Preconditions.checkNotNull;
-import java.util.Collections;
-import java.util.List;
 import lombok.Getter;
 
+import java.util.Collections;
+import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
- * This class is a basic representation of the data to be provided to the 
- * datatable component from Primefaces. 
+ * This class is a basic representation of the data to be provided to the data table component from Primefaces.
  * 
  * In this we ship all the metadata to the pagination work 
  *
@@ -17,7 +18,7 @@ import lombok.Getter;
  * @author Arthur Gregorio
  *
  * @version 1.0.0
- * @since 1.2.1, 22/04/2018
+ * @since 1.0.0, 22/04/2018
  */
 public final class Page<T extends PersistentEntity> {
 
@@ -28,7 +29,7 @@ public final class Page<T extends PersistentEntity> {
 
     /**
      * Create a new page
-     * 
+     *
      * @param content the content
      * @param totalPages the total of possible pages
      */
@@ -36,19 +37,19 @@ public final class Page<T extends PersistentEntity> {
         this.content = checkNotNull(content);
         this.totalPages = totalPages;
     }
-    
+
     /**
-     * Create a page with empty content 
-     * 
+     * Create a page with empty content
+     *
      * @return the empty page
      */
-    public static Page empty() {
+    public static <V extends PersistentEntity> Page<V> empty() {
         return new Page<>(Collections.emptyList(), 0);
     }
-    
+
     /**
      * Create a new page of a given content and with the count of total pages
-     * 
+     *
      * @param <V> the generic type of the page
      * @param content the content
      * @param totalPages the total count of pages

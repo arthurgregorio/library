@@ -1,32 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.com.arthurgregorio</groupId>
     <artifactId>library</artifactId>
-    <version>1.3.0</version>
+    <version>2.0.0</version>
     <packaging>war</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
 
     <properties>
+        <feign.version>8.18.0</feign.version>
+        <jackson.version>2.9.5</jackson.version>
+        <hibernate.version>5.3.6.Final</hibernate.version>
+        <deltaspike.version>1.9.0</deltaspike.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
+
     <dependencies>
-        <!--jee7 api-->
+        <!--jee web api-->
         <dependency>
             <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>7.0</version>
+            <artifactId>javaee-web-api</artifactId>
+            <version>8.0</version>
             <scope>provided</scope>
         </dependency>
-        
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>1.6.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.faces</artifactId>
+            <version>2.3.7</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!--hibernate-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.1.10.Final</version>
+            <version>${hibernate.version}</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -38,19 +55,19 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-java8</artifactId>
-            <version>5.1.10.Final</version>
+            <version>${hibernate.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-envers</artifactId>
-            <version>5.1.10.Final</version>
+            <version>${hibernate.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.3.5.Final</version>
+            <version>6.0.10.Final</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -62,40 +79,67 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
-            <version>5.1.10.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
-        
+
+        <!-- feign -->
+        <dependency>
+            <groupId>com.netflix.feign</groupId>
+            <artifactId>feign-core</artifactId>
+            <version>${feign.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.feign</groupId>
+            <artifactId>feign-jackson</artifactId>
+            <version>${feign.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.feign</groupId>
+            <artifactId>feign-slf4j</artifactId>
+            <version>${feign.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.feign</groupId>
+            <artifactId>feign-okhttp</artifactId>
+            <version>${feign.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>3.9.1</version>
+        </dependency>
+
         <!--flyway-->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>5.0.7</version>
+            <version>5.1.4</version>
         </dependency>
-        
+
         <!--deltaspike-->
         <dependency>
             <groupId>org.apache.deltaspike.modules</groupId>
             <artifactId>deltaspike-data-module-api</artifactId>
-            <version>1.8.1</version>
+            <version>${deltaspike.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.deltaspike.modules</groupId>
             <artifactId>deltaspike-jpa-module-api</artifactId>
-            <version>1.8.1</version>
+            <version>${deltaspike.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.deltaspike.modules</groupId>
             <artifactId>deltaspike-data-module-impl</artifactId>
-            <version>1.8.1</version>
+            <version>${deltaspike.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.deltaspike.modules</groupId>
             <artifactId>deltaspike-jpa-module-impl</artifactId>
-            <version>1.8.1</version>
+            <version>${deltaspike.version}</version>
             <scope>runtime</scope>
-        </dependency>     
-        
+        </dependency>
+
         <!--primefaces-->
         <dependency>
             <groupId>org.primefaces</groupId>
@@ -103,152 +147,175 @@
             <version>6.2</version>
         </dependency>
         <dependency>
-            <groupId>org.primefaces.extensions</groupId>  
-            <artifactId>primefaces-extensions</artifactId>  
-            <version>6.2</version>  
+            <groupId>org.primefaces.extensions</groupId>
+            <artifactId>primefaces-extensions</artifactId>
+            <version>6.2.9</version>
             <exclusions>
                 <exclusion>
-                    <groupId>org.primefaces</groupId>  
+                    <groupId>org.primefaces</groupId>
                     <artifactId>primefaces</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency> 
-        
-        <!--omnifaces--> 
+        </dependency>
+
+        <!--omnifaces-->
         <dependency>
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
-            <version>2.6.7</version>
-        </dependency>  
-        
+            <version>3.2</version>
+        </dependency>
+
         <!--jackson-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.8.9</version>
+            <version>${jackson.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.8.9</version>
+            <version>${jackson.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jdk8</artifactId>
-            <version>2.8.9</version>
+            <version>${jackson.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>2.8.9</version>
+            <version>${jackson.version}</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <!--utilidades-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.20</version>
-        </dependency>   
+            <version>1.18.2</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
+            <version>3.8.1</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>23.6-jre</version>
+            <version>26.0-jre</version>
         </dependency>
-        
+
         <!--mustache-->
         <dependency>
             <groupId>com.github.spullara.mustache.java</groupId>
             <artifactId>compiler</artifactId>
             <version>0.9.5</version>
         </dependency>
-        
+
         <!--shiro-ee-->
         <dependency>
             <groupId>br.eti.arthurgregorio</groupId>
             <artifactId>shiro-ee</artifactId>
-            <version>1.3.1</version>
+            <version>1.4.0</version>
         </dependency>
-        
+
         <!--SL4J-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
+            <version>1.7.22</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!--jax-b for XML, need to here since java 9+-->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.0</version>
         </dependency>
     </dependencies>
 
     <profiles>
         <profile>
-            <id>ALPHA</id>
+            <id>alpha</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <application.version>
-                    ${project.version}-ALPHA
-                </application.version>
-                <skip.tests>false</skip.tests>
-                <jsf.stage>Development</jsf.stage>
+                <application.version>${project.version}-ALPHA</application.version>
+                <skip.tests>true</skip.tests>
+                <project.stage>Development</project.stage>
+                <orm.show_sql>true</orm.show_sql>
+                <orm.ddl_auto>update</orm.ddl_auto>
+                <ws.base-url>https://my-webservice-server.com</ws.base-url>
+                <ws.username>admin</ws.username>
+                <ws.password>admin</ws.password>
+                <ws.client-name>admin</ws.client-name>
                 <ldap.enabled>false</ldap.enabled>
                 <ldap.url>ldap://localhost</ldap.url>
-                <ldap.baseDn>OU=Usuarios,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
-                <ldap.user>CN=usuaribind,OU=Aplicacoes,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
-                <ldap.password>minha-senha</ldap.password>
+                <ldap.baseDn>OU=Users,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
+                <ldap.user>CN=bind-user,OU=Applications,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
+                <ldap.password>my-bind-password</ldap.password>
             </properties>
         </profile>
         <profile>
-            <id>BETA</id>
+            <id>beta</id>
             <properties>
-                <application.version>
-                    ${project.version}-BETA
-                </application.version>
+                <application.version>${project.version}-BETA</application.version>
                 <skip.tests>false</skip.tests>
-                <jsf.stage>SystemTest</jsf.stage>
+                <project.stage>SystemTest</project.stage>
+                <orm.show_sql>true</orm.show_sql>
+                <orm.ddl_auto>none</orm.ddl_auto>
+                <ws.base-url>https://my-webservice-server.com</ws.base-url>
+                <ws.username>admin</ws.username>
+                <ws.password>admin</ws.password>
+                <ws.client-name>admin</ws.client-name>
                 <ldap.enabled>false</ldap.enabled>
                 <ldap.url>ldap://localhost</ldap.url>
-                <ldap.baseDn>OU=Usuarios,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
-                <ldap.user>CN=usuaribind,OU=Aplicacoes,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
-                <ldap.password>minha-senha</ldap.password>
+                <ldap.baseDn>OU=Users,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
+                <ldap.user>CN=bind-user,OU=Applications,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
+                <ldap.password>my-bind-password</ldap.password>
             </properties>
         </profile>
         <profile>
-            <id>RC</id>
+            <id>release-candidate</id>
             <properties>
-                <application.version>
-                    ${project.version}-RC
-                </application.version>
+                <application.version>${project.version}-RC</application.version>
                 <skip.tests>false</skip.tests>
-                <jsf.stage>Production</jsf.stage>
+                <project.stage>Production</project.stage>
+                <orm.show_sql>false</orm.show_sql>
+                <orm.ddl_auto>none</orm.ddl_auto>
+                <ws.base-url>https://my-webservice-server.com</ws.base-url>
+                <ws.username>admin</ws.username>
+                <ws.password>admin</ws.password>
+                <ws.client-name>admin</ws.client-name>
                 <ldap.enabled>false</ldap.enabled>
                 <ldap.url>ldap://localhost</ldap.url>
-                <ldap.baseDn>OU=Usuarios,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
-                <ldap.user>CN=usuaribind,OU=Aplicacoes,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
-                <ldap.password>minha-senha</ldap.password>
+                <ldap.baseDn>OU=Users,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
+                <ldap.user>CN=bind-user,OU=Applications,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
+                <ldap.password>my-bind-password</ldap.password>
             </properties>
         </profile>
         <profile>
-            <id>RELEASE</id>
+            <id>release</id>
             <properties>
-                <application.version>
-                    ${project.version}-RELEASE
-                </application.version>
+                <application.version>${project.version}-RELEASE</application.version>
                 <skip.tests>false</skip.tests>
-                <jsf.stage>Production</jsf.stage>
+                <project.stage>Production</project.stage>
+                <orm.show_sql>false</orm.show_sql>
+                <orm.ddl_auto>none</orm.ddl_auto>
+                <ws.base-url>https://my-webservice-server.com</ws.base-url>
+                <ws.username>admin</ws.username>
+                <ws.password>admin</ws.password>
+                <ws.client-name>admin</ws.client-name>
                 <ldap.enabled>false</ldap.enabled>
                 <ldap.url>ldap://localhost</ldap.url>
-                <ldap.baseDn>OU=Usuarios,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
-                <ldap.user>CN=usuaribind,OU=Aplicacoes,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
-                <ldap.password>minha-senha</ldap.password>
+                <ldap.baseDn>OU=Users,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
+                <ldap.user>CN=bind-user,OU=Applications,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
+                <ldap.password>my-bind-password</ldap.password>
             </properties>
         </profile>
     </profiles>
@@ -259,16 +326,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>3.8.0</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>10</source>
+                    <target>10</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.2.2</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <webResources>
@@ -285,12 +352,11 @@
                 </configuration>
             </plugin>
         </plugins>
-        
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
-        </resources>        
+        </resources>
     </build>
 </project>
