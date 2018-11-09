@@ -47,7 +47,7 @@
                                      pt:autocomplete="off"
                                      pt:autocapitalize="off"
                                      styleClass="form-control" 
-                                     value="#{authenticationBean.credential.username}" 
+                                     value="#{authenticationBean.credentialHolder.username}"
                                      placeholder="#{messages['authentication.username']}"/>
                         <span class="fa fa-user form-control-feedback"/>
                     </div>
@@ -55,7 +55,7 @@
                         <p:password pt:autocorrect="off"
                                     pt:spellcheck="false"
                                     styleClass="form-control" 
-                                    value="#{authenticationBean.credential.password}" 
+                                    value="#{authenticationBean.credentialHolder.password}"
                                     placeholder="#{messages['authentication.password']}"/>
                         <span class="fa fa-lock form-control-feedback"/>
                     </div>

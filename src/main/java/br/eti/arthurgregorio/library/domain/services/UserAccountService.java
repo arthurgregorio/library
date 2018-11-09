@@ -1,16 +1,16 @@
 package br.eti.arthurgregorio.library.domain.services;
 
 import br.eti.arthurgregorio.library.application.controllers.ProfileBean.PasswordChangeDTO;
-import br.eti.arthurgregorio.library.domain.model.entities.tools.*;
+import br.eti.arthurgregorio.library.domain.model.entities.configurations.*;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
-import br.eti.arthurgregorio.library.domain.repositories.tools.*;
-import br.eti.arthurgregorio.library.domain.validators.tools.group.GroupDeletingValidator;
-import br.eti.arthurgregorio.library.domain.validators.tools.user.UserDeletingValidator;
-import br.eti.arthurgregorio.library.domain.validators.tools.user.UserSavingValidator;
-import br.eti.arthurgregorio.library.domain.validators.tools.user.UserUpdatingValidator;
-import br.eti.arthurgregorio.shiroee.auth.PasswordEncoder;
-import br.eti.arthurgregorio.shiroee.config.jdbc.UserDetails;
-import br.eti.arthurgregorio.shiroee.config.jdbc.UserDetailsProvider;
+import br.eti.arthurgregorio.library.domain.repositories.configurations.*;
+import br.eti.arthurgregorio.library.domain.validators.configurations.group.GroupDeletingValidator;
+import br.eti.arthurgregorio.library.domain.validators.configurations.user.UserDeletingValidator;
+import br.eti.arthurgregorio.library.domain.validators.configurations.user.UserSavingValidator;
+import br.eti.arthurgregorio.library.domain.validators.configurations.user.UserUpdatingValidator;
+import br.eti.arthurgregorio.library.infrastructure.soteria.hash.Algorithm;
+import br.eti.arthurgregorio.library.infrastructure.soteria.hash.HashGenerator;
+import br.eti.arthurgregorio.library.infrastructure.soteria.identity.UserDetailsProvider;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Any;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * The user account service
+ * The {@link User} account service
  *
  * @author Arthur Gregorio
  *
@@ -32,7 +32,8 @@ import java.util.Optional;
 public class UserAccountService implements UserDetailsProvider {
 
     @Inject
-    private PasswordEncoder passwordEncoder;
+    @Algorithm
+    private HashGenerator hashGenerator;
 
     @Inject
     private UserRepository userRepository;
@@ -104,20 +105,18 @@ public class UserAccountService implements UserDetailsProvider {
     @Transactional
     public void changePassword(PasswordChangeDTO passwordChangeDTO, User user) {
 
-        final boolean actualMatch = this.passwordEncoder.passwordsMatch(
-                passwordChangeDTO.getActualPassword(), user.getPassword());
+        final boolean actualMatch = this.hashGenerator.isMatching(passwordChangeDTO.getActualPassword(),
+                user.getPassword());
 
         if (actualMatch) {
             if (passwordChangeDTO.isNewPassMatching()) {
-                final String newPass = this.passwordEncoder.encryptPassword(
-                        passwordChangeDTO.getNewPassword());
-                user.setPassword(newPass);
+                user.setPassword(this.hashGenerator.encode(passwordChangeDTO.getNewPassword()));
                 this.userRepository.saveAndFlushAndRefresh(user);
                 return;
             }
-            throw BusinessLogicException.create("profile.new-pass-not-match");
+            throw new BusinessLogicException("profile.new-pass-not-match");
         }
-        throw BusinessLogicException.create("profile.actual-pass-not-match");
+        throw new BusinessLogicException("profile.actual-pass-not-match");
     }
 
     /**
@@ -203,14 +202,12 @@ public class UserAccountService implements UserDetailsProvider {
     }
 
     /**
-     * Find the {@link UserDetails} of a given username from an {@link User}
      *
-     * @param username the username to search for the details
-     * @return an {@link Optional} of the {@link UserDetails} for the username
+     * @param username
+     * @return
      */
     @Override
-    public Optional<UserDetails> findUserDetailsByUsername(String username) {
-        final Optional<User> user = this.userRepository.findOptionalByUsername(username);
-        return Optional.ofNullable(user.orElse(null));
+    public Optional<User> findUserDetailsByUsername(String username) {
+        return this.userRepository.findOptionalByUsername(username);
     }
 }

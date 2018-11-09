@@ -1,7 +1,6 @@
 package br.eti.arthurgregorio.library.domain.model.entities;
 
 import java.util.Date;
-import org.apache.shiro.SecurityUtils;
 
 /**
  * The listener to add more info to the revision of the audited entities
@@ -33,10 +32,10 @@ public class RevisionListener implements org.hibernate.envers.RevisionListener {
      * @return the username of the logged user
      */
     private String getLoggedUser() {
-        try {
-            return String.valueOf(SecurityUtils.getSubject().getPrincipal());
-        } catch (Exception ex) {
+//        try {
+//            return String.valueOf(SecurityUtils.getSubject().getPrincipal());
+//        } catch (Exception ex) {
             return "unknown";
-        }
+//        }
     }
 }

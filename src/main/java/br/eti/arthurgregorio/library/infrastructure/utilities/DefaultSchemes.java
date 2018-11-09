@@ -10,7 +10,7 @@ package br.eti.arthurgregorio.library.infrastructure.utilities;
  */
 public final class DefaultSchemes {
 
-    // the security scheme
-    public static final String SECURITY = "security";
-    public static final String SECURITY_AUDIT = "security_audit";
+    // the configurations scheme
+    public static final String CONFIGURATION = "configuration";
+    public static final String CONFIGURATION_AUDIT = "configuration_audit";
 }

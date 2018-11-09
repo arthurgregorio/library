@@ -1,15 +1,13 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
-import br.eti.arthurgregorio.shiroee.auth.Authenticator;
-import br.eti.arthurgregorio.shiroee.auth.Credential;
+import br.eti.arthurgregorio.library.infrastructure.soteria.auth.Authenticator;
+import br.eti.arthurgregorio.library.infrastructure.soteria.auth.CredentialHolder;
 import lombok.Getter;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.security.enterprise.AuthenticationException;
 
 /**
  * The authentication controller 
@@ -22,9 +20,9 @@ import javax.inject.Named;
 @Named
 @ViewScoped
 public class AuthenticationBean extends AbstractBean {
-    
+
     @Getter
-    private Credential credential;
+    private CredentialHolder credentialHolder;
 
     @Inject
     private Authenticator authenticator;
@@ -36,8 +34,8 @@ public class AuthenticationBean extends AbstractBean {
      * @return the dashboard outcome or empty to stay in the login page
      */
     public String initialize() {
-        if (this.authenticator.authenticationIsNeeded()) {
-            this.credential = new Credential();
+        if (this.authenticator.needToAuthenticate()) {
+            this.credentialHolder = new CredentialHolder();
             return "";
         } else {
             return "/secured/dashboard.xhtml?faces-redirect=true";
@@ -51,14 +49,10 @@ public class AuthenticationBean extends AbstractBean {
      */
     public String doLogin() {
         try {
-            this.authenticator.login(this.credential);
+            this.authenticator.login(this.credentialHolder.toCredential());
             return "/secured/dashboard.xhtml?faces-redirect=true";
-        } catch (UnknownAccountException ex) {
-            this.addError(true, "error.authentication.unknown-account");
-        } catch (IncorrectCredentialsException ex) {
-            this.addError(true, "error.authentication.incorrect-credentials");
         } catch (AuthenticationException ex) {
-            this.addError(true, "error.authentication.failed");
+            this.addError(true, "error.authentication");
         }
         return null;
     }

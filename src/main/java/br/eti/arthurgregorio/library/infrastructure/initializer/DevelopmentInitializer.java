@@ -1,11 +1,12 @@
 package br.eti.arthurgregorio.library.infrastructure.initializer;
 
-import br.eti.arthurgregorio.library.domain.model.entities.tools.*;
-import br.eti.arthurgregorio.library.domain.repositories.tools.AuthorizationRepository;
-import br.eti.arthurgregorio.library.domain.repositories.tools.GrantRepository;
-import br.eti.arthurgregorio.library.domain.repositories.tools.GroupRepository;
-import br.eti.arthurgregorio.library.domain.repositories.tools.UserRepository;
-import br.eti.arthurgregorio.shiroee.auth.PasswordEncoder;
+import br.eti.arthurgregorio.library.domain.model.entities.configurations.*;
+import br.eti.arthurgregorio.library.domain.repositories.configurations.AuthorizationRepository;
+import br.eti.arthurgregorio.library.domain.repositories.configurations.GrantRepository;
+import br.eti.arthurgregorio.library.domain.repositories.configurations.GroupRepository;
+import br.eti.arthurgregorio.library.domain.repositories.configurations.UserRepository;
+import br.eti.arthurgregorio.library.infrastructure.soteria.hash.Algorithm;
+import br.eti.arthurgregorio.library.infrastructure.soteria.hash.HashGenerator;
 import org.apache.deltaspike.core.api.exclude.Exclude;
 import org.apache.deltaspike.core.api.projectstage.ProjectStage.Production;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import javax.transaction.UserTransaction;
 import java.util.List;
 import java.util.Optional;
 
+import static br.eti.arthurgregorio.library.infrastructure.soteria.hash.Algorithm.AlgorithmType.BCRYPT;
 import static org.apache.deltaspike.core.api.projectstage.ProjectStage.SystemTest;
 
 /**
@@ -51,7 +53,8 @@ public class DevelopmentInitializer implements EnvironmentInitializer {
     private AuthorizationRepository authorizationRepository;
     
     @Inject
-    private PasswordEncoder passwordEncoder;
+    @Algorithm(BCRYPT)
+    private HashGenerator hashGenerator;
 
     @Resource
     private UserTransaction transaction;
@@ -142,7 +145,7 @@ public class DevelopmentInitializer implements EnvironmentInitializer {
             user.setName("Administrador");
             user.setEmail("contato@arthurgregorio.eti.br");
             user.setUsername("admin");
-            user.setPassword(this.passwordEncoder.encryptPassword("admin"));
+            user.setPassword(this.hashGenerator.encode("admin"));
             
             user.setGroup(group);
 

@@ -1,8 +1,8 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
-import br.eti.arthurgregorio.library.domain.model.entities.tools.Profile;
-import br.eti.arthurgregorio.library.domain.model.entities.tools.ThemeType;
-import br.eti.arthurgregorio.library.domain.model.entities.tools.User;
+import br.eti.arthurgregorio.library.domain.model.entities.configurations.Profile;
+import br.eti.arthurgregorio.library.domain.model.entities.configurations.ThemeType;
+import br.eti.arthurgregorio.library.domain.model.entities.configurations.User;
 import br.eti.arthurgregorio.library.domain.services.UserAccountService;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -44,7 +44,7 @@ public class ProfileBean extends AbstractBean {
     @PostConstruct
     public void initialize() {
         this.passwordChangeDTO = new PasswordChangeDTO();
-        this.profile = this.userSessionBean.getPrincipal().getProfile();
+        this.profile = this.userSessionBean.getPrincipalProfile();
     }
     
     /**

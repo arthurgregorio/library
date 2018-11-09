@@ -15,7 +15,7 @@ $(function () {
 });
 
 /**
- * Function to toggle the configuration sidebar color
+ * Function to toggle the configurations sidebar color
  */
 function toggleSidebarColor() {
     var $sidebar = $('.control-sidebar');

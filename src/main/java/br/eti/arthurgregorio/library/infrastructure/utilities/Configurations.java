@@ -24,10 +24,10 @@ public final class Configurations {
     }
 
     /**
-     * Search in the configuration source for a key and retrieve his value, as {@link String}
+     * Search in the configurations source for a key and retrieve his value, as {@link String}
      *
-     * @param configuration the configuration to search his value
-     * @return the value for this configuration
+     * @param configuration the configurations to search his value
+     * @return the value for this configurations
      */
     public static String get(String configuration) {
         try {
@@ -40,8 +40,8 @@ public final class Configurations {
     /**
      * Same as {@link #get(String)} but return the value as {@link Boolean}
      *
-     * @param configuration the configuration to search his value
-     * @return the value for this configuration
+     * @param configuration the configurations to search his value
+     * @return the value for this configurations
      */
     public static boolean getAsBoolean(String configuration) {
         return Boolean.valueOf(Objects.requireNonNull(get(configuration)));
@@ -50,8 +50,8 @@ public final class Configurations {
     /**
      * Same as {@link #get(String)} but return the value as {@link Integer}
      *
-     * @param configuration the configuration to search his value
-     * @return the value for this configuration
+     * @param configuration the configurations to search his value
+     * @return the value for this configurations
      */
     public static int getAsInteger(String configuration) {
         return Integer.valueOf(Objects.requireNonNull(get(configuration)));

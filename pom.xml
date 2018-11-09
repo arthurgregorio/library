@@ -32,11 +32,17 @@
             <version>1.6.1</version>
             <scope>provided</scope>
         </dependency>
+
+        <!--jee security api-->
         <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.faces</artifactId>
-            <version>2.3.7</version>
-            <scope>provided</scope>
+            <groupId>org.glassfish.soteria</groupId>
+            <artifactId>javax.security.enterprise</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>de.svenkubiak</groupId>
+            <artifactId>jBCrypt</artifactId>
+            <version>0.4.1</version>
         </dependency>
 
         <!--hibernate-->
@@ -140,7 +146,13 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!--primefaces-->
+        <!--jsf & primefaces-->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.faces</artifactId>
+            <version>2.3.7</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
@@ -205,7 +217,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>26.0-jre</version>
+            <version>27.0-jre</version>
         </dependency>
 
         <!--mustache-->
@@ -213,13 +225,6 @@
             <groupId>com.github.spullara.mustache.java</groupId>
             <artifactId>compiler</artifactId>
             <version>0.9.5</version>
-        </dependency>
-
-        <!--shiro-ee-->
-        <dependency>
-            <groupId>br.eti.arthurgregorio</groupId>
-            <artifactId>shiro-ee</artifactId>
-            <version>1.4.0</version>
         </dependency>
 
         <!--SL4J-->

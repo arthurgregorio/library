@@ -1,17 +1,18 @@
 package br.eti.arthurgregorio.library.domain.services;
 
 import br.eti.arthurgregorio.library.application.components.MessageSource;
-import br.eti.arthurgregorio.library.domain.model.entities.tools.StoreType;
-import br.eti.arthurgregorio.library.domain.model.entities.tools.User;
+import br.eti.arthurgregorio.library.domain.model.entities.configurations.StoreType;
+import br.eti.arthurgregorio.library.domain.model.entities.configurations.User;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.model.mail.SimpleMailMessage;
-import br.eti.arthurgregorio.library.domain.repositories.tools.UserRepository;
+import br.eti.arthurgregorio.library.domain.repositories.configurations.UserRepository;
 import br.eti.arthurgregorio.library.infrastructure.mail.MailContentProvider;
 import br.eti.arthurgregorio.library.infrastructure.mail.MailMessage;
 import br.eti.arthurgregorio.library.infrastructure.mail.MustacheProvider;
+import br.eti.arthurgregorio.library.infrastructure.soteria.hash.Algorithm;
+import br.eti.arthurgregorio.library.infrastructure.soteria.hash.HashGenerator;
 import br.eti.arthurgregorio.library.infrastructure.utilities.CodeGenerator;
 import br.eti.arthurgregorio.library.infrastructure.utilities.Configurations;
-import br.eti.arthurgregorio.shiroee.auth.PasswordEncoder;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
@@ -19,6 +20,8 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import static br.eti.arthurgregorio.library.infrastructure.soteria.hash.Algorithm.AlgorithmType.BCRYPT;
 
 /**
  * The service responsible for all the operations about the password recovery process
@@ -35,7 +38,8 @@ public class RecoverPasswordService {
     private UserRepository userRepository;
 
     @Inject
-    private PasswordEncoder passwordEncoder;
+    @Algorithm
+    private HashGenerator hashGenerator;
     
     @Inject
     private Event<MailMessage> mailSender;
@@ -50,11 +54,11 @@ public class RecoverPasswordService {
 
         final User user = this.userRepository
                 .findOptionalByEmailAndStoreType(email, StoreType.LOCAL)
-                .orElseThrow(() -> BusinessLogicException.create("error.recover-password.user-not-found"));
+                .orElseThrow(() -> new BusinessLogicException("error.recover-password.user-not-found"));
 
         final String newPassword = CodeGenerator.alphanumeric(8);
 
-        user.setPassword(this.passwordEncoder.encryptPassword(newPassword));
+        user.setPassword(this.hashGenerator.encode(newPassword));
 
         this.userRepository.saveAndFlushAndRefresh(user);
 
@@ -67,7 +71,7 @@ public class RecoverPasswordService {
         try {
             this.mailSender.fire(mailMessage);
         } catch (Exception ex) {
-            throw BusinessLogicException.create("error.core.sending-mail-error");
+            throw new BusinessLogicException("error.core.sending-mail-error");
         }
     }
 
@@ -83,8 +87,7 @@ public class RecoverPasswordService {
         final MustacheProvider provider = 
                 new MustacheProvider("recover-password.mustache");
 
-        final String date = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm")
-                .format(LocalDateTime.now());
+        final String date = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm").format(LocalDateTime.now());
         
         provider.addContent("title", MessageSource.get("recover-password.email.title"));
         provider.addContent("detail", MessageSource.get("recover-password.email.detail"));
