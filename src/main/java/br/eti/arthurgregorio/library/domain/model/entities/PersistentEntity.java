@@ -9,7 +9,6 @@ import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 
-
 /**
  * The default implementation of a entity in the application. 
  * 
@@ -30,7 +29,7 @@ public abstract class PersistentEntity implements IPersistentEntity<Long> {
     @Getter
     @Column(name = "id", unique = true, updatable = false)
     @GenericGenerator(
-            name = "sequenceGenerator",
+            name = "pooled_sequence_generator",
             strategy = "enhanced-sequence",
             parameters = {
                     @Parameter(name = "initial_value", value = "1"),
