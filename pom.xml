@@ -9,6 +9,29 @@
     <packaging>war</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
+    <url>http://webbudget.com.br/</url>
+    <description>
+        Simple app to show how to work with Jee standard frameworks
+    </description>
+
+    <licenses>
+        <license>
+            <name>Apache License version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Arthur Gregorio</name>
+            <email>contato@arthurgregorio.eti.br</email>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
 
     <properties>
         <feign.version>10.1.0</feign.version>
