@@ -20,7 +20,7 @@ import static org.apache.deltaspike.core.api.projectstage.ProjectStage.Developme
  *
  * @author Arthur Gregorio
  *
- * @version 1.0.0
+ * @version 1.1.0
  * @since 1.3.1, 20/08/2018
  */
 @RequestScoped
@@ -43,12 +43,10 @@ public class ProductionInitializer implements EnvironmentInitializer {
 
         checkNotNull(this.dataSource, "No datasource found for migrations");
  
-        final Flyway flyway = new Flyway();
-        
-        flyway.setDataSource(this.dataSource);
-        
-        flyway.setLocations("db/migration");
-        flyway.setBaselineOnMigrate(true);
+        final Flyway flyway = Flyway.configure().baselineOnMigrate(true)
+                .baselineVersion("0")
+                .dataSource(this.dataSource)
+                .locations("db/migrations").load();
         
         final MigrationInfo migrationInfo = flyway.info().current();
  
@@ -56,12 +54,11 @@ public class ProductionInitializer implements EnvironmentInitializer {
             this.logger.info("No existing database at the actual datasource");
         }
         else {
-            this.logger.info("Found a database with the version: {}", migrationInfo.getVersion() 
-                    + " : " + migrationInfo.getDescription());
+            this.logger.info("Current version: {}", migrationInfo.getVersion() + " : " + migrationInfo.getDescription());
         }
         
         flyway.migrate();
 
-        this.logger.info("Successfully migrated to database version: {}", flyway.info().current().getVersion());
+        this.logger.info("Successfully migrated to version: {}", flyway.info().current().getVersion());
     }
 }
