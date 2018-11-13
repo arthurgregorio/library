@@ -1,6 +1,5 @@
 package br.eti.arthurgregorio.library.infrastructure.soteria.auth;
 
-import javax.security.enterprise.AuthenticationException;
 import javax.security.enterprise.AuthenticationStatus;
 import javax.security.enterprise.authentication.mechanism.http.HttpAuthenticationMechanism;
 import javax.security.enterprise.authentication.mechanism.http.HttpMessageContext;
@@ -20,6 +19,7 @@ public class FormAuthenticationMechanism implements HttpAuthenticationMechanism 
     private IdentityStore identityStore;
 
     /**
+     * Basic constructor
      *
      * @param identityStore
      */
@@ -34,17 +34,15 @@ public class FormAuthenticationMechanism implements HttpAuthenticationMechanism 
      * @param response
      * @param context
      * @return
-     * @throws AuthenticationException
      */
     @Override
-    public AuthenticationStatus validateRequest(HttpServletRequest request, HttpServletResponse response, HttpMessageContext context) throws AuthenticationException {
+    public AuthenticationStatus validateRequest(HttpServletRequest request, HttpServletResponse response, HttpMessageContext context) {
 
         final Credential credential = context.getAuthParameters().getCredential();
 
-        if (credential == null) {
-            return context.doNothing();
+        if (credential != null) {
+            return context.notifyContainerAboutLogin(this.identityStore.validate(credential));
         }
-
-        return context.notifyContainerAboutLogin(this.identityStore.validate(credential));
+        return context.doNothing();
     }
 }

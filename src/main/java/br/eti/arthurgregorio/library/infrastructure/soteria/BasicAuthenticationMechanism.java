@@ -5,6 +5,7 @@ import br.eti.arthurgregorio.library.infrastructure.soteria.auth.FormAuthenticat
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.security.enterprise.authentication.mechanism.http.AutoApplySession;
+import javax.security.enterprise.authentication.mechanism.http.HttpMessageContext;
 import javax.security.enterprise.authentication.mechanism.http.LoginToContinue;
 import javax.security.enterprise.authentication.mechanism.http.RememberMe;
 import javax.security.enterprise.identitystore.IdentityStore;
@@ -21,8 +22,8 @@ import javax.security.enterprise.identitystore.IdentityStore;
         isRememberMeExpression = "#{self.isRememberMe(httpMessageContext)}"
 )
 @LoginToContinue(
-        loginPage = "/login.xhtml?continue=true",
-        errorPage = "",
+        loginPage = "/index.xhtml?continue=true",
+        errorPage = "/index.xhtml?error=true",
         useForwardToLogin = false
 )
 @ApplicationScoped
@@ -35,5 +36,14 @@ public class BasicAuthenticationMechanism extends FormAuthenticationMechanism {
     @Inject
     public BasicAuthenticationMechanism(IdentityStore identityStore) {
         super(identityStore);
+    }
+
+    /**
+     *
+     * @param context
+     * @return
+     */
+    public Boolean isRememberMe(HttpMessageContext context) {
+        return context.getAuthParameters().isRememberMe();
     }
 }

@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.security.enterprise.SecurityContext;
 import java.io.Serializable;
+import java.security.Principal;
 
 /**
  * The controller of the session bean. This class hold the current user on the application and his data
@@ -41,11 +42,13 @@ public class UserSessionBean implements Serializable {
     @PostConstruct
     protected void initialize() {
 
-        final String principalUsername = this.securityContext.getCallerPrincipal().getName();
+        final Principal principal = this.securityContext.getCallerPrincipal();
 
-        this.principal = this.userRepository
-                .findOptionalByUsername(principalUsername)
-                .orElseThrow(() -> new IllegalStateException(String.format("User %s has no local user", principalUsername)));
+        if (principal != null) {
+            this.principal = this.userRepository
+                    .findOptionalByUsername(principal.getName())
+                    .orElseThrow(() -> new IllegalStateException(String.format("User %s has no local user", principal)));
+        }
     }
 
     /**
