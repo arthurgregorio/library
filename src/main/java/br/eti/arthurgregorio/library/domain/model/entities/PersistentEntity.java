@@ -4,6 +4,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 
@@ -23,10 +25,17 @@ import javax.persistence.*;
 @EqualsAndHashCode
 public abstract class PersistentEntity implements IPersistentEntity<Long> {
 
-    @Id
     @Getter
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(
+            name = "pooled_sequence_generator",
+            strategy = "enhanced-sequence",
+            parameters = {
+                    @Parameter(name = "initial_value", value = "1"),
+                    @Parameter(name = "increment_size", value = "5"),
+                    @Parameter(name = "optimizer", value = "pooled-lo")
+            })
     @Column(name = "id", unique = true, updatable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pooled_sequence_generator")
     private Long id;
 
     /**
