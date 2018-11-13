@@ -11,7 +11,7 @@
     <name>${project.groupId}:${project.artifactId}</name>
 
     <properties>
-        <feign.version>8.18.0</feign.version>
+        <feign.version>10.1.0</feign.version>
         <jackson.version>2.9.5</jackson.version>
         <hibernate.version>5.3.6.Final</hibernate.version>
         <deltaspike.version>1.9.0</deltaspike.version>
@@ -84,29 +84,29 @@
 
         <!-- feign -->
         <dependency>
-            <groupId>com.netflix.feign</groupId>
+            <groupId>io.github.openfeign</groupId>
             <artifactId>feign-core</artifactId>
             <version>${feign.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.netflix.feign</groupId>
+            <groupId>io.github.openfeign</groupId>
             <artifactId>feign-jackson</artifactId>
             <version>${feign.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.netflix.feign</groupId>
+            <groupId>io.github.openfeign</groupId>
             <artifactId>feign-slf4j</artifactId>
             <version>${feign.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.netflix.feign</groupId>
+            <groupId>io.github.openfeign</groupId>
             <artifactId>feign-okhttp</artifactId>
             <version>${feign.version}</version>
         </dependency>
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>3.9.1</version>
+            <version>3.11.0</version>
         </dependency>
 
         <!--flyway-->
