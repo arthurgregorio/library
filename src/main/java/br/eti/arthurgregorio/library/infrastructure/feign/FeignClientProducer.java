@@ -3,7 +3,7 @@ package br.eti.arthurgregorio.library.infrastructure.feign;
 import javax.enterprise.context.ApplicationScoped;
 
 /**
- * The CDI producer class to all Feing {@link feign.Client} interfaces
+ * The CDI producer class to all Feign {@link feign.Client} interfaces
  *
  * @author Arthur Gregorio
  *

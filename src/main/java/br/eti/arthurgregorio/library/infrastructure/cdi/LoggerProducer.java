@@ -3,7 +3,9 @@ package br.eti.arthurgregorio.library.infrastructure.cdi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 
@@ -12,10 +14,10 @@ import javax.enterprise.inject.spi.InjectionPoint;
  * 
  * @author Arthur Gregorio
  *
- * @version 1.0.0
+ * @version 1.1.0
  * @since 1.0.0, 18/12/2017
   */
-@Dependent
+@ApplicationScoped
 public class LoggerProducer {
 
     /**
@@ -25,6 +27,7 @@ public class LoggerProducer {
      * @return the logger object
      */
     @Produces
+    @RequestScoped
     Logger produce(InjectionPoint injectionPoint) {
         return LoggerFactory.getLogger(injectionPoint.getMember().getDeclaringClass());
     }

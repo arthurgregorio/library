@@ -77,11 +77,9 @@ public class RecoverPasswordService {
      */
     private MailContentProvider buildContent(User user, String newPassword) {
        
-        final MustacheProvider provider = 
-                new MustacheProvider("recover-password.mustache");
+        final MustacheProvider provider = new MustacheProvider("recover-password.mustache");
 
-        final String date = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm")
-                .format(LocalDateTime.now());
+        final String date = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm").format(LocalDateTime.now());
         
         provider.addContent("title", MessageSource.get("recover-password.email.title"));
         provider.addContent("detail", MessageSource.get("recover-password.email.detail"));
