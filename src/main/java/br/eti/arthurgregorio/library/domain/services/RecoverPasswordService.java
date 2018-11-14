@@ -64,11 +64,8 @@ public class RecoverPasswordService {
                 .withTitle(MessageSource.get("recover-password.email.title"))
                 .withContent(this.buildContent(user, newPassword))
                 .build();
-        try {
-            this.mailSender.fire(mailMessage);
-        } catch (Exception ex) {
-            throw new BusinessLogicException("error.core.sending-mail-error");
-        }
+
+        this.mailSender.fireAsync(mailMessage);
     }
 
     /**
