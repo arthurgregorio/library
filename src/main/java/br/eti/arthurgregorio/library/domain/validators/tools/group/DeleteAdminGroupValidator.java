@@ -25,7 +25,7 @@ public class DeleteAdminGroupValidator implements GroupDeletingValidator {
     @Override
     public void validate(Group value) {
         if (value.isAdministrator()) {
-            throw BusinessLogicException.create("error.group.delete-administrator");
+            throw new BusinessLogicException("error.group.delete-administrator");
         }        
     }
 }

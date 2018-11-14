@@ -50,7 +50,7 @@ public class RecoverPasswordService {
 
         final User user = this.userRepository
                 .findOptionalByEmailAndStoreType(email, StoreType.LOCAL)
-                .orElseThrow(() -> BusinessLogicException.create("error.recover-password.user-not-found"));
+                .orElseThrow(() -> new BusinessLogicException("error.recover-password.user-not-found"));
 
         final String newPassword = CodeGenerator.alphanumeric(8);
 
@@ -67,7 +67,7 @@ public class RecoverPasswordService {
         try {
             this.mailSender.fire(mailMessage);
         } catch (Exception ex) {
-            throw BusinessLogicException.create("error.core.sending-mail-error");
+            throw new BusinessLogicException("error.core.sending-mail-error");
         }
     }
 

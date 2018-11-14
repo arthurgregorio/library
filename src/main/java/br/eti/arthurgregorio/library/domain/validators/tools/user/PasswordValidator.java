@@ -53,7 +53,7 @@ public class PasswordValidator implements UserSavingValidator, UserUpdatingValid
 
         if (value.hasChangedPasswords()) {
             if (!value.isPasswordValid()) {
-                throw BusinessLogicException.create("error.user.password-not-match");
+                throw new BusinessLogicException("error.user.password-not-match");
             }
             value.setPassword(this.cryptPassword(value.getPassword()));
         } else {
@@ -66,7 +66,7 @@ public class PasswordValidator implements UserSavingValidator, UserUpdatingValid
      */
     private void validateUnsavedUserPassword(User value) {
         if (!value.isPasswordValid()) {
-            throw BusinessLogicException.create("error.user.password-not-match");
+            throw new BusinessLogicException("error.user.password-not-match");
         }
         value.setPassword(this.passwordEncoder.encryptPassword(value.getPassword()));
     }

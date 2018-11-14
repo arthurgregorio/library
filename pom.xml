@@ -173,6 +173,7 @@
             <groupId>org.primefaces.extensions</groupId>
             <artifactId>primefaces-extensions</artifactId>
             <version>6.2.9</version>
+
             <exclusions>
                 <exclusion>
                     <groupId>org.primefaces</groupId>

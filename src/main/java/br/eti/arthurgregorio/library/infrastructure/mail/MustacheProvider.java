@@ -15,7 +15,7 @@ import java.util.Map;
  *
  * @author Arthur Gregorio
  *
- * @version 1.0.0
+ * @version 1.1.0
  * @since 1.0.0, 03/04/2018
  */
 public class MustacheProvider implements MailContentProvider {
@@ -61,7 +61,7 @@ public class MustacheProvider implements MailContentProvider {
             this.mustache.execute(writer, this.data)
                 .flush();
         } catch (IOException ex) {
-            throw BusinessLogicException.create("error.core.email-content-error", ex);
+            throw new BusinessLogicException("error.core.email-content-error", ex);
         }
         
         return writer.toString();

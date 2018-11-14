@@ -34,7 +34,7 @@ public class UsernameValidator implements UserSavingValidator {
         final Optional<User> usernameOptional = this.userRepository.findOptionalByUsername(value.getUsername());
 
         usernameOptional.ifPresent(user -> {
-            throw BusinessLogicException.create("error.user.username-duplicated");
+            throw new BusinessLogicException("error.user.username-duplicated");
         });
     }
 }

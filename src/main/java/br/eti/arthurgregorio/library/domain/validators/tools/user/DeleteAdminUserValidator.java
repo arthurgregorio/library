@@ -35,12 +35,12 @@ public class DeleteAdminUserValidator implements UserDeletingValidator {
         
         // prevent to delete you own user 
         if (principalUsername.equals(value.getUsername())) {
-            throw BusinessLogicException.create("error.user.delete-principal");
+            throw new BusinessLogicException("error.user.delete-principal");
         }
         
         // prevent to delete the main admin
         if (value.isAdministrator()) {
-            throw BusinessLogicException.create("error.user.delete-administrator");
+            throw new BusinessLogicException("error.user.delete-administrator");
         }
     }
 }

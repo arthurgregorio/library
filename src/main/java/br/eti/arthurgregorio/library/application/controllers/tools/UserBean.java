@@ -145,7 +145,7 @@ public class UserBean extends FormBean<User> {
 
         final LdapUser userDetails = this.ldapUserProvider
                 .search(username)
-                .orElseThrow(() -> BusinessLogicException.create("error.user.not-found-ldap", username));
+                .orElseThrow(() -> new BusinessLogicException("error.user.not-found-ldap", username));
 
         this.value.setUsername(userDetails.getSAMAccountName());
         this.value.setEmail(userDetails.getMail());

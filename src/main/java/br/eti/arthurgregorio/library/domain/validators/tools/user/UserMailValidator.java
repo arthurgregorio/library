@@ -37,7 +37,7 @@ public class UserMailValidator implements UserSavingValidator, UserUpdatingValid
             final User found = userOptional.get();
             
             if (!found.getUsername().equals(value.getUsername())) {
-                throw BusinessLogicException.create("error.user.email-duplicated");
+                throw new BusinessLogicException("error.user.email-duplicated");
             }
         }
     }
