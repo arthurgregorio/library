@@ -1,31 +1,29 @@
 package br.eti.arthurgregorio.library.application.controllers.tools;
 
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.ADD_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.DELETE_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.DETAIL_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.LIST_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.UPDATE_PAGE;
-import br.eti.arthurgregorio.library.application.controllers.FormBean;
 import br.eti.arthurgregorio.library.application.components.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.Page;
+import br.eti.arthurgregorio.library.application.controllers.FormBean;
 import br.eti.arthurgregorio.library.domain.model.entities.tools.Authorization;
 import br.eti.arthurgregorio.library.domain.model.entities.tools.Grant;
 import br.eti.arthurgregorio.library.domain.model.entities.tools.Group;
 import br.eti.arthurgregorio.library.domain.model.entities.tools.Permissions;
 import br.eti.arthurgregorio.library.domain.repositories.tools.GroupRepository;
 import br.eti.arthurgregorio.library.domain.services.UserAccountService;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import javax.faces.view.ViewScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.SortOrder;
 import org.primefaces.model.TreeNode;
+
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.*;
 
 /**
  * The controller for the user groups operations
@@ -78,8 +76,7 @@ public class GroupBean extends FormBean<Group> {
 
         this.createAuthorizationsTree();
 
-        this.value = this.groupRepository.findOptionalById(id)
-                .orElseGet(Group::new);
+        this.value = this.groupRepository.findById(id).orElseGet(Group::new);
 
         if (this.viewState != ViewState.ADDING) {
             this.selectAuthorizations();

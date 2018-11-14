@@ -1,29 +1,27 @@
 package br.eti.arthurgregorio.library.application.controllers.tools;
 
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.ADD_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.DELETE_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.DETAIL_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.LIST_PAGE;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.UPDATE_PAGE;
 import br.eti.arthurgregorio.library.application.components.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.Page;
-import br.eti.arthurgregorio.library.domain.model.entities.tools.User;
+import br.eti.arthurgregorio.library.application.controllers.FormBean;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.Group;
 import br.eti.arthurgregorio.library.domain.model.entities.tools.StoreType;
+import br.eti.arthurgregorio.library.domain.model.entities.tools.User;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.repositories.tools.GroupRepository;
 import br.eti.arthurgregorio.library.domain.repositories.tools.UserRepository;
 import br.eti.arthurgregorio.library.domain.services.UserAccountService;
+import br.eti.arthurgregorio.library.infrastructure.utilities.Configurations;
 import br.eti.arthurgregorio.shiroee.config.ldap.LdapUser;
 import br.eti.arthurgregorio.shiroee.config.ldap.LdapUserProvider;
-import java.util.List;
+import lombok.Getter;
+import org.primefaces.model.SortOrder;
+
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import br.eti.arthurgregorio.library.application.controllers.FormBean;
-import br.eti.arthurgregorio.library.domain.model.entities.tools.Group;
-import br.eti.arthurgregorio.library.infrastructure.utilities.Configurations;
-import lombok.Getter;
-import org.primefaces.model.SortOrder;
+import java.util.List;
+
+import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.*;
 
 /**
  * The controller for the user accounts operations
@@ -70,7 +68,7 @@ public class UserBean extends FormBean<User> {
     public void initialize(long id, ViewState viewState) {
         this.viewState = viewState;
         this.groups = this.groupRepository.findAllActive();
-        this.value = this.userRepository.findOptionalById(id).orElseGet(User::new);
+        this.value = this.userRepository.findById(id).orElseGet(User::new);
     }
 
     /**
@@ -150,8 +148,6 @@ public class UserBean extends FormBean<User> {
         this.value.setUsername(userDetails.getSAMAccountName());
         this.value.setEmail(userDetails.getMail());
         this.value.setName(userDetails.getName());
-
-
     }
 
     /**

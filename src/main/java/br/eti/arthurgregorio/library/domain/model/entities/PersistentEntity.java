@@ -25,6 +25,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 public abstract class PersistentEntity implements IPersistentEntity<Long> {
 
+    @Id
     @Getter
     @GenericGenerator(
             name = "pooled_sequence_generator",

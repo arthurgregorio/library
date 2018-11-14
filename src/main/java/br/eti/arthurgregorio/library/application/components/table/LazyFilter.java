@@ -79,7 +79,7 @@ public final class LazyFilter {
          * @param description the i18n description
          * @param value the value
          */
-        private EntityStatus(String description, Boolean value) {
+        EntityStatus(String description, Boolean value) {
             this.value = value;
             this.description = description;
         }

@@ -9,8 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.SECURITY;
-import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.SECURITY_AUDIT;
+import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.CONFIGURATION;
+import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.CONFIGURATION_AUDIT;
 
 /**
  * The authorization entity
@@ -25,8 +25,8 @@ import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSche
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "authorizations", schema = SECURITY)
-@AuditTable(value = "authorizations", schema = SECURITY_AUDIT)
+@Table(name = "authorizations", schema = CONFIGURATION)
+@AuditTable(value = "authorizations", schema = CONFIGURATION_AUDIT)
 public class Authorization extends PersistentEntity {
     
     @Getter
@@ -73,7 +73,6 @@ public class Authorization extends PersistentEntity {
      * @return true if they ara equal, false otherwise
      */
     public boolean isPermission(String permission) {
-        return permission != null && (this.permission.equals(permission) 
-                || this.getFullPermission().equals(permission));
+        return permission != null && (this.permission.equals(permission) || this.getFullPermission().equals(permission));
     }
 }

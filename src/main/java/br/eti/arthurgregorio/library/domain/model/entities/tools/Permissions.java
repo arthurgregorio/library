@@ -1,17 +1,14 @@
 package br.eti.arthurgregorio.library.domain.model.entities.tools;
 
+import lombok.Getter;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 import java.io.Serializable;
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-import lombok.Getter;
 
 /**
  * The possible permissions to use in the authorization process

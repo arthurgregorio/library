@@ -46,7 +46,8 @@ public class ProductionInitializer implements EnvironmentInitializer {
         final Flyway flyway = Flyway.configure().baselineOnMigrate(true)
                 .baselineVersion("0")
                 .dataSource(this.dataSource)
-                .locations("db/migrations").load();
+                .locations("db/migrations")
+                .load();
         
         final MigrationInfo migrationInfo = flyway.info().current();
  

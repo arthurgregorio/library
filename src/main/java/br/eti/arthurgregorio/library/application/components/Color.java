@@ -70,19 +70,7 @@ public class Color {
      */
     @Override
     public String toString() {
-        
-        final StringBuilder color = new StringBuilder("rgba(");
-
-        color.append(this.getRed());
-        color.append(",");
-        color.append(this.getGreen());
-        color.append(",");
-        color.append(this.getBlue());
-        color.append(",");
-        color.append(this.getAlpha());
-        color.append(")");
-
-        return color.toString();
+        return "rgba(" + this.getRed() + "," + this.getGreen() + "," + this.getBlue() + "," + this.getAlpha() + ")";
     }
 
     /**

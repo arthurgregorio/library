@@ -10,8 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.SECURITY;
-import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.SECURITY_AUDIT;
+import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.CONFIGURATION;
+import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.CONFIGURATION_AUDIT;
 
 /**
  * The grant for authorization entity
@@ -26,8 +26,8 @@ import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSche
 @ToString
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "grants", schema = SECURITY)
-@AuditTable(value = "grants", schema = SECURITY_AUDIT)
+@Table(name = "grants", schema = CONFIGURATION)
+@AuditTable(value = "grants", schema = CONFIGURATION_AUDIT)
 public class Grant extends PersistentEntity {
 
     @Getter

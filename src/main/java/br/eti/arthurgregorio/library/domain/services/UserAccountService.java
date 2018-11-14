@@ -141,7 +141,7 @@ public class UserAccountService implements UserDetailsProvider {
     public void save(Group group, List<Authorization> authorizations) {
         this.groupRepository.save(group);
         authorizations.forEach(auth -> this.authorizationRepository
-                .findOptionalByFunctionalityAndPermission(auth.getFunctionality(), auth.getPermission())
+                .findByFunctionalityAndPermission(auth.getFunctionality(), auth.getPermission())
                 .ifPresent(authorization -> this.grantRepository.save(new Grant(group, authorization)))
         );
     }
@@ -175,7 +175,7 @@ public class UserAccountService implements UserDetailsProvider {
         // save the new ones
         authorizations.forEach(auth ->
             this.authorizationRepository
-                    .findOptionalByFunctionalityAndPermission(auth.getFunctionality(), auth.getPermission())
+                    .findByFunctionalityAndPermission(auth.getFunctionality(), auth.getPermission())
                     .ifPresent(authorization -> this.grantRepository.save(new Grant(group, authorization)))
         );
     }

@@ -1,7 +1,7 @@
 package br.eti.arthurgregorio.library.domain.model.entities.tools;
 
-import br.eti.arthurgregorio.shiroee.config.jdbc.UserDetails;
 import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity;
+import br.eti.arthurgregorio.shiroee.config.jdbc.UserDetails;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,8 +15,8 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
-import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.SECURITY;
-import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.SECURITY_AUDIT;
+import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.CONFIGURATION;
+import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.CONFIGURATION_AUDIT;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
@@ -29,10 +29,10 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  */
 @Entity
 @Audited
-@Table(name = "users", schema = SECURITY)
 @ToString(callSuper = true, exclude = "group")
-@AuditTable(value = "users", schema = SECURITY_AUDIT)
+@Table(name = "users", schema = CONFIGURATION)
 @EqualsAndHashCode(callSuper = true, exclude = "group")
+@AuditTable(value = "users", schema = CONFIGURATION_AUDIT)
 public class User extends PersistentEntity implements UserDetails {
 
     @Getter

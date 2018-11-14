@@ -1,8 +1,9 @@
 package br.eti.arthurgregorio.library.domain.model.entities.tools;
 
+import lombok.Getter;
+
 import java.util.Arrays;
 import java.util.List;
-import lombok.Getter;
 
 /**
  * Enum to represent the themes of the application

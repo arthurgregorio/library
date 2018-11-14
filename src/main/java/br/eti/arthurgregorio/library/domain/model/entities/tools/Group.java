@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.SECURITY;
-import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.SECURITY_AUDIT;
+import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.CONFIGURATION;
+import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.CONFIGURATION_AUDIT;
 import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.FetchType.EAGER;
 
@@ -32,9 +32,9 @@ import static javax.persistence.FetchType.EAGER;
 @Entity
 @Audited
 @ToString(exclude = "grants")
-@Table(name = "groups", schema = SECURITY)
-@AuditTable(value = "groups", schema = SECURITY_AUDIT)
+@Table(name = "groups", schema = CONFIGURATION)
 @EqualsAndHashCode(callSuper = true, exclude = "grants")
+@AuditTable(value = "groups", schema = CONFIGURATION_AUDIT)
 public class Group extends PersistentEntity {
 
     @Getter
