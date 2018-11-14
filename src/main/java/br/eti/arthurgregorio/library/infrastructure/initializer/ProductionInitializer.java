@@ -43,8 +43,10 @@ public class ProductionInitializer implements EnvironmentInitializer {
 
         checkNotNull(this.dataSource, "No datasource found for migrations");
  
-        final Flyway flyway = Flyway.configure().baselineOnMigrate(true)
+        final Flyway flyway = Flyway.configure()
+                .sqlMigrationPrefix("v")
                 .baselineVersion("0")
+                .baselineOnMigrate(true)
                 .dataSource(this.dataSource)
                 .locations("db/migrations")
                 .load();
@@ -57,7 +59,7 @@ public class ProductionInitializer implements EnvironmentInitializer {
         else {
             this.logger.info("Current version: {}", migrationInfo.getVersion() + " : " + migrationInfo.getDescription());
         }
-        
+
         flyway.migrate();
 
         this.logger.info("Successfully migrated to version: {}", flyway.info().current().getVersion());
