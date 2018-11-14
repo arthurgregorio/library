@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.infrastructure.cdi.qualifier;
 
-import br.eti.arthurgregorio.library.domain.model.entities.tools.User;
+import br.eti.arthurgregorio.library.domain.model.entities.configuration.User;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.Documented;

@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.domain.model.entities.tools;
+package br.eti.arthurgregorio.library.domain.model.entities.configuration;
 
 import lombok.Getter;
 

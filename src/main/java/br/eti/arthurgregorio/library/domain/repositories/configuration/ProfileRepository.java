@@ -1,6 +1,6 @@
-package br.eti.arthurgregorio.library.domain.repositories.tools;
+package br.eti.arthurgregorio.library.domain.repositories.configuration;
 
-import br.eti.arthurgregorio.library.domain.model.entities.tools.Profile;
+import br.eti.arthurgregorio.library.domain.model.entities.configuration.Profile;
 import br.eti.arthurgregorio.library.domain.repositories.DefaultRepository;
 import org.apache.deltaspike.data.api.Repository;
 

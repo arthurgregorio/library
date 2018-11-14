@@ -1,6 +1,6 @@
-package br.eti.arthurgregorio.library.domain.repositories.tools;
+package br.eti.arthurgregorio.library.domain.repositories.configuration;
 
-import br.eti.arthurgregorio.library.domain.model.entities.tools.Authorization;
+import br.eti.arthurgregorio.library.domain.model.entities.configuration.Authorization;
 import br.eti.arthurgregorio.library.domain.repositories.DefaultRepository;
 import org.apache.deltaspike.data.api.Repository;
 

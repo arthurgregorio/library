@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.domain.model.entities.tools;
+package br.eti.arthurgregorio.library.domain.model.entities.configuration;
 
 /**
  * The enum to hold the type of the authentication to be selected on the form to create new users

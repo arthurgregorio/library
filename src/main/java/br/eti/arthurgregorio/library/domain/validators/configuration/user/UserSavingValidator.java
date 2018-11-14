@@ -1,6 +1,6 @@
-package br.eti.arthurgregorio.library.domain.validators.tools.user;
+package br.eti.arthurgregorio.library.domain.validators.configuration.user;
 
-import br.eti.arthurgregorio.library.domain.model.entities.tools.User;
+import br.eti.arthurgregorio.library.domain.model.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.validators.BusinessValidator;
 
 /**

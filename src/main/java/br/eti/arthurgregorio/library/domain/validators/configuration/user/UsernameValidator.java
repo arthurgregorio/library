@@ -1,8 +1,8 @@
-package br.eti.arthurgregorio.library.domain.validators.tools.user;
+package br.eti.arthurgregorio.library.domain.validators.configuration.user;
 
-import br.eti.arthurgregorio.library.domain.model.entities.tools.User;
+import br.eti.arthurgregorio.library.domain.model.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
-import br.eti.arthurgregorio.library.domain.repositories.tools.UserRepository;
+import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
 import br.eti.arthurgregorio.library.domain.validators.BusinessValidator;
 
 import javax.enterprise.context.Dependent;

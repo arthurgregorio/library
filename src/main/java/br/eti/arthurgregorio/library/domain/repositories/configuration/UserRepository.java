@@ -1,8 +1,8 @@
-package br.eti.arthurgregorio.library.domain.repositories.tools;
+package br.eti.arthurgregorio.library.domain.repositories.configuration;
 
-import br.eti.arthurgregorio.library.domain.model.entities.tools.StoreType;
-import br.eti.arthurgregorio.library.domain.model.entities.tools.User;
-import br.eti.arthurgregorio.library.domain.model.entities.tools.User_;
+import br.eti.arthurgregorio.library.domain.model.entities.configuration.StoreType;
+import br.eti.arthurgregorio.library.domain.model.entities.configuration.User;
+import br.eti.arthurgregorio.library.domain.model.entities.configuration.User_;
 import br.eti.arthurgregorio.library.domain.repositories.DefaultRepository;
 import org.apache.deltaspike.data.api.Repository;
 import org.apache.deltaspike.data.api.criteria.Criteria;

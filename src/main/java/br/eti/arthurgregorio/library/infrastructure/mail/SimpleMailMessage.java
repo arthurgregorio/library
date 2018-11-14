@@ -1,8 +1,6 @@
-package br.eti.arthurgregorio.library.domain.model.mail;
+package br.eti.arthurgregorio.library.infrastructure.mail;
 
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
-import br.eti.arthurgregorio.library.infrastructure.mail.MailContentProvider;
-import br.eti.arthurgregorio.library.infrastructure.mail.MailMessage;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

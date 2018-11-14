@@ -1,10 +1,10 @@
 package br.eti.arthurgregorio.library.infrastructure.initializer;
 
-import br.eti.arthurgregorio.library.domain.model.entities.tools.*;
-import br.eti.arthurgregorio.library.domain.repositories.tools.AuthorizationRepository;
-import br.eti.arthurgregorio.library.domain.repositories.tools.GrantRepository;
-import br.eti.arthurgregorio.library.domain.repositories.tools.GroupRepository;
-import br.eti.arthurgregorio.library.domain.repositories.tools.UserRepository;
+import br.eti.arthurgregorio.library.domain.model.entities.configuration.*;
+import br.eti.arthurgregorio.library.domain.repositories.configuration.AuthorizationRepository;
+import br.eti.arthurgregorio.library.domain.repositories.configuration.GrantRepository;
+import br.eti.arthurgregorio.library.domain.repositories.configuration.GroupRepository;
+import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
 import br.eti.arthurgregorio.shiroee.auth.PasswordEncoder;
 import org.apache.deltaspike.core.api.exclude.Exclude;
 import org.apache.deltaspike.core.api.projectstage.ProjectStage.Production;

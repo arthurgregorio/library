@@ -1,8 +1,8 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
-import br.eti.arthurgregorio.library.domain.model.entities.tools.Profile;
-import br.eti.arthurgregorio.library.domain.model.entities.tools.User;
-import br.eti.arthurgregorio.library.domain.repositories.tools.UserRepository;
+import br.eti.arthurgregorio.library.domain.model.entities.configuration.Profile;
+import br.eti.arthurgregorio.library.domain.model.entities.configuration.User;
+import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;

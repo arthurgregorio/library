@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.infrastructure.shiro;
 
-import br.eti.arthurgregorio.library.domain.model.entities.tools.Permissions;
+import br.eti.arthurgregorio.library.domain.model.entities.configuration.Permissions;
 import br.eti.arthurgregorio.shiroee.config.HttpSecurityConfiguration;
 import br.eti.arthurgregorio.shiroee.config.http.HttpSecurityBuilder;
 import br.eti.arthurgregorio.shiroee.config.http.PermissionHttpSecurityBuilder;
@@ -30,8 +30,8 @@ public class PathSecurityConfiguration implements HttpSecurityConfiguration {
         
         final HttpSecurityBuilder builder = new PermissionHttpSecurityBuilder();
         
-        builder.add("/secured/tools/users/**", this.permissions.getUSER_ACCESS(), true)
-                .add("/secured/tools/groups/**", this.permissions.getGROUP_ACCESS(), true);
+        builder.add("/secured/configuration/users/**", this.permissions.getUSER_ACCESS(), true)
+                .add("/secured/configuration/groups/**", this.permissions.getGROUP_ACCESS(), true);
         
         return builder;
     }    
