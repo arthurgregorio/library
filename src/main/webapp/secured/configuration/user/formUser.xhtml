@@ -16,34 +16,33 @@
     </ui:define>
 
     <ui:define name="pageDescription">
-        <div jsf:id="pageDescription">
-            <o:outputFormat rendered="#{userBean.viewState eq 'DETAILING'}" 
-                            value="#{messages['user.page-description-detailing']}">
-                <f:param value="#{userBean.value.name}"/>
-            </o:outputFormat>
-            <o:outputFormat rendered="#{userBean.viewState eq 'DELETING'}" 
-                            value="#{messages['user.page-description-deleting']}">
-                <f:param value="#{userBean.value.name}"/>
-            </o:outputFormat>
-        </div>
+        <h:outputText rendered="#{userBean.viewState eq 'ADDING'}"
+                      value="#{messages['user.page-description-including']}"/>
+        <o:outputFormat id="pageDescription" 
+                        rendered="#{userBean.viewState eq 'EDITING'}" 
+                        value="#{messages['user.page-description-editing']}">
+            <f:param value="#{userBean.value.name}"/>
+        </o:outputFormat>
     </ui:define>
 
     <ui:define name="breadcrumb">
-        <li><a href="#">#{breadcrumb['tools']}</a></li>
-        <li><a href="listUsers.xhtml">#{breadcrumb['tools.users']}</a></li>
-        <li jsf:rendered="#{userBean.viewState eq 'DETAILING'}" 
-            class="active"><a href="#">#{breadcrumb['detailing']}</a></li>
-        <li jsf:rendered="#{userBean.viewState eq 'DELETING'}" 
-            class="active"><a href="#">#{breadcrumb['deleting']}</a></li>
+        <li><a href="#">#{breadcrumb['configuration']}</a></li>
+        <li><a href="listUsers.xhtml">#{breadcrumb['configuration.users']}</a></li>
+        <li class="active"
+            jsf:rendered="#{userBean.viewState eq 'ADDING'}">
+            <a href="#">#{breadcrumb['including']}</a>
+        </li>
+        <li class="active"
+            jsf:rendered="#{userBean.viewState eq 'EDITING'}">
+            <a href="#">#{breadcrumb['editing']}</a>
+        </li>
     </ui:define>
 
     <ui:define name="content">
         <h:form id="userForm" prependId="false">
             <div class="row">
-                <div class="col-sm-12">
-                    <p:messages id="messages" closable="true" >
-                        <p:autoUpdate/>
-                    </p:messages>
+                <div class="col-md-12">
+                    <p:messages id="messages" closable="true" />
                 </div>
             </div>
             <div class="box box-#{profileBean.currentThemeColorName}">
@@ -139,19 +138,21 @@
                     </div>
                 </div>
                 <div class="box-footer align-right">
-                    <h:outputText styleClass="text-red text-bold"
-                                  value="#{messages['delete-message']}"
-                                  rendered="#{userBean.viewState eq 'DELETING'}"/>
-                    <p:spacer width="10"/>
-                    <p:commandButton value="#{menu['yes']}"
-                                     action="#{userBean.doDelete()}" 
-                                     styleClass="btn btn-flat btn-danger" 
-                                     rendered="#{userBean.viewState eq 'DELETING'}"/>
-                    <p:spacer width="5" />
+                    <p:commandButton update="userForm"
+                                     value="#{menu['save']}" 
+                                     action="#{userBean.doSave()}"
+                                     styleClass="btn btn-flat btn-success"
+                                     rendered="#{userBean.viewState eq 'ADDING'}"/>
+                    <p:commandButton value="#{menu['update']}" 
+                                     action="#{userBean.doUpdate()}"
+                                     update="userForm pageDescription"
+                                     styleClass="btn btn-flat btn-success"
+                                     rendered="#{userBean.viewState eq 'EDITING'}"/>
+                    <p:spacer width="5"/>
                     <p:commandButton immediate="true"
+                                     value="#{menu['back']}" 
                                      styleClass="btn btn-flat btn-primary"
-                                     action="#{userBean.changeToListing()}" 
-                                     value="#{userBean.viewState eq 'DETAILING' ? menu['back'] : menu['no']}"/>
+                                     action="#{userBean.changeToListing()}"/>
                 </div>
             </div>
         </h:form>

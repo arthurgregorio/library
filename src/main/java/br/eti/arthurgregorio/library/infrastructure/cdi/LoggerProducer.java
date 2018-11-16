@@ -27,7 +27,7 @@ public class LoggerProducer {
      * @return the logger object
      */
     @Produces
-    @RequestScoped
+    @Dependent
     Logger produce(InjectionPoint injectionPoint) {
         return LoggerFactory.getLogger(injectionPoint.getMember().getDeclaringClass());
     }

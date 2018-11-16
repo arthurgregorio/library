@@ -5,18 +5,36 @@
 
     <ul class="nav navbar-nav">
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{menu['tools']} <span class="caret" /></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{menu['registration']} <span class="caret" /></a>
+            <ul class="dropdown-menu" role="menu">
+                <li jsf:rendered="#{userSessionBean.isPermitted(permissions.BOOK_ACCESS)}">
+                    <p:link outcome="/secured/registration/book/listBooks.xhtml">
+                        <i class="fa fa-book" />
+                        <span>#{menu['registration.books']}</span>
+                    </p:link>
+                </li>
+                <li jsf:rendered="#{userSessionBean.isPermitted(permissions.AUTHOR_ACCESS)}">
+                    <p:link outcome="/secured/registration/author/listAuthors.xhtml">
+                        <i class="fa fa-user-edit" />
+                        <span>#{menu['registration.authors']}</span>
+                    </p:link>
+                </li>
+            </ul>
+        </li>
+
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">#{menu['configuration']} <span class="caret" /></a>
             <ul class="dropdown-menu" role="menu">
                 <li jsf:rendered="#{userSessionBean.isPermitted(permissions.GROUP_ACCESS)}">
-                    <p:link outcome="/secured/tools/group/listGroups.xhtml">
+                    <p:link outcome="/secured/configuration/group/listGroups.xhtml">
                         <i class="fa fa-users" />
-                        <span>#{menu['tools.groups']}</span>
+                        <span>#{menu['configuration.groups']}</span>
                     </p:link>
                 </li>
                 <li jsf:rendered="#{userSessionBean.isPermitted(permissions.USER_ACCESS)}">
-                    <p:link outcome="/secured/tools/user/listUsers.xhtml">
+                    <p:link outcome="/secured/configuration/user/listUsers.xhtml">
                         <i class="fa fa-user-plus" />
-                        <span>#{menu['tools.users']}</span>
+                        <span>#{menu['configuration.users']}</span>
                     </p:link>
                 </li>
             </ul>

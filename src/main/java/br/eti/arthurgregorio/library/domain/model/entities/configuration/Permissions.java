@@ -15,12 +15,44 @@ import java.util.List;
  *
  * @author Arthur Gregorio
  *
- * @version 1.0.0
+ * @version 1.1.0
  * @since 1.0.0, 12/01/2018
  */
 @Named
 @ApplicationScoped
 public class Permissions implements Serializable {
+
+    @Getter
+    @PermissionGrouper("author")
+    private final String AUTHOR_ADD = "author:add";
+    @Getter
+    @PermissionGrouper("author")
+    private final String AUTHOR_UPDATE = "author:update";
+    @Getter
+    @PermissionGrouper("author")
+    private final String AUTHOR_DELETE = "author:delete";
+    @Getter
+    @PermissionGrouper("author")
+    private final String AUTHOR_DETAIL = "author:detail";
+    @Getter
+    @PermissionGrouper("author")
+    private final String AUTHOR_ACCESS = "author:access";
+
+    @Getter
+    @PermissionGrouper("book")
+    private final String BOOK_ADD = "book:add";
+    @Getter
+    @PermissionGrouper("book")
+    private final String BOOK_UPDATE = "book:update";
+    @Getter
+    @PermissionGrouper("book")
+    private final String BOOK_DELETE = "book:delete";
+    @Getter
+    @PermissionGrouper("book")
+    private final String BOOK_DETAIL = "book:detail";
+    @Getter
+    @PermissionGrouper("book")
+    private final String BOOK_ACCESS = "book:access";
 
     @Getter
     @PermissionGrouper("user")

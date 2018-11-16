@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 /**
  * The default implementation of a entity in the application. 
@@ -38,6 +39,29 @@ public abstract class PersistentEntity implements IPersistentEntity<Long> {
     @Column(name = "id", unique = true, updatable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pooled_sequence_generator")
     private Long id;
+
+    @Getter
+    @Column(name = "created_on", nullable = false)
+    private LocalDate createdOn;
+    @Getter
+    @Column(name = "updated_on")
+    private LocalDate updatedOn;
+
+    /**
+     * Set the date of creation for this entity
+     */
+    @PrePersist
+    protected void beforeInsert() {
+       this.createdOn = LocalDate.now();
+    }
+
+    /**
+     * Set the date of update for this entity
+     */
+    @PreUpdate
+    protected void beforeUpdate() {
+        this.updatedOn = LocalDate.now();
+    }
 
     /**
      * {@inheritDoc }

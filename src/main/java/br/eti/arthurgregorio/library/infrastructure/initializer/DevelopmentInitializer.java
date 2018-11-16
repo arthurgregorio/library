@@ -87,12 +87,10 @@ public class DevelopmentInitializer implements EnvironmentInitializer {
      */
     private void createAuthorizations() {
 
-        final List<Authorization> authorizations
-                = this.permissions.toAuthorizationList();
+        final List<Authorization> authorizations = this.permissions.toAuthorizationList();
 
-        authorizations.forEach(authorization -> this.authorizationRepository
-                .findByFunctionalityAndPermission(authorization.getFunctionality(), authorization.getPermission())
-                .ifPresent(auth -> this.authorizationRepository.save(auth)));
+        authorizations.forEach(auth -> this.authorizationRepository.findByFunctionalityAndPermission(auth.getFunctionality(), auth.getPermission())
+                .ifPresentOrElse(saved -> { /* do nothing */ }, () -> this.authorizationRepository.save(auth)));
     }
 
     /**

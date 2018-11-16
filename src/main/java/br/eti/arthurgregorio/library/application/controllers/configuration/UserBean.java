@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.application.controllers.tools;
+package br.eti.arthurgregorio.library.application.controllers.configuration;
 
 import br.eti.arthurgregorio.library.application.components.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.Page;

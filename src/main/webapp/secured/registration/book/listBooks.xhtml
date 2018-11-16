@@ -1,0 +1,154 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:ap="http://xmlns.jcp.org/jsf/composite/application/ui"
+                template="/template/mainTemplate.xhtml">
+
+    <f:metadata>
+        <f:viewAction action="#{bookBean.initialize()}"/>
+    </f:metadata>
+
+    <ui:define name="pageTitle">
+        #{messages['book.page-title']}
+    </ui:define>
+
+    <ui:define name="pageDescription">
+        #{messages['book.page-description']}
+    </ui:define>
+
+    <ui:define name="breadcrumb">
+        <li><a href="#">#{breadcrumb['registration']}</a></li>
+        <li class="active"><a href="listBooks.xhtml">#{breadcrumb['registration.books']}</a></li>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="row">
+            <div class="col-md-12">
+                <p:messages id="messages" closable="true" />
+            </div>
+        </div>
+        <div class="box box-#{profileBean.currentThemeColorName}">
+            <div class="box-header with-border">
+                <h:form id="controlsForm">
+                    <p:defaultCommand target="btSearch"/>
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <p:selectOneMenu value="#{bookBean.filter.entityStatus}"
+                                             converter="omnifaces.GenericEnumConverter">
+                                <f:selectItems var="entityStatus"
+                                               itemValue="#{entityStatus}"
+                                               itemLabel="#{enums[entityStatus]}"
+                                               value="#{bookBean.filter.entityStatusValues}"/> 
+                            </p:selectOneMenu>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="input-group">
+                                <p:inputText id="inSearch"
+                                             size="50" 
+                                             styleClass="form-control"
+                                             value="#{bookBean.filter.value}"
+                                             placeholder="#{messages['filter.book']}" />
+                                <div class="input-group-btn">
+                                    <p:commandButton id="btSearch"
+                                                     process="@form"
+                                                     update="itemsList"
+                                                     value="#{menu['search']}" 
+                                                     onstart="PF('blocker').show()"
+                                                     oncomplete="PF('blocker').hide()"
+                                                     styleClass="btn btn-flat btn-primary"/>
+                                    <p:spacer width="10"/>
+                                    <p:commandButton icon="fa fa-trash"
+                                                     onstart="PF('blocker').show()"
+                                                     update="controlsForm itemsList"
+                                                     title="#{menu['clear-filters']}"
+                                                     oncomplete="PF('blocker').hide()"
+                                                     styleClass="btn btn-flat btn-danger"
+                                                     actionListener="#{bookBean.clearFilters()}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="box-registration pull-right">
+                                <p:commandButton value="#{menu['add']}" 
+                                                 action="#{bookBean.changeToAdd()}"
+                                                 styleClass="btn btn-flat btn-primary"
+                                                 rendered="#{userSessionBean.isPermitted(permissions.USER_ADD)}"/>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+            <div jsf:id="boxBody" class="box-body">
+                <h:form id="itemsList">
+                    <p:dataTable rows="20" 
+                                 var="book" 
+                                 lazy="true"
+                                 paginator="true"
+                                 rowKey="#{book.id}"
+                                 selectionMode="single" 
+                                 paginatorPosition="bottom"
+                                 selection="#{bookBean.value}"
+                                 value="#{bookBean.dataModel}" 
+                                 paginatorAlwaysVisible="false"
+                                 emptyMessage="#{messages['list.empty']}">
+
+                        <p:ajax event="rowSelect"
+                                listener="#{bookBean.changeToDetail()}"
+                                disabled="#{not userSessionBean.isPermitted(permissions.USER_ACCESS)}"/>
+
+                        <p:column headerText="#{messages['book.list.name']}">
+                            <p:graphicImage width="24"
+                                            height="32"
+                                            library="application" 
+                                            name="images/inactive.png" 
+                                            rendered="#{not book.active}"
+                                            title="#{messages['list.inactive']}"/>
+                            <p:graphicImage width="24"
+                                            height="32"
+                                            library="application" 
+                                            name="images/active.png" 
+                                            rendered="#{book.active}"
+                                            title="#{messages['list.active']}"/>
+                            <p:spacer width="5"/>
+                            #{book.name}
+                        </p:column>
+                        <p:column width="15%"
+                                  styleClass="align-center"
+                                  headerText="#{messages['book.list.bookname']}" >
+                            #{book.bookname}
+                        </p:column>
+                        <p:column styleClass="align-center"
+                                  headerText="#{messages['book.list.group']}">
+                            #{book.groupName}
+                        </p:column>
+                        <p:column styleClass="align-center"
+                                  headerText="#{messages['book.list.store-type']}">
+                            #{enums[book.storeType]}
+                        </p:column>
+                        <p:column width="10%"
+                                  styleClass="align-center"
+                                  headerText="#{messages['list.actions']}">
+                            <p:commandButton immediate="true"
+                                             icon="fa fa-edit"
+                                             title="#{menu['edit']}"
+                                             styleClass="btn btn-flat btn-default"
+                                             action="#{bookBean.changeToEdit(book.id)}" 
+                                             rendered="#{userSessionBean.isPermitted(permissions.USER_UPDATE)}"/>
+                            <p:spacer width="5"/>
+                            <p:commandButton immediate="true"
+                                             icon="fa fa-times"
+                                             title="#{menu['delete']}"
+                                             styleClass="btn btn-flat btn-danger"
+                                             action="#{bookBean.changeToDelete(book.id)}"
+                                             rendered="#{userSessionBean.isPermitted(permissions.USER_DELETE)}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+            <ap:blocker target="boxBody"/>
+        </div>
+    </ui:define>
+</ui:composition>
