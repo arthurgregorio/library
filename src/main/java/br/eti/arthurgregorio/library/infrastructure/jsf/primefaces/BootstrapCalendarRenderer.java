@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.infrastructure.primefaces;
+package br.eti.arthurgregorio.library.infrastructure.jsf.primefaces;
 
 import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.calendar.CalendarRenderer;

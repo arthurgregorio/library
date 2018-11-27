@@ -2,33 +2,40 @@ package br.eti.arthurgregorio.library.infrastructure.jsf.exception;
 
 import javax.faces.context.ExceptionHandler;
 import javax.faces.context.ExceptionHandlerFactory;
+import java.util.Set;
 
 /**
- * Simple {@link ExceptionHandlerFactory} to customize the exception handling in the application
+ * Simple {@link ExceptionHandlerFactory} to customize the exception handling by JSF
  *
  * @author Arthur Gregorio
  *
  * @version 1.0.0
- * @since 1.0.0, 28/02/2018
+ * @since 2.0.0, 28/02/2018
  */
 public class CustomExceptionHandlerFactory extends ExceptionHandlerFactory {
 
     /**
-     * Constructor...
-     * 
-     * @param parent the parent factory
+     * {@inheritDoc}
+     *
+     * @param wrapped
      */
-    public CustomExceptionHandlerFactory(ExceptionHandlerFactory parent) {
-        super(parent);
+    public CustomExceptionHandlerFactory(ExceptionHandlerFactory wrapped) {
+        super(wrapped);
     }
 
     /**
      * {@inheritDoc }
-     * 
-     * @return 
+     *
+     * @return
      */
     @Override
     public ExceptionHandler getExceptionHandler() {
-        return new CustomExceptionHandler(this.getWrapped().getExceptionHandler());
+
+        final Set<CustomExceptionHandler> handlers = Set.of(
+                new BusinessLogicExceptionHandler(),
+                new ConstraintViolationExceptionHandler()
+        );
+
+        return new CustomExceptionHandlerWrapper(this.getWrapped().getExceptionHandler(), handlers);
     }
 }
