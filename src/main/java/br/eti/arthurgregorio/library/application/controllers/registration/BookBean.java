@@ -3,14 +3,19 @@ package br.eti.arthurgregorio.library.application.controllers.registration;
 import br.eti.arthurgregorio.library.application.components.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.Page;
 import br.eti.arthurgregorio.library.application.controllers.FormBean;
+import br.eti.arthurgregorio.library.domain.model.entities.registration.Author;
 import br.eti.arthurgregorio.library.domain.model.entities.registration.Book;
+import br.eti.arthurgregorio.library.domain.repositories.registration.AuthorRepository;
 import br.eti.arthurgregorio.library.domain.repositories.registration.BookRepository;
+import lombok.Getter;
 import org.primefaces.model.SortOrder;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
+
+import java.util.List;
 
 import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.*;
 import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.DELETE_PAGE;
@@ -27,8 +32,13 @@ import static br.eti.arthurgregorio.library.application.components.NavigationMan
 @ViewScoped
 public class BookBean extends FormBean<Book> {
 
+    @Getter
+    private List<Author> authors;
+
     @Inject
     private BookRepository bookRepository;
+    @Inject
+    private AuthorRepository authorRepository;
 
     /**
      * {@inheritDoc}
@@ -48,6 +58,11 @@ public class BookBean extends FormBean<Book> {
     @Override
     public void initialize(long id, ViewState viewState) {
         this.viewState = viewState;
+
+        if (this.viewState.isEditable()) {
+            this.authors = this.authorRepository.findAllActive();
+        }
+
         this.value = this.bookRepository.findById(id).orElseGet(Book::new);
     }
 

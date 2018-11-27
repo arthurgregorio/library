@@ -15,4 +15,13 @@ public enum ViewState {
     EDITING,
     DELETING,
     DETAILING;
+
+    /**
+     * If this is an editable state
+     *
+     * @return true if is, false if not
+     */
+    public boolean isEditable() {
+        return this == EDITING || this == ADDING;
+    }
 }

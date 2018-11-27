@@ -8,37 +8,41 @@
                 template="/template/mainTemplate.xhtml">
 
     <f:metadata>
-        <f:viewAction action="#{userBean.initialize(param.id, param.viewState)}"/>
+        <f:viewAction action="#{bookBean.initialize(param.id, param.viewState)}"/>
     </f:metadata>
 
     <ui:define name="pageTitle">
-        #{messages['user.page-title']}
+        #{messages['book.page-title']}
     </ui:define>
 
     <ui:define name="pageDescription">
         <div jsf:id="pageDescription">
-            <o:outputFormat rendered="#{userBean.viewState eq 'DETAILING'}" 
-                            value="#{messages['user.page-description-detailing']}">
-                <f:param value="#{userBean.value.name}"/>
+            <o:outputFormat rendered="#{bookBean.viewState eq 'DETAILING'}" 
+                            value="#{messages['book.page-description-detailing']}">
+                <f:param value="#{bookBean.value.title}"/>
             </o:outputFormat>
-            <o:outputFormat rendered="#{userBean.viewState eq 'DELETING'}" 
-                            value="#{messages['user.page-description-deleting']}">
-                <f:param value="#{userBean.value.name}"/>
+            <o:outputFormat rendered="#{bookBean.viewState eq 'DELETING'}" 
+                            value="#{messages['book.page-description-deleting']}">
+                <f:param value="#{bookBean.value.title}"/>
             </o:outputFormat>
         </div>
     </ui:define>
 
     <ui:define name="breadcrumb">
         <li><a href="#">#{breadcrumb['configuration']}</a></li>
-        <li><a href="listAuthors.xhtml">#{breadcrumb['configuration.users']}</a></li>
-        <li jsf:rendered="#{userBean.viewState eq 'DETAILING'}" 
-            class="active"><a href="#">#{breadcrumb['detailing']}</a></li>
-        <li jsf:rendered="#{userBean.viewState eq 'DELETING'}" 
-            class="active"><a href="#">#{breadcrumb['deleting']}</a></li>
+        <li><a href="listBooks.xhtml">#{breadcrumb['registration.books']}</a></li>
+        <li class="active"
+            jsf:rendered="#{bookBean.viewState eq 'DETAILING'}">
+            <a href="#">#{breadcrumb['detailing']}</a>
+        </li>
+        <li class="active"
+            jsf:rendered="#{bookBean.viewState eq 'DELETING'}">
+            <a href="#">#{breadcrumb['deleting']}</a>
+        </li>
     </ui:define>
 
     <ui:define name="content">
-        <h:form id="userForm" prependId="false">
+        <h:form id="bookForm" prependId="false">
             <div class="row">
                 <div class="col-sm-12">
                     <p:messages id="messages" closable="true" >
@@ -49,109 +53,84 @@
             <div class="box box-#{profileBean.currentThemeColorName}">
                 <div class="box-header with-border">
                     <h3 class="box-title">
-                        <p:selectBooleanCheckbox value="#{userBean.value.active}"
+                        <p:selectBooleanCheckbox value="#{bookBean.value.active}"
                                                  itemLabel="#{messages['form.active']}"/>
                     </h3>
                 </div>
                 <div class="box-body row">
-                    <div class="form-group col-md-12">
+                    <div class="col-md-6">
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <p:outputLabel for="inStoreType" 
-                                               value="#{messages['user.form.authetication-method']}"/>
-                                <p:selectOneMenu id="inStoreType" 
-                                                 value="#{userBean.value.storeType}"
-                                                 converter="omnifaces.GenericEnumConverter"
-                                                 disabled="#{userBean.viewState eq 'EDITING'}">
-                                    <p:ajax event="change" update="userForm" />
-                                    <f:selectItems var="storeType"
-                                                   itemValue="#{storeType}"
-                                                   itemLabel="#{enums[storeType]}"
-                                                   value="#{userBean.storeTypes}"/>
-                                </p:selectOneMenu>
+                                <p:outputLabel for="inIsbn"
+                                               value="#{messages['book.form.isbn']}"/>
+                                <p:inputText id="inIsbn"
+                                             maxlength="90"
+                                             styleClass="form-control"
+                                             value="#{bookBean.value.isbn}" />
+                            </div>
+                            <div class="form-group col-md-8">
+                                <p:outputLabel for="inTitle"
+                                               value="#{messages['book.form.title']}"/>
+                                <p:inputText id="inTitle"
+                                             maxlength="90"
+                                             styleClass="form-control"
+                                             value="#{bookBean.value.title}" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <p:outputLabel for="inSubtitle"
+                                               value="#{messages['book.form.subtitle']}"/>
+                                <p:inputText id="inSubtitle"
+                                             maxlength="90"
+                                             styleClass="form-control"
+                                             value="#{bookBean.value.subtitle}" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <p:outputLabel for="inPublishedOn"
+                                               value="#{messages['book.form.published-on']}"/>
+                                <p:calendar id="inPublishedOn"
+                                            mask="true"
+                                            pattern="dd/MM/yyyy"
+                                            converter="localDateConverter"
+                                            value="#{bookBean.value.publishedOn}" />
+                            </div>
+                            <div class="form-group col-md-8">
+                                <p:outputLabel for="inAuthor"
+                                               value="#{messages['book.form.author']}"/>
+                                <p:inputText id="inAuthor"
+                                             maxlength="90"
+                                             styleClass="form-control"
+                                             value="#{bookBean.value.author.name}" />
                             </div>
                         </div>
                     </div>
-                    <div class="form-group col-md-4">
-                        <p:outputLabel for="inUsername"
-                                       value="#{messages['user.form.username']}" />
-                        <div class="input-group">
-                            <p:inputText id="inUsername"
-                                         styleClass="form-control"
-                                         value="#{userBean.value.username}"
-                                         readonly="#{userBean.viewState eq 'EDITING'}"/>
-                            <div class="input-group-btn">
-                                <p:commandButton update="userForm"
-                                                 icon="fa fa-search"
-                                                 process="@this, inUsername"
-                                                 styleClass="btn btn-flat btn-warning"
-                                                 actionListener="#{userBean.findUserOnLdap()}"
-                                                 disabled="#{userBean.value.storeType eq 'LOCAL'}"/>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <p:outputLabel for="inSummary"
+                                               value="#{messages['book.form.summary']}"/>
+                                <p:inputTextarea id="inSummary"
+                                                 maxlength="500"
+                                                 autoResize="false"
+                                                 styleClass="form-control"
+                                                 value="#{bookBean.value.summary}" />
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <p:outputLabel for="inName"
-                                       value="#{messages['user.form.name']}" /> 
-                        <p:inputText id="inName"
-                                     styleClass="form-control"
-                                     value="#{userBean.value.name}"
-                                     readonly="#{userBean.value.storeType ne 'LOCAL'}"/>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <p:outputLabel for="inEmail"
-                                       value="#{messages['user.form.email']}" />
-                        <p:inputText id="inEmail"
-                                     styleClass="form-control"
-                                     value="#{userBean.value.email}"
-                                     readonly="#{userBean.value.storeType ne 'LOCAL'}"/>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <p:outputLabel for="inPassword" 
-                                       value="#{messages['user.form.password']}"/>
-                        <p:password id="inPassword" 
-                                    styleClass="form-control"
-                                    value="#{userBean.value.password}"
-                                    readonly="#{userBean.value.storeType ne 'LOCAL'}"/>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <p:outputLabel for="inConfirmPassword" 
-                                       value="#{messages['user.form.password-confirmation']}"/>
-                        <p:password id="inConfirmPassword"
-                                    styleClass="form-control"
-                                    value="#{userBean.value.passwordConfirmation}"
-                                    readonly="#{userBean.value.storeType ne 'LOCAL'}"/>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <p:outputLabel for="inGroup" 
-                                       value="#{messages['user.form.group']}"/>
-                        <p:selectOneMenu id="inGroup" 
-                                         value="#{userBean.value.group}" 
-                                         converter="omnifaces.SelectItemsConverter">
-                            <f:selectItem itemValue="#{null}"
-                                          noSelectionOption="true"
-                                          itemLabel="#{menu['select-one']}" />
-                            <f:selectItems var="group" 
-                                           itemValue="#{group}"
-                                           itemLabel="#{group.name}"
-                                           value="#{userBean.groups}" /> 
-                        </p:selectOneMenu>
                     </div>
                 </div>
                 <div class="box-footer align-right">
                     <h:outputText styleClass="text-red text-bold"
                                   value="#{messages['delete-message']}"
-                                  rendered="#{userBean.viewState eq 'DELETING'}"/>
+                                  rendered="#{bookBean.viewState eq 'DELETING'}"/>
                     <p:spacer width="10"/>
                     <p:commandButton value="#{menu['yes']}"
-                                     action="#{userBean.doDelete()}" 
+                                     action="#{bookBean.doDelete()}" 
                                      styleClass="btn btn-flat btn-danger" 
-                                     rendered="#{userBean.viewState eq 'DELETING'}"/>
+                                     rendered="#{bookBean.viewState eq 'DELETING'}"/>
                     <p:spacer width="5" />
                     <p:commandButton immediate="true"
                                      styleClass="btn btn-flat btn-primary"
-                                     action="#{userBean.changeToListing()}" 
-                                     value="#{userBean.viewState eq 'DETAILING' ? menu['back'] : menu['no']}"/>
+                                     action="#{bookBean.changeToListing()}" 
+                                     value="#{bookBean.viewState eq 'DETAILING' ? menu['back'] : menu['no']}"/>
                 </div>
             </div>
         </h:form>

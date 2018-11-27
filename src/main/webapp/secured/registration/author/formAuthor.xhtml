@@ -17,7 +17,7 @@
 
     <ui:define name="pageDescription">
         <h:outputText rendered="#{authorBean.viewState eq 'ADDING'}"
-                      value="#{messages['author.page-description-including']}"/>
+                      value="#{messages['author.page-description-adding']}"/>
         <o:outputFormat id="pageDescription" 
                         rendered="#{authorBean.viewState eq 'EDITING'}" 
                         value="#{messages['author.page-description-editing']}">

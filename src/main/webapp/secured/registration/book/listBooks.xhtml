@@ -75,7 +75,7 @@
                                 <p:commandButton value="#{menu['add']}" 
                                                  action="#{bookBean.changeToAdd()}"
                                                  styleClass="btn btn-flat btn-primary"
-                                                 rendered="#{userSessionBean.isPermitted(permissions.USER_ADD)}"/>
+                                                 rendered="#{userSessionBean.isPermitted(permissions.BOOK_ADD)}"/>
                             </div>
                         </div>
                     </div>
@@ -97,9 +97,10 @@
 
                         <p:ajax event="rowSelect"
                                 listener="#{bookBean.changeToDetail()}"
-                                disabled="#{not userSessionBean.isPermitted(permissions.USER_ACCESS)}"/>
+                                disabled="#{not userSessionBean.isPermitted(permissions.BOOK_ACCESS)}"/>
 
-                        <p:column headerText="#{messages['book.list.name']}">
+                        <p:column width="15%"
+                                  headerText="#{messages['book.list.isbn']}">
                             <p:graphicImage width="24"
                                             height="32"
                                             library="application" 
@@ -113,20 +114,15 @@
                                             rendered="#{book.active}"
                                             title="#{messages['list.active']}"/>
                             <p:spacer width="5"/>
-                            #{book.name}
-                        </p:column>
-                        <p:column width="15%"
-                                  styleClass="align-center"
-                                  headerText="#{messages['book.list.bookname']}" >
-                            #{book.bookname}
+                            #{book.isbn}
                         </p:column>
                         <p:column styleClass="align-center"
-                                  headerText="#{messages['book.list.group']}">
-                            #{book.groupName}
+                                  headerText="#{messages['book.list.title']}" >
+                            #{book.title}
                         </p:column>
                         <p:column styleClass="align-center"
-                                  headerText="#{messages['book.list.store-type']}">
-                            #{enums[book.storeType]}
+                                  headerText="#{messages['book.list.author']}">
+                            #{book.author.name}
                         </p:column>
                         <p:column width="10%"
                                   styleClass="align-center"
@@ -136,19 +132,19 @@
                                              title="#{menu['edit']}"
                                              styleClass="btn btn-flat btn-default"
                                              action="#{bookBean.changeToEdit(book.id)}" 
-                                             rendered="#{userSessionBean.isPermitted(permissions.USER_UPDATE)}"/>
+                                             rendered="#{userSessionBean.isPermitted(permissions.BOOK_UPDATE)}"/>
                             <p:spacer width="5"/>
                             <p:commandButton immediate="true"
                                              icon="fa fa-times"
                                              title="#{menu['delete']}"
                                              styleClass="btn btn-flat btn-danger"
                                              action="#{bookBean.changeToDelete(book.id)}"
-                                             rendered="#{userSessionBean.isPermitted(permissions.USER_DELETE)}"/>
+                                             rendered="#{userSessionBean.isPermitted(permissions.BOOK_DELETE)}"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>
             </div>
-            <ap:blocker target="boxBody"/>
         </div>
+        <ap:blocker target="boxBody"/>
     </ui:define>
 </ui:composition>

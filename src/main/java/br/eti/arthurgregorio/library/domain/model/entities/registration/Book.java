@@ -12,11 +12,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import java.time.LocalDate;
+
 import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.REGISTRATION;
 import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.REGISTRATION_AUDIT;
 
 /**
- * The Book entity
+ * The book entity
  *
  * @author Arthur Gregorio
  *
@@ -43,9 +45,21 @@ public class Book extends PersistentEntity {
     private String title;
     @Getter
     @Setter
+    @Column(name = "subtitle", length = 90)
+    private String subtitle;
+    @Getter
+    @Setter
+    @Column(name = "published_on")
+    private LocalDate publishedOn;
+    @Getter
+    @Setter
     @NotBlank(message = "{book.summary}")
-    @Column(name = "summary", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "summary", nullable = false, length = 500)
     private String summary;
+    @Getter
+    @Setter
+    @Column(name = "active", nullable = false)
+    private boolean active;
 
     @Getter
     @Setter
@@ -53,4 +67,11 @@ public class Book extends PersistentEntity {
     @NotNull(message = "{book.author}")
     @JoinColumn(name = "id_author", nullable = false)
     private Author author;
+
+    /**
+     * Constructor
+     */
+    public Book() {
+        this.active = true;
+    }
 }
