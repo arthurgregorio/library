@@ -12,6 +12,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
 import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.REGISTRATION;
@@ -40,6 +41,7 @@ public class Author extends PersistentEntity {
     private String name;
     @Getter
     @Setter
+    @Past(message = "{author.born-date-past}")
     @Column(name = "born_date")
     private LocalDate bornDate;
     @Getter
