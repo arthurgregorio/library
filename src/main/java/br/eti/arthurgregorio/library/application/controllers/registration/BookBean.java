@@ -2,7 +2,7 @@ package br.eti.arthurgregorio.library.application.controllers.registration;
 
 import br.eti.arthurgregorio.library.application.components.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.Page;
-import br.eti.arthurgregorio.library.application.controllers.FormBean;
+import br.eti.arthurgregorio.library.application.controllers.LazyFormBean;
 import br.eti.arthurgregorio.library.domain.model.entities.registration.Author;
 import br.eti.arthurgregorio.library.domain.model.entities.registration.Book;
 import br.eti.arthurgregorio.library.domain.repositories.registration.AuthorRepository;
@@ -14,11 +14,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
-
 import java.util.List;
 
 import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.*;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.DELETE_PAGE;
 
 /**
  * The {@link Book} maintenance controller
@@ -30,7 +28,7 @@ import static br.eti.arthurgregorio.library.application.components.NavigationMan
  */
 @Named
 @ViewScoped
-public class BookBean extends FormBean<Book> {
+public class BookBean extends LazyFormBean<Book> {
 
     @Getter
     private List<Author> authors;

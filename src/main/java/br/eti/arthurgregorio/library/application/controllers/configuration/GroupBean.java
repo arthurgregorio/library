@@ -2,7 +2,7 @@ package br.eti.arthurgregorio.library.application.controllers.configuration;
 
 import br.eti.arthurgregorio.library.application.components.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.Page;
-import br.eti.arthurgregorio.library.application.controllers.FormBean;
+import br.eti.arthurgregorio.library.application.controllers.LazyFormBean;
 import br.eti.arthurgregorio.library.domain.model.entities.configuration.Authorization;
 import br.eti.arthurgregorio.library.domain.model.entities.configuration.Grant;
 import br.eti.arthurgregorio.library.domain.model.entities.configuration.Group;
@@ -35,7 +35,7 @@ import static br.eti.arthurgregorio.library.application.components.NavigationMan
  */
 @Named
 @ViewScoped
-public class GroupBean extends FormBean<Group> {
+public class GroupBean extends LazyFormBean<Group> {
 
     @Getter
     private TreeNode treeRoot;

@@ -2,7 +2,7 @@ package br.eti.arthurgregorio.library.application.controllers.registration;
 
 import br.eti.arthurgregorio.library.application.components.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.Page;
-import br.eti.arthurgregorio.library.application.controllers.FormBean;
+import br.eti.arthurgregorio.library.application.controllers.LazyFormBean;
 import br.eti.arthurgregorio.library.domain.model.entities.registration.Author;
 import br.eti.arthurgregorio.library.domain.repositories.registration.AuthorRepository;
 import org.primefaces.model.SortOrder;
@@ -24,7 +24,7 @@ import static br.eti.arthurgregorio.library.application.components.NavigationMan
  */
 @Named
 @ViewScoped
-public class AuthorBean extends FormBean<Author> {
+public class AuthorBean extends LazyFormBean<Author> {
 
     @Inject
     private AuthorRepository authorRepository;
