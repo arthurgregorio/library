@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.infrastructure.utilities;
+package br.eti.arthurgregorio.library.infrastructure.misc;
 
 /**
  * Class that's generate sequences of random codes to use in unique identifications of certain objects of this application

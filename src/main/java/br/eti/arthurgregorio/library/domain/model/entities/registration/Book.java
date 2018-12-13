@@ -14,8 +14,8 @@ import javax.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
-import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.REGISTRATION;
-import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.REGISTRATION_AUDIT;
+import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.REGISTRATION;
+import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.REGISTRATION_AUDIT;
 
 /**
  * The book entity

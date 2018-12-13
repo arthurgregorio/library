@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.infrastructure.feign;
 
-import br.eti.arthurgregorio.library.infrastructure.utilities.Configurations;
+import br.eti.arthurgregorio.library.infrastructure.misc.Configurations;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;

@@ -1,25 +1,27 @@
 package br.eti.arthurgregorio.library.domain.model.exception;
 
-import javax.ejb.ApplicationException;
+import lombok.Getter;
 
 /**
- * This class represents all the business exceptions on the application, this exceptions are thrown most of the time
- * in the services layer
+ * This is the basic representation of a any exception inside the application, all exceptions should use this as base
+ * class to implement another functionality
  *
  * @author Arthur Gregorio
  *
  * @version 1.0.0
- * @since 1.0.0, 16/03/2018
+ * @since 2.0.0, 12/12/2018
  */
-@ApplicationException
-public class BusinessLogicException extends ApplicationRuntimeException {
+public class ApplicationRuntimeException extends RuntimeException {
+
+    @Getter
+    protected Object[] parameters;
 
     /**
      * Constructor...
      *
      * @param message the message to describe the error
      */
-    public BusinessLogicException(String message) {
+    public ApplicationRuntimeException(String message) {
         super(message);
     }
 
@@ -29,7 +31,7 @@ public class BusinessLogicException extends ApplicationRuntimeException {
      * @param message the message to describe the error
      * @param parameters the parameters to fill in the message
      */
-    public BusinessLogicException(String message, Object... parameters) {
+    public ApplicationRuntimeException(String message, Object... parameters) {
         super(message);
         this.parameters = parameters;
     }
@@ -41,7 +43,7 @@ public class BusinessLogicException extends ApplicationRuntimeException {
      * @param throwable the instance of the exception to compose the stack
      * @param parameters the parameters to fill in the message
      */
-    public BusinessLogicException(String message, Throwable throwable, Object... parameters) {
+    public ApplicationRuntimeException(String message, Throwable throwable, Object... parameters) {
         super(message, throwable);
         this.parameters = parameters;
     }

@@ -2,7 +2,7 @@ package br.eti.arthurgregorio.library.infrastructure.feign;
 
 import br.eti.arthurgregorio.library.domain.ws.clients.AuthenticationClient;
 import br.eti.arthurgregorio.library.domain.ws.dto.BearerToken;
-import br.eti.arthurgregorio.library.infrastructure.utilities.Configurations;
+import br.eti.arthurgregorio.library.infrastructure.misc.Configurations;
 
 /**
  * The {@link BearerToken} provider

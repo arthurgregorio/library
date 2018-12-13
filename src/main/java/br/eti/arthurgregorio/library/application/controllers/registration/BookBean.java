@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.application.controllers.registration;
 
-import br.eti.arthurgregorio.library.application.components.ViewState;
+import br.eti.arthurgregorio.library.application.controllers.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.Page;
 import br.eti.arthurgregorio.library.application.controllers.LazyFormBean;
 import br.eti.arthurgregorio.library.domain.model.entities.registration.Author;
@@ -16,7 +16,7 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.util.List;
 
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.*;
+import static br.eti.arthurgregorio.library.application.controllers.NavigationManager.PageType.*;
 
 /**
  * The {@link Book} maintenance controller

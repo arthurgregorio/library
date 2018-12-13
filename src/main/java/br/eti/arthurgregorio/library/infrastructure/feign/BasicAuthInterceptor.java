@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.infrastructure.feign;
 
-import br.eti.arthurgregorio.library.infrastructure.utilities.Configurations;
+import br.eti.arthurgregorio.library.infrastructure.misc.Configurations;
 import com.google.common.io.BaseEncoding;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

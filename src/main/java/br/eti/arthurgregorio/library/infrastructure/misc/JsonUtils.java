@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.infrastructure.utilities;
+package br.eti.arthurgregorio.library.infrastructure.misc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

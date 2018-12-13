@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.domain.services;
 
-import br.eti.arthurgregorio.library.application.components.MessageSource;
+import br.eti.arthurgregorio.library.infrastructure.i18n.MessageSource;
 import br.eti.arthurgregorio.library.domain.model.entities.configuration.StoreType;
 import br.eti.arthurgregorio.library.domain.model.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
@@ -9,8 +9,8 @@ import br.eti.arthurgregorio.library.infrastructure.mail.MailContentProvider;
 import br.eti.arthurgregorio.library.infrastructure.mail.MailMessage;
 import br.eti.arthurgregorio.library.infrastructure.mail.MustacheProvider;
 import br.eti.arthurgregorio.library.infrastructure.mail.SimpleMailMessage;
-import br.eti.arthurgregorio.library.infrastructure.utilities.CodeGenerator;
-import br.eti.arthurgregorio.library.infrastructure.utilities.Configurations;
+import br.eti.arthurgregorio.library.infrastructure.misc.CodeGenerator;
+import br.eti.arthurgregorio.library.infrastructure.misc.Configurations;
 import br.eti.arthurgregorio.shiroee.auth.PasswordEncoder;
 
 import javax.enterprise.context.ApplicationScoped;

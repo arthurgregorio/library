@@ -15,8 +15,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
-import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.REGISTRATION;
-import static br.eti.arthurgregorio.library.infrastructure.utilities.DefaultSchemes.REGISTRATION_AUDIT;
+import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.REGISTRATION;
+import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.REGISTRATION_AUDIT;
 
 /**
  * The author entity

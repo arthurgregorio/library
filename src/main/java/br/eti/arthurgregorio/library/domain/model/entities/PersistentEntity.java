@@ -9,6 +9,7 @@ import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * The default implementation of a entity in the application. 
@@ -42,17 +43,17 @@ public abstract class PersistentEntity implements IPersistentEntity<Long> {
 
     @Getter
     @Column(name = "created_on", nullable = false)
-    private LocalDate createdOn;
+    private LocalDateTime createdOn;
     @Getter
     @Column(name = "updated_on")
-    private LocalDate updatedOn;
+    private LocalDateTime updatedOn;
 
     /**
      * Set the date of creation for this entity
      */
     @PrePersist
     protected void beforeInsert() {
-       this.createdOn = LocalDate.now();
+       this.createdOn = LocalDateTime.now();
     }
 
     /**
@@ -60,7 +61,7 @@ public abstract class PersistentEntity implements IPersistentEntity<Long> {
      */
     @PreUpdate
     protected void beforeUpdate() {
-        this.updatedOn = LocalDate.now();
+        this.updatedOn = LocalDateTime.now();
     }
 
     /**

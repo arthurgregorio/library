@@ -1,5 +1,7 @@
 package br.eti.arthurgregorio.library.domain.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 /**
@@ -22,6 +24,7 @@ public interface IPersistentEntity<T extends Serializable> {
     /**
      * @return if the entity is saved or not
      */
+    @JsonIgnore
     boolean isSaved();
     
     /**
@@ -32,6 +35,7 @@ public interface IPersistentEntity<T extends Serializable> {
     /**
      * @return ther inverse of {@link #isSaved()}
      */
+    @JsonIgnore
     default boolean isNotSaved() {
         return !this.isSaved();
     }

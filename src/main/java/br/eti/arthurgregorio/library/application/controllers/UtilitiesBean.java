@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
-import br.eti.arthurgregorio.library.infrastructure.utilities.Configurations;
+import br.eti.arthurgregorio.library.infrastructure.misc.Configurations;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;

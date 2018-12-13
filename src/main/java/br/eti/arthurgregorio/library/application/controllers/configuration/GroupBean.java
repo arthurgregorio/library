@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.application.controllers.configuration;
 
-import br.eti.arthurgregorio.library.application.components.ViewState;
+import br.eti.arthurgregorio.library.application.controllers.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.Page;
 import br.eti.arthurgregorio.library.application.controllers.LazyFormBean;
 import br.eti.arthurgregorio.library.domain.model.entities.configuration.Authorization;
@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.*;
+import static br.eti.arthurgregorio.library.application.controllers.NavigationManager.PageType.*;
 
 /**
  * The controller for the user groups operations

@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.infrastructure.utilities;
+package br.eti.arthurgregorio.library.infrastructure.misc;
 
 /**
  * The default schemes definition for this application

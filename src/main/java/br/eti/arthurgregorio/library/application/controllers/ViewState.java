@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.application.components;
+package br.eti.arthurgregorio.library.application.controllers;
 
 /**
  * This enum represents the possible view states to control the JSF views/forms

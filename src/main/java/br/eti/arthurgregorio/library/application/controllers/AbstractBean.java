@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
-import br.eti.arthurgregorio.library.application.components.MessageSource;
+import br.eti.arthurgregorio.library.infrastructure.i18n.MessageSource;
 import br.eti.arthurgregorio.library.infrastructure.jsf.FacesUtils;
 import org.omnifaces.util.Messages;
 

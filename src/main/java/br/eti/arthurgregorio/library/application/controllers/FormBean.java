@@ -1,14 +1,11 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
-import br.eti.arthurgregorio.library.application.components.NavigationManager;
-import br.eti.arthurgregorio.library.application.components.ViewState;
-import br.eti.arthurgregorio.library.application.components.table.LazyDataProvider;
 import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.*;
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.Parameter.of;
+import static br.eti.arthurgregorio.library.application.controllers.NavigationManager.PageType.*;
+import static br.eti.arthurgregorio.library.application.controllers.NavigationManager.Parameter.of;
 
 /**
  * The abstract form controller, this class hold all the basic features that a single form will have

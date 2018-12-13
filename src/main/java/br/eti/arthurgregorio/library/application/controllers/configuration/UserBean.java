@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.application.controllers.configuration;
 
-import br.eti.arthurgregorio.library.application.components.ViewState;
+import br.eti.arthurgregorio.library.application.controllers.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.Page;
 import br.eti.arthurgregorio.library.application.controllers.LazyFormBean;
 import br.eti.arthurgregorio.library.domain.model.entities.configuration.Group;
@@ -10,7 +10,7 @@ import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicExcepti
 import br.eti.arthurgregorio.library.domain.repositories.configuration.GroupRepository;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
 import br.eti.arthurgregorio.library.domain.services.UserAccountService;
-import br.eti.arthurgregorio.library.infrastructure.utilities.Configurations;
+import br.eti.arthurgregorio.library.infrastructure.misc.Configurations;
 import br.eti.arthurgregorio.shiroee.config.ldap.LdapUser;
 import br.eti.arthurgregorio.shiroee.config.ldap.LdapUserProvider;
 import lombok.Getter;
@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
 
-import static br.eti.arthurgregorio.library.application.components.NavigationManager.PageType.*;
+import static br.eti.arthurgregorio.library.application.controllers.NavigationManager.PageType.*;
 
 /**
  * The controller for the user accounts operations
