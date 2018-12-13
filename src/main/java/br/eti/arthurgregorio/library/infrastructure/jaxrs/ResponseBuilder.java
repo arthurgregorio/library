@@ -7,6 +7,8 @@ import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.core.UriInfo;
 
 /**
+ * Class to help building better responses for the webservices calls
+ *
  * @author Arthur Gregorio
  *
  * @version 1.0.0
@@ -18,25 +20,27 @@ public final class ResponseBuilder {
     private UriInfo location;
 
     /**
-     *
+     * Constructor...
      */
     private ResponseBuilder(UriInfo location) {
         this.location = location;
     }
 
     /**
+     * Static factory method
      *
-     * @param location
-     * @return
+     * @param location the URI location
+     * @return this builder
      */
     public static ResponseBuilder to(UriInfo location) {
         return new ResponseBuilder(location);
     }
 
     /**
+     * The entity to be in the body of the response
      *
-     * @param entity
-     * @return
+     * @param entity the entity
+     * @return this builder
      */
     public ResponseBuilder withEntity(Object entity) {
         this.entity = String.valueOf(entity);
@@ -44,8 +48,9 @@ public final class ResponseBuilder {
     }
 
     /**
+     * Create a new http-201 response
      *
-     * @return
+     * @return the http-201 (created) response
      */
     public Response created() {
 
@@ -61,8 +66,9 @@ public final class ResponseBuilder {
     }
 
     /**
+     * Create a new http-200 response
      *
-     * @return
+     * @return the http-200 (ok) response
      */
     public Response ok() {
 
