@@ -3,15 +3,15 @@ package br.eti.arthurgregorio.library.domain.repositories;
 import br.eti.arthurgregorio.library.application.components.table.Page;
 import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity;
 import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity_;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.deltaspike.data.api.EntityRepository;
 import org.apache.deltaspike.data.api.criteria.Criteria;
 import org.apache.deltaspike.data.api.criteria.CriteriaSupport;
 
 import javax.persistence.metamodel.SingularAttribute;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
  * The default implementation of a repository in the application
@@ -22,7 +22,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  * 
  * @author Arthur Gregorio
  *
- * @version 1.0.0
+ * @version 2.0.0
  * @since 1.0.0, 21/03/2018
  */
 public interface DefaultRepository<T extends PersistentEntity> extends EntityRepository<T, Long>, CriteriaSupport<T> {
@@ -34,7 +34,7 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
      * @return the entity in a optional state
      */
     Optional<T> findById(Long id);
-    
+
     /**
      * Generic search method with lazy pagination support. To use this method you must implement
      * {@link #getRestrictions(java.lang.String)} and {@link #getEntityStateProperty()}
@@ -45,21 +45,12 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
      * @param pageSize the size of the page
      * @return the list of objects found
      */
-    @SuppressWarnings("unchecked")
     default Page<T> findAllBy(String filter, Boolean active, int start, int pageSize) {
         
         final int totalRows = this.countPages(filter, active);
         
-        final Criteria<T, T> criteria = criteria();
-        
-        if (isNotBlank(filter)) {
-            criteria.or(this.getRestrictions(filter));
-        } 
-        
-        if (active != null) {
-            criteria.eq(this.getEntityStateProperty(), active);
-        }
-                
+        final Criteria<T, T> criteria = this.buildCriteria(filter, active);
+
         this.setOrder(criteria);
         
         final List<T> data = criteria.createQuery()
@@ -71,6 +62,60 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
     }
 
     /**
+     * Generic method to find all inactive entities
+     *
+     * @return a list of all inactive entities
+     */
+    default List<T> findAllInactive() {
+
+        final Criteria<T, T> criteria = criteria()
+                .eq(this.getEntityStateProperty(), false);
+
+        this.setOrder(criteria);
+
+        return criteria.getResultList();
+    }
+
+    /**
+     * Generic method to find all active entities
+     *
+     * @return the list of all active entities
+     */
+    default List<T> findAllActive() {
+
+        final Criteria<T, T> criteria = criteria()
+                .eq(this.getEntityStateProperty(), true);
+
+        this.setOrder(criteria);
+
+        return criteria.getResultList();
+    }
+
+    /**
+     * Helper method to create {@link Criteria} instances, do not override this method or if you do this, keep in mind
+     * that you are change a core behavior and problems here means problems in all queries inside de the application
+     *
+     * @param filter the filters provided by the {@link #getRestrictions(String)}
+     * @param active the active property provided by the {@link #getEntityStateProperty()}
+     * @return a new criteria ready to query
+     */
+    @SuppressWarnings("unchecked")
+    default Criteria<T,T> buildCriteria(String filter, Boolean active) {
+
+        final Criteria<T, T> criteria = criteria();
+
+        if (StringUtils.isNotBlank(filter)) {
+            criteria.or(this.getRestrictions(filter));
+        }
+
+        if (active != null) {
+            criteria.eq(this.getEntityStateProperty(), active);
+        }
+
+        return criteria;
+    }
+
+    /**
      * Count the pages for pagination purpose
      * 
      * @param filter the filter to use in count process
@@ -79,47 +124,10 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
      */
     @SuppressWarnings("unchecked")
     default int countPages(String filter, Boolean active) {
-        
-        final Criteria<T, T> criteria = criteria().or(this.getRestrictions(filter));
-        
-        if (active != null) {
-            criteria.eq(this.getEntityStateProperty(), active);
-        }
-        
-        return criteria
+        return this.buildCriteria(filter, active)
                 .select(Long.class, count(PersistentEntity_.id))
                 .getSingleResult()
                 .intValue();
-    }
-    
-    /**
-     * Generic method to find all inactive entities
-     * 
-     * @return a list of all inactive entities
-     */
-    default List<T> findAllInactive() {
-        
-        final Criteria<T, T> criteria = criteria()
-                .eq(this.getEntityStateProperty(), false);
-
-        this.setOrder(criteria);
-                
-        return criteria.getResultList();
-    }
-    
-    /**
-     * Generic method to find all active entities
-     * 
-     * @return the list of all active entities
-     */
-    default List<T> findAllActive() {
-        
-        final Criteria<T, T> criteria = criteria()
-                .eq(this.getEntityStateProperty(), true);
-
-        this.setOrder(criteria);
-                
-        return criteria.getResultList();
     }
     
     /**
@@ -132,6 +140,18 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
     }
 
     /**
+     * Helper method to make a simple LIKE clause look in both ways (begin and end) of the sentence.
+     *
+     * Example: if the filter is 'John' the result after calling this method should be '%John%'
+     *
+     * @param filter the filter to put the wildcard '%'
+     * @return the string filter with 'any' style
+     */
+    default String likeAny(String filter) {
+        return "%" + filter + "%";
+    }
+
+    /**
      * This method should be implemented if the user needs to use the generic type search with the
      * {@link #findAllBy(java.lang.String, java.lang.Boolean, int, int)} method
      * 
@@ -140,7 +160,7 @@ public interface DefaultRepository<T extends PersistentEntity> extends EntityRep
      * @param filter the generic filter in {@link String} format
      * @return the criteria for the type of the repository
      */
-    default Criteria<T, T> getRestrictions(String filter) {
+    default Collection<Criteria<T, T>> getRestrictions(String filter) {
         throw new RuntimeException("getRestrictions not implemented for query");
     }
     

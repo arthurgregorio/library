@@ -7,6 +7,8 @@ import org.apache.deltaspike.data.api.Repository;
 import org.apache.deltaspike.data.api.criteria.Criteria;
 
 import javax.persistence.metamodel.SingularAttribute;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * The {@link Author} repository
@@ -36,9 +38,9 @@ public interface AuthorRepository extends DefaultRepository<Author> {
      * @return
      */
     @Override
-    default Criteria<Author, Author> getRestrictions(String filter) {
-        return criteria()
-                .likeIgnoreCase(Author_.name, filter)
-                .likeIgnoreCase(Author_.email, filter);
+    default Collection<Criteria<Author, Author>> getRestrictions(String filter) {
+        return List.of(
+                this.criteria().likeIgnoreCase(Author_.name, this.likeAny(filter)),
+                this.criteria().likeIgnoreCase(Author_.email, this.likeAny(filter)));
     }
 }
