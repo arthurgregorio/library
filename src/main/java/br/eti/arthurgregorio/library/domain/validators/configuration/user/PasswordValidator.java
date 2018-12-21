@@ -49,7 +49,7 @@ public class PasswordValidator implements UserSavingValidator, UserUpdatingValid
      */
     private void validateSavedUserPassword(User value) {
 
-        final Optional<User> optionalUser = this.userRepository.findOptionalByUsername(value.getUsername());
+        final Optional<User> optionalUser = this.userRepository.findByUsername(value.getUsername());
 
         if (value.hasChangedPasswords()) {
             if (!value.isPasswordValid()) {
@@ -62,7 +62,7 @@ public class PasswordValidator implements UserSavingValidator, UserUpdatingValid
     }
 
     /**
-     * Vaslidate the user password for unsaved users
+     * Validate the user password for unsaved users
      */
     private void validateUnsavedUserPassword(User value) {
         if (!value.isPasswordValid()) {

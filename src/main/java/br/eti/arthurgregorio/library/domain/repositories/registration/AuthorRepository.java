@@ -9,6 +9,7 @@ import org.apache.deltaspike.data.api.criteria.Criteria;
 import javax.persistence.metamodel.SingularAttribute;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The {@link Author} repository
@@ -20,6 +21,14 @@ import java.util.List;
  */
 @Repository
 public interface AuthorRepository extends DefaultRepository<Author> {
+
+    /**
+     * Find an {@link Author} by the e-mail address
+     *
+     * @param email the e-mail address to search
+     * @return an {@link Optional} of the {@link Author}
+     */
+    Optional<Author> findByEmail(String email);
 
     /**
      * {@inheritDoc}

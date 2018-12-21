@@ -30,7 +30,7 @@ public class UserMailValidator implements UserSavingValidator, UserUpdatingValid
     @Override
     public void validate(User value) {
         
-        final Optional<User> userOptional = this.userRepository.findOptionalByEmail(value.getEmail());
+        final Optional<User> userOptional = this.userRepository.findByEmail(value.getEmail());
         
         if (userOptional.isPresent()) {
             

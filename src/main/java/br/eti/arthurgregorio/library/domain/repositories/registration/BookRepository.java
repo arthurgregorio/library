@@ -9,6 +9,7 @@ import org.apache.deltaspike.data.api.criteria.Criteria;
 import javax.persistence.metamodel.SingularAttribute;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The {@link Book} repository
@@ -20,6 +21,14 @@ import java.util.List;
  */
 @Repository
 public interface BookRepository extends DefaultRepository<Book> {
+
+    /**
+     * Find a {@link Book} by the ISBN
+     *
+     * @param isbn to search for
+     * @return an {@link Optional} of the {@link Book}
+     */
+    Optional<Book> findByISBN(String isbn);
 
     /**
      * {@inheritDoc}
