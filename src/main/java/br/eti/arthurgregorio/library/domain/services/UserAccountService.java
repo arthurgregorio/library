@@ -210,7 +210,7 @@ public class UserAccountService implements UserDetailsProvider {
      */
     @Override
     public Optional<UserDetails> findUserDetailsByUsername(String username) {
-        final Optional<User> user = this.userRepository.findOptionalByUsername(username);
+        final Optional<User> user = this.userRepository.findByUsername(username);
         return Optional.ofNullable(user.orElse(null));
     }
 }

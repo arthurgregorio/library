@@ -99,7 +99,7 @@ public class DevelopmentInitializer implements EnvironmentInitializer {
     private void createDefaultGroup() {
 
         final Group group = this.groupRepository
-                .findOptionalByName("Administradores")
+                .findByName("Administradores")
                 .orElseGet(() -> new Group("Administradores"));
 
         if (!group.isSaved()) {
@@ -118,14 +118,14 @@ public class DevelopmentInitializer implements EnvironmentInitializer {
     private void createDefaultUser() {
 
         final Optional<User> optionalUser =
-                this.userRepository.findOptionalByUsername("admin");
+                this.userRepository.findByUsername("admin");
 
         if (!optionalUser.isPresent()) {
             
             this.logger.info("Creating default user");
 
             final Group group = this.groupRepository
-                    .findOptionalByName("Administradores")
+                    .findByName("Administradores")
                     .orElseThrow(() -> new IllegalStateException("Can't find default administrators group"));
             
             final User user = new User();

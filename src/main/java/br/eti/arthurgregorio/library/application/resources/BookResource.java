@@ -94,7 +94,7 @@ public class BookResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Book findById(@PathParam("id") long id) {
-        return this.bookRepository.findOptionalBy(id)
+        return this.bookRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("error.book.cant-find-book", id));
     }
 }

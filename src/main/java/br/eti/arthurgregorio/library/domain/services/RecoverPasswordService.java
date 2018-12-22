@@ -49,7 +49,7 @@ public class RecoverPasswordService {
     public void recover(String email) {
 
         final User user = this.userRepository
-                .findOptionalByEmailAndStoreType(email, StoreType.LOCAL)
+                .findByEmailAndStoreType(email, StoreType.LOCAL)
                 .orElseThrow(() -> new BusinessLogicException("error.recover-password.user-not-found"));
 
         final String newPassword = CodeGenerator.alphanumeric(8);
