@@ -2,6 +2,7 @@ package br.eti.arthurgregorio.library.infrastructure.initializer;
 
 import org.apache.deltaspike.core.api.exclude.Exclude;
 import org.flywaydb.core.Flyway;
+import org.flywaydb.core.api.FlywayException;
 import org.flywaydb.core.api.MigrationInfo;
 import org.slf4j.Logger;
 
@@ -60,8 +61,11 @@ public class ProductionInitializer implements EnvironmentInitializer {
             this.logger.info("Current version: {}", migrationInfo.getVersion() + " : " + migrationInfo.getDescription());
         }
 
-        flyway.migrate();
-
-        this.logger.info("Successfully migrated to version: {}", flyway.info().current().getVersion());
+        try {
+            flyway.migrate();
+            this.logger.info("Successfully migrated to version: {}", flyway.info().current().getVersion());
+        } catch (FlywayException ex) {
+            this.logger.info("Migrations failed!", ex);
+        }
     }
 }
