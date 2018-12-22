@@ -1,7 +1,7 @@
 package br.eti.arthurgregorio.library.infrastructure.jsf.exception;
 
-import br.eti.arthurgregorio.library.infrastructure.i18n.MessageSource;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
+import br.eti.arthurgregorio.library.infrastructure.i18n.MessageSource;
 import br.eti.arthurgregorio.library.infrastructure.jsf.FacesUtils;
 import org.omnifaces.util.Exceptions;
 import org.omnifaces.util.Messages;

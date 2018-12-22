@@ -29,7 +29,8 @@ public class CustomExceptionHandlerWrapper extends ExceptionHandlerWrapper {
     /**
      * Constructor...
      *
-     * @param exceptionHandler the wrapped handler
+     * @param exceptionHandler the super {@link ExceptionHandler}
+     * @param customHandlers a list of {@link CustomExceptionHandler}
      */
     CustomExceptionHandlerWrapper(ExceptionHandler exceptionHandler, Set<CustomExceptionHandler> customHandlers) {
         super(exceptionHandler);

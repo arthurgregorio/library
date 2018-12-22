@@ -31,7 +31,7 @@ public abstract class FormBean<T extends PersistentEntity> extends AbstractBean 
     /**
      * Create the bean and initialize the default data
      */
-    public FormBean() {
+    FormBean() {
         this.navigation = NavigationManager.getInstance();
         this.initializeNavigationManager();
     }

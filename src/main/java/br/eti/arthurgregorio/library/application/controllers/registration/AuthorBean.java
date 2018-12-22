@@ -1,8 +1,8 @@
 package br.eti.arthurgregorio.library.application.controllers.registration;
 
-import br.eti.arthurgregorio.library.application.controllers.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.Page;
 import br.eti.arthurgregorio.library.application.controllers.LazyFormBean;
+import br.eti.arthurgregorio.library.application.controllers.ViewState;
 import br.eti.arthurgregorio.library.domain.model.entities.registration.Author;
 import br.eti.arthurgregorio.library.domain.repositories.registration.AuthorRepository;
 import org.primefaces.model.SortOrder;

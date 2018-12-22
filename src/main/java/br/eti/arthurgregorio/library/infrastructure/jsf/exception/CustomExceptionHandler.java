@@ -15,6 +15,7 @@ public interface CustomExceptionHandler<T extends Throwable> {
     /**
      * This is the method responsible to handle the exception itself
      *
+     * @param context current {@link FacesContext}
      * @param exception the exception to be handled
      */
     void handle(FacesContext context, T exception);

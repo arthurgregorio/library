@@ -1,8 +1,8 @@
 package br.eti.arthurgregorio.library.application.controllers.configuration;
 
-import br.eti.arthurgregorio.library.application.controllers.ViewState;
 import br.eti.arthurgregorio.library.application.components.table.Page;
 import br.eti.arthurgregorio.library.application.controllers.LazyFormBean;
+import br.eti.arthurgregorio.library.application.controllers.ViewState;
 import br.eti.arthurgregorio.library.domain.model.entities.configuration.Authorization;
 import br.eti.arthurgregorio.library.domain.model.entities.configuration.Grant;
 import br.eti.arthurgregorio.library.domain.model.entities.configuration.Group;

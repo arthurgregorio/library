@@ -61,7 +61,8 @@
                                 <p:inputText id="inIsbn"
                                              maxlength="90"
                                              styleClass="form-control"
-                                             value="#{bookBean.value.isbn}" />
+                                             value="#{bookBean.value.isbn}"
+                                             readonly="#{bookBean.viewState.editing}"/>
                             </div>
                             <div class="form-group col-md-8">
                                 <p:outputLabel for="inTitle"

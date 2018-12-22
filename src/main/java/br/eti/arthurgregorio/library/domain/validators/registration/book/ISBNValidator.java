@@ -7,6 +7,7 @@ import br.eti.arthurgregorio.library.domain.repositories.registration.BookReposi
 import javax.inject.Inject;
 
 /**
+ * The {@link Book} ISBN validator
  *
  * @author Arthur Gregorio
  *
