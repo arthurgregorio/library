@@ -9,7 +9,7 @@
     <packaging>war</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
-    <url>http://webbudget.com.br/</url>
+    <url>https://github.com/arthurgregorio/library</url>
     <description>
         Simple app to show how to work with Jee standard frameworks
     </description>
