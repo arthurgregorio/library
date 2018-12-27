@@ -5,8 +5,12 @@ import br.eti.arthurgregorio.library.application.controllers.LazyFormBean;
 import br.eti.arthurgregorio.library.application.controllers.ViewState;
 import br.eti.arthurgregorio.library.domain.model.entities.registration.Author;
 import br.eti.arthurgregorio.library.domain.repositories.registration.AuthorRepository;
+import br.eti.arthurgregorio.library.domain.validators.registration.author.AuthorSavingLogic;
+import br.eti.arthurgregorio.library.domain.validators.registration.author.AuthorUpdatingLogic;
 import org.primefaces.model.SortOrder;
 
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -28,6 +32,13 @@ public class AuthorBean extends LazyFormBean<Author> {
 
     @Inject
     private AuthorRepository authorRepository;
+
+    @Any
+    @Inject
+    private Instance<AuthorSavingLogic> authorSavingLogic;
+    @Any
+    @Inject
+    private Instance<AuthorUpdatingLogic> authorUpdatingLogic;
 
     /**
      * {@inheritDoc}
@@ -82,6 +93,7 @@ public class AuthorBean extends LazyFormBean<Author> {
     @Override
     @Transactional
     public void doSave() {
+        this.authorSavingLogic.forEach(logic -> logic.run(this.value));
         this.authorRepository.save(this.value);
         this.value = new Author();
         this.addInfo(true, "saved");
@@ -93,6 +105,7 @@ public class AuthorBean extends LazyFormBean<Author> {
     @Override
     @Transactional
     public void doUpdate() {
+        this.authorUpdatingLogic.forEach(logic -> logic.run(this.value));
         this.authorRepository.save(this.value);
         this.addInfo(true, "updated");
     }

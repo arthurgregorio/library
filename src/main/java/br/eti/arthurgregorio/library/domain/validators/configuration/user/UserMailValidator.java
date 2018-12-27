@@ -3,13 +3,13 @@ package br.eti.arthurgregorio.library.domain.validators.configuration.user;
 import br.eti.arthurgregorio.library.domain.model.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
-import br.eti.arthurgregorio.library.domain.validators.BusinessValidator;
+import br.eti.arthurgregorio.library.domain.validators.BusinessLogic;
 import java.util.Optional;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
 /**
- * {@link BusinessValidator} for the user e-mail validation logic
+ * {@link BusinessLogic} for the user e-mail validation logic
  *
  * @author Arthur Gregorio
  *
@@ -17,7 +17,7 @@ import javax.inject.Inject;
  * @since 1.3.1, 09/08/2018
  */
 @Dependent
-public class UserMailValidator implements UserSavingValidator, UserUpdatingValidator {
+public class UserMailValidator implements UserSavingLogic, UserUpdatingLogic {
 
     @Inject
     private UserRepository userRepository;
@@ -28,7 +28,7 @@ public class UserMailValidator implements UserSavingValidator, UserUpdatingValid
      * @param value 
      */
     @Override
-    public void validate(User value) {
+    public void run(User value) {
         
         final Optional<User> userOptional = this.userRepository.findByEmail(value.getEmail());
         

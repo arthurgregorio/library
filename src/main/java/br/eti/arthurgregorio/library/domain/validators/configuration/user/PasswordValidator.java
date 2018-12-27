@@ -4,7 +4,7 @@ import br.eti.arthurgregorio.library.domain.model.entities.configuration.StoreTy
 import br.eti.arthurgregorio.library.domain.model.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
-import br.eti.arthurgregorio.library.domain.validators.BusinessValidator;
+import br.eti.arthurgregorio.library.domain.validators.BusinessLogic;
 import br.eti.arthurgregorio.shiroee.auth.PasswordEncoder;
 
 import javax.enterprise.context.Dependent;
@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import java.util.Optional;
 
 /**
- * {@link BusinessValidator} for the user password validation logic
+ * {@link BusinessLogic} for the user password validation logic
  *
  * @author Arthur Gregorio
  *
@@ -20,7 +20,7 @@ import java.util.Optional;
  * @since 1.3.1, 09/08/2018
  */
 @Dependent
-public class PasswordValidator implements UserSavingValidator, UserUpdatingValidator {
+public class PasswordValidator implements UserSavingLogic, UserUpdatingLogic {
 
     @Inject
     private UserRepository userRepository;
@@ -34,7 +34,7 @@ public class PasswordValidator implements UserSavingValidator, UserUpdatingValid
      * @param value
      */
     @Override
-    public void validate(User value) {
+    public void run(User value) {
         if (value.getStoreType() == StoreType.LOCAL) {
             if (value.isSaved()) {
                 this.validateSavedUserPassword(value);

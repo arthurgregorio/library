@@ -7,9 +7,12 @@ import br.eti.arthurgregorio.library.domain.model.entities.registration.Author;
 import br.eti.arthurgregorio.library.domain.model.entities.registration.Book;
 import br.eti.arthurgregorio.library.domain.repositories.registration.AuthorRepository;
 import br.eti.arthurgregorio.library.domain.repositories.registration.BookRepository;
+import br.eti.arthurgregorio.library.domain.validators.registration.book.BookSavingLogic;
 import lombok.Getter;
 import org.primefaces.model.SortOrder;
 
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -37,6 +40,10 @@ public class BookBean extends LazyFormBean<Book> {
     private BookRepository bookRepository;
     @Inject
     private AuthorRepository authorRepository;
+
+    @Any
+    @Inject
+    private Instance<BookSavingLogic> bookSavingLogic;
 
     /**
      * {@inheritDoc}
@@ -96,6 +103,7 @@ public class BookBean extends LazyFormBean<Book> {
     @Override
     @Transactional
     public void doSave() {
+        this.bookSavingLogic.forEach(logic -> logic.run(this.value));
         this.bookRepository.save(this.value);
         this.value = new Book();
         this.addInfo(true, "saved");

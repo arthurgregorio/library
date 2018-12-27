@@ -2,12 +2,12 @@ package br.eti.arthurgregorio.library.domain.validators.configuration.group;
 
 import br.eti.arthurgregorio.library.domain.model.entities.configuration.Group;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
-import br.eti.arthurgregorio.library.domain.validators.BusinessValidator;
+import br.eti.arthurgregorio.library.domain.validators.BusinessLogic;
 
 import javax.enterprise.context.Dependent;
 
 /**
- * {@link BusinessValidator} to validate if you are deleting the admin group
+ * {@link BusinessLogic} to run if you are deleting the admin group
  *
  * @author Arthur Gregorio
  *
@@ -15,7 +15,7 @@ import javax.enterprise.context.Dependent;
  * @since 1.3.1, 09/08/2018
  */
 @Dependent
-public class DeleteAdminGroupValidator implements GroupDeletingValidator {
+public class DeleteAdminGroupValidator implements GroupDeletingLogic {
 
     /**
      * {@inheritDoc }
@@ -23,7 +23,7 @@ public class DeleteAdminGroupValidator implements GroupDeletingValidator {
      * @param value
      */
     @Override
-    public void validate(Group value) {
+    public void run(Group value) {
         if (value.isAdministrator()) {
             throw new BusinessLogicException("error.group.delete-administrator");
         }        

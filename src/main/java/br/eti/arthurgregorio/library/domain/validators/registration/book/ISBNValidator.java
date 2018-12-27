@@ -14,7 +14,7 @@ import javax.inject.Inject;
  * @version 1.0.0
  * @since 1.0.0, 18/12/2018
  */
-public class ISBNValidator implements BookSavingValidator {
+public class ISBNValidator implements BookSavingLogic {
 
     @Inject
     private BookRepository bookRepository;
@@ -25,7 +25,7 @@ public class ISBNValidator implements BookSavingValidator {
      * @param value
      */
     @Override
-    public void validate(Book value) {
+    public void run(Book value) {
         this.bookRepository.findByISBN(value.getIsbn()).ifPresent(book -> {
             throw new BusinessLogicException("error.book.isbn-duplicated", book.getIsbn());
         });

@@ -2,14 +2,14 @@ package br.eti.arthurgregorio.library.domain.validators.configuration.user;
 
 import br.eti.arthurgregorio.library.domain.model.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
-import br.eti.arthurgregorio.library.domain.validators.BusinessValidator;
+import br.eti.arthurgregorio.library.domain.validators.BusinessLogic;
 import br.eti.arthurgregorio.library.infrastructure.cdi.qualifier.AuthenticatedUser;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
 /**
- * {@link BusinessValidator} to validate if you are deleting the admin
+ * {@link BusinessLogic} to run if you are deleting the admin
  *
  * @author Arthur Gregorio
  *
@@ -17,7 +17,7 @@ import javax.inject.Inject;
  * @since 1.3.1, 09/08/2018
  */
 @Dependent
-public class DeleteAdminUserValidator implements UserDeletingValidator {
+public class DeleteAdminUserValidator implements UserDeletingLogic {
 
     @Inject
     @AuthenticatedUser
@@ -29,7 +29,7 @@ public class DeleteAdminUserValidator implements UserDeletingValidator {
      * @param value
      */
     @Override
-    public void validate(User value) {
+    public void run(User value) {
         
         final String principalUsername = this.principal.getUsername();
         

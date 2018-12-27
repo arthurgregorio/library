@@ -4,10 +4,10 @@ import br.eti.arthurgregorio.library.application.controllers.ProfileBean.Passwor
 import br.eti.arthurgregorio.library.domain.model.entities.configuration.*;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.*;
-import br.eti.arthurgregorio.library.domain.validators.configuration.group.GroupDeletingValidator;
-import br.eti.arthurgregorio.library.domain.validators.configuration.user.UserDeletingValidator;
-import br.eti.arthurgregorio.library.domain.validators.configuration.user.UserSavingValidator;
-import br.eti.arthurgregorio.library.domain.validators.configuration.user.UserUpdatingValidator;
+import br.eti.arthurgregorio.library.domain.validators.configuration.group.GroupDeletingLogic;
+import br.eti.arthurgregorio.library.domain.validators.configuration.user.UserDeletingLogic;
+import br.eti.arthurgregorio.library.domain.validators.configuration.user.UserSavingLogic;
+import br.eti.arthurgregorio.library.domain.validators.configuration.user.UserUpdatingLogic;
 import br.eti.arthurgregorio.shiroee.auth.PasswordEncoder;
 import br.eti.arthurgregorio.shiroee.config.jdbc.UserDetails;
 import br.eti.arthurgregorio.shiroee.config.jdbc.UserDetailsProvider;
@@ -47,17 +47,17 @@ public class UserAccountService implements UserDetailsProvider {
 
     @Any
     @Inject
-    private Instance<UserSavingValidator> userSavingValidators;
+    private Instance<UserSavingLogic> userSavingValidators;
     @Any
     @Inject
-    private Instance<UserUpdatingValidator> userUpdatingValidators;
+    private Instance<UserUpdatingLogic> userUpdatingValidators;
     @Any
     @Inject
-    private Instance<UserDeletingValidator> userDeletingValidators;
+    private Instance<UserDeletingLogic> userDeletingValidators;
 
     @Any
     @Inject
-    private Instance<GroupDeletingValidator> groupDeletingValidators;
+    private Instance<GroupDeletingLogic> groupDeletingValidators;
 
     /**
      * Persist a new {@link User}
@@ -67,7 +67,7 @@ public class UserAccountService implements UserDetailsProvider {
      */
     @Transactional
     public User save(User user) {
-        this.userSavingValidators.forEach(validator -> validator.validate(user));
+        this.userSavingValidators.forEach(validator -> validator.run(user));
         return this.userRepository.save(user);
     }
 
@@ -78,7 +78,7 @@ public class UserAccountService implements UserDetailsProvider {
      */
     @Transactional
     public void update(User user) {
-        this.userUpdatingValidators.forEach(validator -> validator.validate(user));
+        this.userUpdatingValidators.forEach(validator -> validator.run(user));
         this.userRepository.saveAndFlushAndRefresh(user);
     }
 
@@ -90,7 +90,7 @@ public class UserAccountService implements UserDetailsProvider {
     @Transactional
     public void delete(User user) {
         this.userDeletingValidators.forEach(validator -> {
-            validator.validate(user);
+            validator.run(user);
         });
         this.userRepository.attachAndRemove(user);
     }
@@ -187,7 +187,7 @@ public class UserAccountService implements UserDetailsProvider {
      */
     @Transactional
     public void delete(Group group) {
-        this.groupDeletingValidators.forEach(validator -> validator.validate(group));
+        this.groupDeletingValidators.forEach(validator -> validator.run(group));
         this.groupRepository.attachAndRemove(group);
     }
 

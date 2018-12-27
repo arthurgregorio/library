@@ -14,7 +14,7 @@ import javax.inject.Inject;
  * @version 1.0.0
  * @since 1.0.0, 18/12/2018
  */
-public class AuthorEmailValidator implements AuthorSavingValidator, AuthorUpdatingValidator {
+public class AuthorEmailValidator implements AuthorSavingLogic, AuthorUpdatingLogic {
 
     @Inject
     private AuthorRepository authorRepository;
@@ -25,7 +25,7 @@ public class AuthorEmailValidator implements AuthorSavingValidator, AuthorUpdati
      * @param value
      */
     @Override
-    public void validate(Author value) {
+    public void run(Author value) {
 
         if (value.isSaved()) {
             this.validateSaved(value);
@@ -35,9 +35,9 @@ public class AuthorEmailValidator implements AuthorSavingValidator, AuthorUpdati
     }
 
     /**
-     * If the {@link Author} is already saved, use this method to validate
+     * If the {@link Author} is already saved, use this method to run
      *
-     * @param value the {@link Author} to validate
+     * @param value the {@link Author} to run
      */
     private void validateSaved(Author value) {
         this.authorRepository.findByEmail(value.getEmail()).ifPresent(author -> {
@@ -48,9 +48,9 @@ public class AuthorEmailValidator implements AuthorSavingValidator, AuthorUpdati
     }
 
     /**
-     * If the {@link Author} is not saved, use this method to validate
+     * If the {@link Author} is not saved, use this method to run
      *
-     * @param value the {@link Author} to validate
+     * @param value the {@link Author} to run
      */
     private void validateNotSaved(Author value) {
         this.authorRepository.findByEmail(value.getEmail())
