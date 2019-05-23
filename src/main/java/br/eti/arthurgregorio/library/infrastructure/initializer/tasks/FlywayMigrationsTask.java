@@ -41,7 +41,7 @@ public class FlywayMigrationsTask implements InitializationTask {
     public void run() {
 
         checkNotNull(this.dataSource, "No datasource found for migrations");
-1
+
         final Flyway flyway = Flyway.configure()
                 .dataSource(this.dataSource)
                 .locations("db/migrations")
