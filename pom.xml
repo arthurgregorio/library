@@ -192,24 +192,24 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.6</version>
+            <version>1.18.8</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
+            <version>3.9</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>27.0.1-jre</version>
+            <version>27.1-jre</version>
         </dependency>
 
         <!--mustache-->
         <dependency>
             <groupId>com.github.spullara.mustache.java</groupId>
             <artifactId>compiler</artifactId>
-            <version>0.9.5</version>
+            <version>0.9.6</version>
         </dependency>
 
         <!--shiro-ee-->
@@ -231,7 +231,7 @@
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-            <version>2.3.0</version>
+            <version>2.3.1</version>
         </dependency>
     </dependencies>
 
@@ -247,10 +247,6 @@
                 <project.stage>Development</project.stage>
                 <orm.show_sql>true</orm.show_sql>
                 <orm.ddl_auto>update</orm.ddl_auto>
-                <ws.base-url>https://my-webservice-server.com</ws.base-url>
-                <ws.username>admin</ws.username>
-                <ws.password>admin</ws.password>
-                <ws.client-name>admin</ws.client-name>
                 <ldap.enabled>false</ldap.enabled>
                 <ldap.url>ldap://localhost</ldap.url>
                 <ldap.baseDn>OU=Users,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
@@ -266,10 +262,6 @@
                 <project.stage>SystemTest</project.stage>
                 <orm.show_sql>true</orm.show_sql>
                 <orm.ddl_auto>none</orm.ddl_auto>
-                <ws.base-url>https://my-webservice-server.com</ws.base-url>
-                <ws.username>admin</ws.username>
-                <ws.password>admin</ws.password>
-                <ws.client-name>admin</ws.client-name>
                 <ldap.enabled>false</ldap.enabled>
                 <ldap.url>ldap://localhost</ldap.url>
                 <ldap.baseDn>OU=Users,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
@@ -285,10 +277,6 @@
                 <project.stage>Production</project.stage>
                 <orm.show_sql>false</orm.show_sql>
                 <orm.ddl_auto>none</orm.ddl_auto>
-                <ws.base-url>https://my-webservice-server.com</ws.base-url>
-                <ws.username>admin</ws.username>
-                <ws.password>admin</ws.password>
-                <ws.client-name>admin</ws.client-name>
                 <ldap.enabled>false</ldap.enabled>
                 <ldap.url>ldap://localhost</ldap.url>
                 <ldap.baseDn>OU=Users,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
@@ -323,7 +311,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>11</source>
                     <target>11</target>
