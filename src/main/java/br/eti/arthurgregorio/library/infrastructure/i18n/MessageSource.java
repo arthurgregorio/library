@@ -3,12 +3,7 @@ package br.eti.arthurgregorio.library.infrastructure.i18n;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.faces.context.FacesContext;
-import java.text.MessageFormat;
 import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * This is a helper class to obtain the i18n messages through the given key
@@ -38,7 +33,7 @@ public final class MessageSource {
         try {
             return bundles.get(key);
         } catch (MissingResourceException | NullPointerException ex) {
-            logger.error("No message found for key {0}", key);
+            logger.error("No message found for key {}", key);
             return "$$" + key + "$$";
         }
     }
@@ -54,7 +49,7 @@ public final class MessageSource {
         try {
             return bundles.get(key, parameters);
         } catch (MissingResourceException | NullPointerException ex) {
-            logger.error("No message found for key {0}", key);
+            logger.error("No message found for key {}", key);
             return "$$" + key + "$$";
         }
     }

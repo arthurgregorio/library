@@ -27,6 +27,15 @@ public final class MultiResourceBundle {
     }
 
     /**
+     * Static factory method to get instances of this class
+     *
+     * @param bundles the bundles to be loaded
+     */
+    public static MultiResourceBundle combine(String... bundles) {
+        return new MultiResourceBundle(bundles);
+    }
+
+    /**
      * Load the bundles by the name
      *
      * @param bundles the bundles to load
@@ -79,14 +88,5 @@ public final class MultiResourceBundle {
      */
     public String get(String key, Object... parameters) {
         return MessageFormat.format(this.get(key), parameters);
-    }
-
-    /**
-     * Static factory method to get instances of this class
-     *
-     * @param bundles the bundles to be loaded
-     */
-    public static MultiResourceBundle combine(String... bundles) {
-        return new MultiResourceBundle(bundles);
     }
 }

@@ -11,6 +11,4 @@ import javax.enterprise.context.ApplicationScoped;
  * @since 2.0.0, 23/10/2018
  */
 @ApplicationScoped
-public class FeignClientProducer {
-
-}
+public class FeignClientProducer { }

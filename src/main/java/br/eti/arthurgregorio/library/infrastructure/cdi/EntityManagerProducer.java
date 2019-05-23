@@ -33,7 +33,7 @@ public class EntityManagerProducer {
 
     /**
      * The dispose method to close the instances os the {@link EntityManager}
-     * 
+     *
      * @param entityManager the entity manager to be closed
      */
     void close(@Disposes EntityManager entityManager) {
