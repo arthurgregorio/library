@@ -1,7 +1,7 @@
 package br.eti.arthurgregorio.library.domain.validators.configuration.user;
 
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.User;
-import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
+import br.eti.arthurgregorio.library.domain.entities.configuration.User;
+import br.eti.arthurgregorio.library.domain.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
 import br.eti.arthurgregorio.library.domain.validators.BusinessLogic;
 

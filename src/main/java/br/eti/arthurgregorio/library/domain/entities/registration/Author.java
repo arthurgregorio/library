@@ -1,6 +1,6 @@
-package br.eti.arthurgregorio.library.domain.model.entities.registration;
+package br.eti.arthurgregorio.library.domain.entities.registration;
 
-import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity;
+import br.eti.arthurgregorio.library.domain.entities.PersistentEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

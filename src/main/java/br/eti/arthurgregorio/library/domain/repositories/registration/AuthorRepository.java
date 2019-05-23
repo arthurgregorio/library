@@ -1,8 +1,8 @@
 package br.eti.arthurgregorio.library.domain.repositories.registration;
 
-import br.eti.arthurgregorio.library.domain.model.entities.registration.Author;
-import br.eti.arthurgregorio.library.domain.model.entities.registration.Author_;
-import br.eti.arthurgregorio.library.domain.repositories.DefaultRepository;
+import br.eti.arthurgregorio.library.domain.entities.registration.Author;
+import br.eti.arthurgregorio.library.domain.entities.registration.Author_;
+import br.eti.arthurgregorio.library.domain.repositories.LazyDefaultRepository;
 import org.apache.deltaspike.data.api.Repository;
 import org.apache.deltaspike.data.api.criteria.Criteria;
 
@@ -20,7 +20,7 @@ import java.util.Optional;
  * @since 2.0.0, 14/11/2018
  */
 @Repository
-public interface AuthorRepository extends DefaultRepository<Author> {
+public interface AuthorRepository extends LazyDefaultRepository<Author> {
 
     /**
      * Find an {@link Author} by the e-mail address

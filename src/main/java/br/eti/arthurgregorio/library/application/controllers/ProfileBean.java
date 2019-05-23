@@ -1,8 +1,8 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.Profile;
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.ThemeType;
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.User;
+import br.eti.arthurgregorio.library.domain.entities.configuration.Profile;
+import br.eti.arthurgregorio.library.domain.entities.configuration.ThemeType;
+import br.eti.arthurgregorio.library.domain.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.services.UserAccountService;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;

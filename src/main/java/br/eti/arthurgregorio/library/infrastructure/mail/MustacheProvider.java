@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.infrastructure.mail;
 
-import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
+import br.eti.arthurgregorio.library.domain.exception.BusinessLogicException;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;

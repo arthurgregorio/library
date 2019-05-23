@@ -1,7 +1,7 @@
 package br.eti.arthurgregorio.library.application.resources;
 
-import br.eti.arthurgregorio.library.domain.model.entities.registration.Book;
-import br.eti.arthurgregorio.library.domain.model.exception.ResourceNotFoundException;
+import br.eti.arthurgregorio.library.domain.entities.registration.Book;
+import br.eti.arthurgregorio.library.domain.exception.ResourceNotFoundException;
 import br.eti.arthurgregorio.library.domain.repositories.registration.BookRepository;
 import br.eti.arthurgregorio.library.infrastructure.jaxrs.ResponseBuilder;
 
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * The {@link Book} REST endpoint
  *
- * @book Arthur Gregorio
+ * @author Arthur Gregorio
  *
  * @version 1.0.0
  * @since 2.0.0, 14/11/2018

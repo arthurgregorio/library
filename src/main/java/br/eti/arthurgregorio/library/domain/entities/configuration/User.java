@@ -1,6 +1,6 @@
-package br.eti.arthurgregorio.library.domain.model.entities.configuration;
+package br.eti.arthurgregorio.library.domain.entities.configuration;
 
-import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity;
+import br.eti.arthurgregorio.library.domain.entities.PersistentEntity;
 import br.eti.arthurgregorio.shiroee.config.jdbc.UserDetails;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

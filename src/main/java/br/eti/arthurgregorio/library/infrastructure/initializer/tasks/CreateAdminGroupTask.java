@@ -1,8 +1,8 @@
 package br.eti.arthurgregorio.library.infrastructure.initializer.tasks;
 
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.Authorization;
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.Grant;
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.Group;
+import br.eti.arthurgregorio.library.domain.entities.configuration.Authorization;
+import br.eti.arthurgregorio.library.domain.entities.configuration.Grant;
+import br.eti.arthurgregorio.library.domain.entities.configuration.Group;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.AuthorizationRepository;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.GrantRepository;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.GroupRepository;

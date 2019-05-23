@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.infrastructure.jaxrs;
 
-import br.eti.arthurgregorio.library.domain.model.exception.WebserviceException;
+import br.eti.arthurgregorio.library.domain.exception.WebserviceException;
 import br.eti.arthurgregorio.library.infrastructure.i18n.MessageSource;
 import lombok.Getter;
 import lombok.Setter;

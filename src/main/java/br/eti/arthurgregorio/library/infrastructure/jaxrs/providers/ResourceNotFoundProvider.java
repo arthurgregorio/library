@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.infrastructure.jaxrs.providers;
 
-import br.eti.arthurgregorio.library.domain.model.exception.ResourceNotFoundException;
+import br.eti.arthurgregorio.library.domain.exception.ResourceNotFoundException;
 import br.eti.arthurgregorio.library.infrastructure.jaxrs.ErrorMessage;
 
 import javax.ws.rs.core.MediaType;

@@ -1,7 +1,7 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.Profile;
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.User;
+import br.eti.arthurgregorio.library.domain.entities.configuration.Profile;
+import br.eti.arthurgregorio.library.domain.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -16,8 +16,7 @@ import org.apache.shiro.subject.Subject;
 import br.eti.arthurgregorio.library.infrastructure.cdi.qualifier.AuthenticatedUser;
 
 /**
- * The controller of the session bean. This class hold the current user on the
- * application and his data
+ * The controller of the session bean. This class hold the current user on the application and his data
  * 
  * @author Arthur Gregorio
  *

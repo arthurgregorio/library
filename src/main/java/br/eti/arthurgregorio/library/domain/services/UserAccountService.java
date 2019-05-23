@@ -1,8 +1,8 @@
 package br.eti.arthurgregorio.library.domain.services;
 
 import br.eti.arthurgregorio.library.application.controllers.ProfileBean.PasswordChangeDTO;
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.*;
-import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
+import br.eti.arthurgregorio.library.domain.entities.configuration.*;
+import br.eti.arthurgregorio.library.domain.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.*;
 import br.eti.arthurgregorio.library.domain.validators.configuration.group.GroupDeletingLogic;
 import br.eti.arthurgregorio.library.domain.validators.configuration.user.UserDeletingLogic;

@@ -1,9 +1,9 @@
 package br.eti.arthurgregorio.library.domain.repositories.configuration;
 
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.StoreType;
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.User;
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.User_;
-import br.eti.arthurgregorio.library.domain.repositories.DefaultRepository;
+import br.eti.arthurgregorio.library.domain.entities.configuration.StoreType;
+import br.eti.arthurgregorio.library.domain.entities.configuration.User;
+import br.eti.arthurgregorio.library.domain.entities.configuration.User_;
+import br.eti.arthurgregorio.library.domain.repositories.LazyDefaultRepository;
 import org.apache.deltaspike.data.api.Repository;
 import org.apache.deltaspike.data.api.criteria.Criteria;
 
@@ -21,7 +21,7 @@ import java.util.Optional;
  * @since 1.0.0, 28/12/2017
  */
 @Repository
-public interface UserRepository extends DefaultRepository<User> {
+public interface UserRepository extends LazyDefaultRepository<User> {
 
     /**
      * Find an {@link User} by the email address

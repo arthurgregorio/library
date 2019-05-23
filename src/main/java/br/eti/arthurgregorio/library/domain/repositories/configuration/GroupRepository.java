@@ -1,8 +1,8 @@
 package br.eti.arthurgregorio.library.domain.repositories.configuration;
 
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.Group;
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.Group_;
-import br.eti.arthurgregorio.library.domain.repositories.DefaultRepository;
+import br.eti.arthurgregorio.library.domain.entities.configuration.Group;
+import br.eti.arthurgregorio.library.domain.entities.configuration.Group_;
+import br.eti.arthurgregorio.library.domain.repositories.LazyDefaultRepository;
 import org.apache.deltaspike.data.api.Repository;
 import org.apache.deltaspike.data.api.criteria.Criteria;
 
@@ -20,7 +20,7 @@ import java.util.Optional;
  * @since 1.0.0, 28/12/2017
  */
 @Repository
-public interface GroupRepository extends DefaultRepository<Group> {
+public interface GroupRepository extends LazyDefaultRepository<Group> {
 
     /**
      * Find a {@link Group} by the name
@@ -32,29 +32,29 @@ public interface GroupRepository extends DefaultRepository<Group> {
 
     /**
      * {@inheritDoc }
-     * 
+     *
      * @param filter
-     * @return 
+     * @return
      */
     @Override
     default Collection<Criteria<Group, Group>> getRestrictions(String filter) {
         return List.of(this.criteria().likeIgnoreCase(Group_.name, this.likeAny(filter)));
     }
-    
+
     /**
      * {@inheritDoc }
-     * 
-     * @return 
+     *
+     * @return
      */
     @Override
     default SingularAttribute<Group, Boolean> getEntityStateProperty() {
         return Group_.active;
     }
-    
+
     /**
      * {@inheritDoc }
-     * 
-     * @param criteria 
+     *
+     * @param criteria
      */
     @Override
     default void setOrder(Criteria<Group, Group> criteria) {

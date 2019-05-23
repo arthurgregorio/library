@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
-import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity;
+import br.eti.arthurgregorio.library.domain.entities.PersistentEntity;
 import lombok.Getter;
 import lombok.Setter;
 

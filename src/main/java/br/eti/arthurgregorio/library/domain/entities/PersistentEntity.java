@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.domain.model.entities;
+package br.eti.arthurgregorio.library.domain.entities;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -71,13 +71,5 @@ public abstract class PersistentEntity implements IPersistentEntity<Long> {
     @Override
     public boolean isSaved() {
         return this.id != null && this.id != 0;
-    }
-
-    /**
-     * The default implementation for this method throws a {@link UnsupportedOperationException}
-     */
-    @Override
-    public void validate() {
-        throw new UnsupportedOperationException("Not supported yet");
     }
 }

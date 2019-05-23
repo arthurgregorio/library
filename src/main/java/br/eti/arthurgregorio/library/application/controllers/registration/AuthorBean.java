@@ -3,7 +3,7 @@ package br.eti.arthurgregorio.library.application.controllers.registration;
 import br.eti.arthurgregorio.library.application.components.table.Page;
 import br.eti.arthurgregorio.library.application.controllers.LazyFormBean;
 import br.eti.arthurgregorio.library.application.controllers.ViewState;
-import br.eti.arthurgregorio.library.domain.model.entities.registration.Author;
+import br.eti.arthurgregorio.library.domain.entities.registration.Author;
 import br.eti.arthurgregorio.library.domain.repositories.registration.AuthorRepository;
 import br.eti.arthurgregorio.library.domain.validators.registration.author.AuthorSavingLogic;
 import br.eti.arthurgregorio.library.domain.validators.registration.author.AuthorUpdatingLogic;

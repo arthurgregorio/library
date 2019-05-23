@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.domain.validators.configuration.group;
 
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.Group;
+import br.eti.arthurgregorio.library.domain.entities.configuration.Group;
 import br.eti.arthurgregorio.library.domain.validators.BusinessLogic;
 
 /**

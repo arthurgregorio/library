@@ -1,6 +1,6 @@
-package br.eti.arthurgregorio.library.domain.model.entities.configuration;
+package br.eti.arthurgregorio.library.domain.entities.configuration;
 
-import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity;
+import br.eti.arthurgregorio.library.domain.entities.PersistentEntity;
 import lombok.*;
 import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;

@@ -1,7 +1,7 @@
 package br.eti.arthurgregorio.library.domain.validators;
 
-import br.eti.arthurgregorio.library.domain.model.entities.PersistentEntity;
-import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
+import br.eti.arthurgregorio.library.domain.entities.PersistentEntity;
+import br.eti.arthurgregorio.library.domain.exception.BusinessLogicException;
 
 /**
  * The abstraction of a business logic

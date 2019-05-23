@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.domain.model.entities.configuration;
+package br.eti.arthurgregorio.library.domain.entities.configuration;
 
 /**
  * The enum to hold the type of the authentication to be selected on the form to create new users
@@ -12,7 +12,7 @@ public enum StoreType {
 
     LDAP("store-type.ldap"),
     LOCAL("store-type.database");
-    
+
     private final String description;
 
     /**
@@ -20,7 +20,7 @@ public enum StoreType {
      *
      * @param description i18n description
      */
-    private StoreType(String description) {
+    StoreType(String description) {
         this.description = description;
     }
 

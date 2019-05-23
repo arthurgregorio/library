@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.domain.validators.registration.author;
 
-import br.eti.arthurgregorio.library.domain.model.entities.registration.Author;
+import br.eti.arthurgregorio.library.domain.entities.registration.Author;
 import br.eti.arthurgregorio.library.domain.validators.BusinessLogic;
 
 /**

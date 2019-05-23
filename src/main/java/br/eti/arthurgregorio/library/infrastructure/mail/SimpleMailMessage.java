@@ -1,12 +1,11 @@
 package br.eti.arthurgregorio.library.infrastructure.mail;
 
-import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
+import br.eti.arthurgregorio.library.domain.exception.BusinessLogicException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.mail.Address;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;

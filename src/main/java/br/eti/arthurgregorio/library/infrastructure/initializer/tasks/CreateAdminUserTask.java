@@ -1,7 +1,7 @@
 package br.eti.arthurgregorio.library.infrastructure.initializer.tasks;
 
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.Group;
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.User;
+import br.eti.arthurgregorio.library.domain.entities.configuration.Group;
+import br.eti.arthurgregorio.library.domain.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.GroupRepository;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
 import br.eti.arthurgregorio.library.infrastructure.initializer.InitializationTask;

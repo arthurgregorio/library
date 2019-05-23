@@ -1,7 +1,7 @@
 package br.eti.arthurgregorio.library.infrastructure.initializer.tasks;
 
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.Authorization;
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.Permissions;
+import br.eti.arthurgregorio.library.domain.entities.configuration.Authorization;
+import br.eti.arthurgregorio.library.domain.entities.configuration.Permissions;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.AuthorizationRepository;
 import br.eti.arthurgregorio.library.infrastructure.initializer.InitializationTask;
 import br.eti.arthurgregorio.library.infrastructure.initializer.TransactionalInitializationTask;

@@ -1,7 +1,7 @@
 package br.eti.arthurgregorio.library.application.resources;
 
-import br.eti.arthurgregorio.library.domain.model.entities.registration.Author;
-import br.eti.arthurgregorio.library.domain.model.exception.ResourceNotFoundException;
+import br.eti.arthurgregorio.library.domain.entities.registration.Author;
+import br.eti.arthurgregorio.library.domain.exception.ResourceNotFoundException;
 import br.eti.arthurgregorio.library.domain.repositories.registration.AuthorRepository;
 import br.eti.arthurgregorio.library.infrastructure.jaxrs.ResponseBuilder;
 

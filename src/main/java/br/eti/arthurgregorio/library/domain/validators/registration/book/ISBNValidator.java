@@ -1,7 +1,7 @@
 package br.eti.arthurgregorio.library.domain.validators.registration.book;
 
-import br.eti.arthurgregorio.library.domain.model.entities.registration.Book;
-import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
+import br.eti.arthurgregorio.library.domain.entities.registration.Book;
+import br.eti.arthurgregorio.library.domain.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.repositories.registration.BookRepository;
 
 import javax.inject.Inject;

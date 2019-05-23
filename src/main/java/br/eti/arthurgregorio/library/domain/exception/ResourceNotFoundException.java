@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.domain.model.exception;
+package br.eti.arthurgregorio.library.domain.exception;
 
 /**
  * This class represents an error used when the webservice cant find any resource matching the request filter
@@ -11,17 +11,19 @@ package br.eti.arthurgregorio.library.domain.model.exception;
 public class ResourceNotFoundException extends WebserviceException {
 
     /**
+     * Constructor...
      *
-     * @param message
+     * @param message the message
      */
     public ResourceNotFoundException(String message) {
         this(message, new Object() {});
     }
 
     /**
+     * Constructor...
      *
-     * @param message
-     * @param parameters
+     * @param message the message
+     * @param parameters parameters to the message
      */
     public ResourceNotFoundException(String message, Object... parameters) {
         super(message, 404, parameters);

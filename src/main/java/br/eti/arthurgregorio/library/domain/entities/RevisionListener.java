@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.domain.model.entities;
+package br.eti.arthurgregorio.library.domain.entities;
 
 import java.util.Date;
 import org.apache.shiro.SecurityUtils;

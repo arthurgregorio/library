@@ -1,7 +1,7 @@
 package br.eti.arthurgregorio.library.domain.repositories.configuration;
 
-import br.eti.arthurgregorio.library.domain.model.entities.configuration.Profile;
-import br.eti.arthurgregorio.library.domain.repositories.DefaultRepository;
+import br.eti.arthurgregorio.library.domain.entities.configuration.Profile;
+import br.eti.arthurgregorio.library.domain.repositories.LazyDefaultRepository;
 import org.apache.deltaspike.data.api.Repository;
 
 /**
@@ -13,4 +13,4 @@ import org.apache.deltaspike.data.api.Repository;
  * @since 2.0.0, 23/10/2018
  */
 @Repository
-public interface ProfileRepository extends DefaultRepository<Profile> { }
+public interface ProfileRepository extends LazyDefaultRepository<Profile> { }
