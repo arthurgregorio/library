@@ -24,8 +24,8 @@ public class UsernameValidator implements UserSavingLogic {
 
     /**
      * {@inheritDoc }
-     * 
-     * @param value 
+     *
+     * @param value
      */
     @Override
     public void run(User value) {

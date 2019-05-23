@@ -1,5 +1,6 @@
 package br.eti.arthurgregorio.library.infrastructure.jsf.primefaces;
 
+import org.primefaces.component.api.UICalendar;
 import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.calendar.CalendarRenderer;
 
@@ -27,8 +28,7 @@ public class BootstrapCalendarRenderer extends CalendarRenderer {
      * @throws IOException
      */
     @Override
-    protected void encodeInput(FacesContext context, Calendar calendar, String id, String value, boolean popup)
-            throws IOException {
+    protected void encodeInput(FacesContext context, UICalendar calendar, String id, String value, boolean popup) throws IOException {
 
         final String styleClass = calendar.getInputStyleClass() + " form-control";
 

@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Simple JSF converter to provide {@link LocalTime} support to the UI
- * 
+ *
  * @author Arthur Gregorio
  *
  * @version 1.0.0
@@ -20,11 +20,11 @@ public class LocalTimeConverter implements Converter {
 
     /**
      * {@inheritDoc }
-     * 
+     *
      * @param context
      * @param component
      * @param value
-     * @return 
+     * @return
      */
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -33,11 +33,11 @@ public class LocalTimeConverter implements Converter {
 
     /**
      * {@inheritDoc }
-     * 
+     *
      * @param context
      * @param component
      * @param value
-     * @return 
+     * @return
      */
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {

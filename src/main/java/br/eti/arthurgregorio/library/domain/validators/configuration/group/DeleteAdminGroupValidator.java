@@ -26,6 +26,6 @@ public class DeleteAdminGroupValidator implements GroupDeletingLogic {
     public void run(Group value) {
         if (value.isAdministrator()) {
             throw new BusinessLogicException("error.group.delete-administrator");
-        }        
+        }
     }
 }

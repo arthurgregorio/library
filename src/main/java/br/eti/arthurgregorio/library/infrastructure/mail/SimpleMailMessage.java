@@ -8,6 +8,7 @@ import lombok.ToString;
 import javax.mail.Address;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,26 +49,26 @@ public class SimpleMailMessage implements MailMessage {
         this.ccs = new ArrayList<>();
         this.addressees = new ArrayList<>();
     }
-    
+
     /**
      * @return the builder of {@link SimpleMailMessage}
      */
     public static SimpleMailMessageBuilder getBuilder() {
         return new SimpleMailMessageBuilder();
     }
-    
+
     /**
      * Add a cc
-     * 
+     *
      * @param cc the cc to add
      */
     private void addCc(InternetAddress cc) {
         this.ccs.add(cc);
     }
-    
+
     /**
-     * Add a addressee 
-     * 
+     * Add a addressee
+     *
      * @param addressee the addressee to add
      */
     private void addAddressees(InternetAddress addressee) {
@@ -89,12 +90,12 @@ public class SimpleMailMessage implements MailMessage {
     public InternetAddress[] getCcs() {
         return this.ccs.toArray(new InternetAddress[]{});
     }
-    
+
     /**
      * A builder pattern implementation to create e-mail messages
      */
     public static class SimpleMailMessageBuilder {
-        
+
         private final SimpleMailMessage message;
 
         /**
@@ -103,10 +104,10 @@ public class SimpleMailMessage implements MailMessage {
         private SimpleMailMessageBuilder() {
             this.message = new SimpleMailMessage();
         }
-        
+
         /**
          * Add the addressee of the message
-         * 
+         *
          * @param to the addressee of the message
          * @return this builder
          */
@@ -114,10 +115,10 @@ public class SimpleMailMessage implements MailMessage {
             this.message.addAddressees(this.toAddress(to));
             return this;
         }
-        
+
         /**
          * From field of the message
-         * 
+         *
          * @param from address
          * @return this builder
          */
@@ -125,10 +126,22 @@ public class SimpleMailMessage implements MailMessage {
             this.message.setFrom(this.toAddress(from));
             return this;
         }
-        
+
+        /**
+         * From field of the message
+         *
+         * @param from the address
+         * @param name the name
+         * @return this builder
+         */
+        public SimpleMailMessageBuilder from(String from, String name) {
+            this.message.setFrom(this.toAddress(from, name));
+            return this;
+        }
+
         /**
          * The reply to address
-         * 
+         *
          * @param replyTo reply to address
          * @return this builder
          */
@@ -136,10 +149,10 @@ public class SimpleMailMessage implements MailMessage {
             this.message.setReplyTo(this.toAddress(replyTo));
             return this;
         }
-        
+
         /**
          * The with-copy address to the message
-         * 
+         *
          * @param copy the address to copy the message
          * @return this builder
          */
@@ -147,10 +160,10 @@ public class SimpleMailMessage implements MailMessage {
             this.message.addCc(this.toAddress(copy));
             return this;
         }
-        
+
         /**
          * The string content of the message
-         * 
+         *
          * @param content content in string format
          * @return this builder
          */
@@ -158,10 +171,10 @@ public class SimpleMailMessage implements MailMessage {
             this.message.setContent(content);
             return this;
         }
-        
+
         /**
          * Set a provider to provide the content to the message
-         * 
+         *
          * @param provider the provider to provide the content
          * @return this builder
          */
@@ -169,10 +182,10 @@ public class SimpleMailMessage implements MailMessage {
             this.message.setContent(checkNotNull(provider).getContent());
             return this;
         }
-        
+
         /**
          * The title of the message
-         * 
+         *
          * @param title the title
          * @return this builder
          */
@@ -180,26 +193,36 @@ public class SimpleMailMessage implements MailMessage {
             this.message.setTitle(title);
             return this;
         }
-        
+
         /**
          * @return the instance of the {@link SimpleMailMessage} to be created
          */
         public SimpleMailMessage build() {
             return this.message;
         }
-        
+
         /**
          * Convert a string to a {@link Address}
-         * 
+         *
          * @param address the string address
          * @return the {@link InternetAddress} implementation of {@link Address}
          */
         private InternetAddress toAddress(String address) {
+            return this.toAddress(address, null);
+        }
+
+        /**
+         * Convert a string to a {@link Address}
+         *
+         * @param address the string address
+         * @param personal the name
+         * @return the {@link InternetAddress} implementation of {@link Address}
+         */
+        private InternetAddress toAddress(String address, String personal) {
             try {
-                return new InternetAddress(address);
-            } catch (AddressException ex) {
-                throw new BusinessLogicException(
-                        "error.core.email-address-invalid", ex, address);
+                return new InternetAddress(address, personal);
+            } catch (UnsupportedEncodingException ex) {
+                throw new BusinessLogicException("error.core.email-address-invalid", ex, address);
             }
         }
     }

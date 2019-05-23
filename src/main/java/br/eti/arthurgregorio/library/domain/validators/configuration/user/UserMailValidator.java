@@ -4,9 +4,10 @@ import br.eti.arthurgregorio.library.domain.model.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.model.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
 import br.eti.arthurgregorio.library.domain.validators.BusinessLogic;
-import java.util.Optional;
+
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import java.util.Optional;
 
 /**
  * {@link BusinessLogic} for the user e-mail validation logic
@@ -24,18 +25,18 @@ public class UserMailValidator implements UserSavingLogic, UserUpdatingLogic {
 
     /**
      * {@inheritDoc }
-     * 
-     * @param value 
+     *
+     * @param value
      */
     @Override
     public void run(User value) {
-        
+
         final Optional<User> userOptional = this.userRepository.findByEmail(value.getEmail());
-        
+
         if (userOptional.isPresent()) {
-            
+
             final User found = userOptional.get();
-            
+
             if (!found.getUsername().equals(value.getUsername())) {
                 throw new BusinessLogicException("error.user.email-duplicated");
             }

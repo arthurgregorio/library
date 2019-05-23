@@ -9,22 +9,22 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Simple JSF converter to provide {@link LocalDate} support to the UI
- * 
+ *
  * @author Arthur Gregorio
  *
  * @version 1.0.0
  * @since 1.0.0, 13/12/2017
  */
 @FacesConverter("localDateConverter")
-public class LocalDateConverter implements Converter { 
+public class LocalDateConverter implements Converter {
 
     /**
      * {@inheritDoc }
-     * 
+     *
      * @param context
      * @param component
      * @param value
-     * @return 
+     * @return
      */
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -33,11 +33,11 @@ public class LocalDateConverter implements Converter {
 
     /**
      * {@inheritDoc }
-     * 
+     *
      * @param context
      * @param component
      * @param value
-     * @return 
+     * @return
      */
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {

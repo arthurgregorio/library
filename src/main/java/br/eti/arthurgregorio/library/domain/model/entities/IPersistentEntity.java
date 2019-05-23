@@ -26,17 +26,4 @@ public interface IPersistentEntity<T extends Serializable> {
      */
     @JsonIgnore
     boolean isSaved();
-    
-    /**
-     * helper method to call validation on the entity
-     */
-    void validate();
-    
-    /**
-     * @return ther inverse of {@link #isSaved()}
-     */
-    @JsonIgnore
-    default boolean isNotSaved() {
-        return !this.isSaved();
-    }
 }

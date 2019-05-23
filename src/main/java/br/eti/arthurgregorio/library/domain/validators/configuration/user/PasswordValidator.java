@@ -27,7 +27,7 @@ public class PasswordValidator implements UserSavingLogic, UserUpdatingLogic {
 
     @Inject
     private PasswordEncoder passwordEncoder;
-    
+
     /**
      * {@inheritDoc }
      *
@@ -73,7 +73,7 @@ public class PasswordValidator implements UserSavingLogic, UserUpdatingLogic {
 
     /**
      * Crypt the user password to protect it
-     * 
+     *
      * @param plainPassword the plain password to be crypted
      * @return the crypted password
      */

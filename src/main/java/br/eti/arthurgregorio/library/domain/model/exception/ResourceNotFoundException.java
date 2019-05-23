@@ -15,7 +15,7 @@ public class ResourceNotFoundException extends WebserviceException {
      * @param message
      */
     public ResourceNotFoundException(String message) {
-        this(message, new Object(){});
+        this(message, new Object() {});
     }
 
     /**

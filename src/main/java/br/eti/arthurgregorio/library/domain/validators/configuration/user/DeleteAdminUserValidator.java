@@ -22,7 +22,7 @@ public class DeleteAdminUserValidator implements UserDeletingLogic {
     @Inject
     @AuthenticatedUser
     private User principal;
-    
+
     /**
      * {@inheritDoc }
      *
@@ -30,14 +30,14 @@ public class DeleteAdminUserValidator implements UserDeletingLogic {
      */
     @Override
     public void run(User value) {
-        
+
         final String principalUsername = this.principal.getUsername();
-        
+
         // prevent to delete you own user 
         if (principalUsername.equals(value.getUsername())) {
             throw new BusinessLogicException("error.user.delete-principal");
         }
-        
+
         // prevent to delete the main admin
         if (value.isAdministrator()) {
             throw new BusinessLogicException("error.user.delete-administrator");

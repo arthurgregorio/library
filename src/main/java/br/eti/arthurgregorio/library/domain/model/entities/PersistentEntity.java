@@ -8,12 +8,11 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
  * The default implementation of a entity in the application. 
- * 
+ *
  * Every entity should extend this class to have the default behaviors of a JPA entity
  *
  * @author Arthur Gregorio
@@ -53,7 +52,7 @@ public abstract class PersistentEntity implements IPersistentEntity<Long> {
      */
     @PrePersist
     protected void beforeInsert() {
-       this.createdOn = LocalDateTime.now();
+        this.createdOn = LocalDateTime.now();
     }
 
     /**
@@ -66,7 +65,7 @@ public abstract class PersistentEntity implements IPersistentEntity<Long> {
 
     /**
      * {@inheritDoc }
-     * 
+     *
      * @return
      */
     @Override
