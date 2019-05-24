@@ -17,10 +17,10 @@
     </ui:define>
 
     <ui:define name="pageDescription">
-        <h:outputText rendered="#{bookBean.viewState eq 'ADDING'}"
+        <h:outputText rendered="#{bookBean.viewState.adding}"
                       value="#{messages['book.page-description-adding']}"/>
         <o:outputFormat id="pageDescription"
-                        rendered="#{bookBean.viewState eq 'EDITING'}"
+                        rendered="#{bookBean.viewState.editing}"
                         value="#{messages['book.page-description-editing']}">
             <f:param value="#{bookBean.value.isbn}"/>
         </o:outputFormat>
@@ -30,11 +30,11 @@
         <li><a href="#">#{breadcrumb['registration']}</a></li>
         <li><a href="listBooks.xhtml">#{breadcrumb['registration.books']}</a></li>
         <li class="active"
-            jsf:rendered="#{bookBean.viewState eq 'ADDING'}">
+            jsf:rendered="#{bookBean.viewState.adding}">
             <a href="#">#{breadcrumb['including']}</a>
         </li>
         <li class="active"
-            jsf:rendered="#{bookBean.viewState eq 'EDITING'}">
+            jsf:rendered="#{bookBean.viewState.editing}">
             <a href="#">#{breadcrumb['editing']}</a>
         </li>
     </ui:define>
@@ -121,21 +121,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="box-footer align-right">
+                <div class="box-footer text-right">
                     <p:commandButton update="bookForm"
                                      value="#{menu['save']}"
                                      action="#{bookBean.doSave()}"
                                      onstart="PF('blocker').show()"
                                      oncomplete="PF('blocker').hide()"
                                      styleClass="btn btn-flat btn-success"
-                                     rendered="#{bookBean.viewState eq 'ADDING'}"/>
+                                     rendered="#{bookBean.viewState.adding}"/>
                     <p:commandButton value="#{menu['update']}"
                                      onstart="PF('blocker').show()"
                                      action="#{bookBean.doUpdate()}"
                                      oncomplete="PF('blocker').hide()"
                                      update="bookForm pageDescription"
                                      styleClass="btn btn-flat btn-success"
-                                     rendered="#{bookBean.viewState eq 'EDITING'}"/>
+                                     rendered="#{bookBean.viewState.editing}"/>
                     <p:spacer width="5"/>
                     <p:commandButton immediate="true"
                                      value="#{menu['back']}"

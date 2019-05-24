@@ -17,11 +17,11 @@
 
     <ui:define name="pageDescription">
         <div jsf:id="pageDescription">
-            <o:outputFormat rendered="#{bookBean.viewState eq 'DETAILING'}" 
+            <o:outputFormat rendered="#{bookBean.viewState.detailing}"
                             value="#{messages['book.page-description-detailing']}">
                 <f:param value="#{bookBean.value.title}"/>
             </o:outputFormat>
-            <o:outputFormat rendered="#{bookBean.viewState eq 'DELETING'}" 
+            <o:outputFormat rendered="#{bookBean.viewState.deleting}"
                             value="#{messages['book.page-description-deleting']}">
                 <f:param value="#{bookBean.value.title}"/>
             </o:outputFormat>
@@ -32,11 +32,11 @@
         <li><a href="#">#{breadcrumb['configuration']}</a></li>
         <li><a href="listBooks.xhtml">#{breadcrumb['registration.books']}</a></li>
         <li class="active"
-            jsf:rendered="#{bookBean.viewState eq 'DETAILING'}">
+            jsf:rendered="#{bookBean.viewState.detailing}">
             <a href="#">#{breadcrumb['detailing']}</a>
         </li>
         <li class="active"
-            jsf:rendered="#{bookBean.viewState eq 'DELETING'}">
+            jsf:rendered="#{bookBean.viewState.deleting}">
             <a href="#">#{breadcrumb['deleting']}</a>
         </li>
     </ui:define>
@@ -117,20 +117,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="box-footer align-right">
+                <div class="box-footer text-right">
                     <h:outputText styleClass="text-red text-bold"
                                   value="#{messages['delete-message']}"
-                                  rendered="#{bookBean.viewState eq 'DELETING'}"/>
+                                  rendered="#{bookBean.viewState.deleting}"/>
                     <p:spacer width="5"/>
                     <p:commandButton value="#{menu['yes']}"
                                      action="#{bookBean.doDelete()}" 
                                      styleClass="btn btn-flat btn-danger" 
-                                     rendered="#{bookBean.viewState eq 'DELETING'}"/>
+                                     rendered="#{bookBean.viewState.deleting}"/>
                     <p:spacer width="5" />
                     <p:commandButton immediate="true"
                                      styleClass="btn btn-flat btn-primary"
                                      action="#{bookBean.changeToListing()}" 
-                                     value="#{bookBean.viewState eq 'DETAILING' ? menu['back'] : menu['no']}"/>
+                                     value="#{bookBean.viewState.detailing ? menu['back'] : menu['no']}"/>
                 </div>
             </div>
         </h:form>

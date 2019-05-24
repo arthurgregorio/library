@@ -17,11 +17,11 @@
 
     <ui:define name="pageDescription">
         <div jsf:id="pageDescription">
-            <o:outputFormat rendered="#{userBean.viewState eq 'DETAILING'}" 
+            <o:outputFormat rendered="#{userBean.viewState.detailing}"
                             value="#{messages['user.page-description-detailing']}">
                 <f:param value="#{userBean.value.name}"/>
             </o:outputFormat>
-            <o:outputFormat rendered="#{userBean.viewState eq 'DELETING'}" 
+            <o:outputFormat rendered="#{userBean.viewState.deleting}"
                             value="#{messages['user.page-description-deleting']}">
                 <f:param value="#{userBean.value.name}"/>
             </o:outputFormat>
@@ -32,11 +32,11 @@
         <li><a href="#">#{breadcrumb['configuration']}</a></li>
         <li><a href="listUsers.xhtml">#{breadcrumb['configuration.users']}</a></li>
         <li class="active"
-            jsf:rendered="#{userBean.viewState eq 'DETAILING'}">
+            jsf:rendered="#{userBean.viewState.detailing}">
             <a href="#">#{breadcrumb['detailing']}</a>
         </li>
         <li class="active"
-            jsf:rendered="#{userBean.viewState eq 'DELETING'}">
+            jsf:rendered="#{userBean.viewState.deleting}">
             <a href="#">#{breadcrumb['deleting']}</a>
         </li>
     </ui:define>
@@ -66,7 +66,7 @@
                                 <p:selectOneMenu id="inStoreType" 
                                                  value="#{userBean.value.storeType}"
                                                  converter="omnifaces.GenericEnumConverter"
-                                                 disabled="#{userBean.viewState eq 'EDITING'}">
+                                                 disabled="#{userBean.viewState.editing}">
                                     <p:ajax event="change" update="userForm" />
                                     <f:selectItems var="storeType"
                                                    itemValue="#{storeType}"
@@ -83,7 +83,7 @@
                             <p:inputText id="inUsername"
                                          styleClass="form-control"
                                          value="#{userBean.value.username}"
-                                         readonly="#{userBean.viewState eq 'EDITING'}"/>
+                                         readonly="#{userBean.viewState.editing}"/>
                             <div class="input-group-btn">
                                 <p:commandButton update="userForm"
                                                  icon="fa fa-search"
@@ -142,20 +142,20 @@
                         </p:selectOneMenu>
                     </div>
                 </div>
-                <div class="box-footer align-right">
+                <div class="box-footer text-right">
                     <h:outputText styleClass="text-red text-bold"
                                   value="#{messages['delete-message']}"
-                                  rendered="#{userBean.viewState eq 'DELETING'}"/>
+                                  rendered="#{userBean.viewState.deleting}"/>
                     <p:spacer width="5"/>
                     <p:commandButton value="#{menu['yes']}"
                                      action="#{userBean.doDelete()}" 
                                      styleClass="btn btn-flat btn-danger" 
-                                     rendered="#{userBean.viewState eq 'DELETING'}"/>
+                                     rendered="#{userBean.viewState.deleting}"/>
                     <p:spacer width="5" />
                     <p:commandButton immediate="true"
                                      styleClass="btn btn-flat btn-primary"
                                      action="#{userBean.changeToListing()}" 
-                                     value="#{userBean.viewState eq 'DETAILING' ? menu['back'] : menu['no']}"/>
+                                     value="#{userBean.viewState.detailing ? menu['back'] : menu['no']}"/>
                 </div>
             </div>
         </h:form>

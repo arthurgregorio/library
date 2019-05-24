@@ -17,11 +17,11 @@
 
     <ui:define name="pageDescription">
         <div jsf:id="pageDescription">
-            <o:outputFormat rendered="#{authorBean.viewState eq 'DETAILING'}" 
+            <o:outputFormat rendered="#{ authorBean.viewState.detailing}"
                             value="#{messages['author.page-description-detailing']}">
                 <f:param value="#{authorBean.value.name}"/>
             </o:outputFormat>
-            <o:outputFormat rendered="#{authorBean.viewState eq 'DELETING'}" 
+            <o:outputFormat rendered="#{authorBean.viewState.deleting}"
                             value="#{messages['author.page-description-deleting']}">
                 <f:param value="#{authorBean.value.name}"/>
             </o:outputFormat>
@@ -32,11 +32,11 @@
         <li><a href="#">#{breadcrumb['registration']}</a></li>
         <li><a href="listAuthors.xhtml">#{breadcrumb['registration.authors']}</a></li>
         <li class="active"
-            jsf:rendered="#{authorBean.viewState eq 'DETAILING'}">
+            jsf:rendered="#{ authorBean.viewState.detailing}">
             <a href="#">#{breadcrumb['detailing']}</a>
         </li>
         <li class="active"
-            jsf:rendered="#{authorBean.viewState eq 'DELETING'}">
+            jsf:rendered="#{authorBean.viewState.deleting}">
             <a href="#">#{breadcrumb['deleting']}</a>
         </li>
     </ui:define>
@@ -84,20 +84,20 @@
                                     value="#{authorBean.value.bornDate}" />
                     </div>
                 </div>
-                <div class="box-footer align-right">
+                <div class="box-footer text-right">
                     <h:outputText styleClass="text-red text-bold"
                                   value="#{messages['delete-message']}"
-                                  rendered="#{authorBean.viewState eq 'DELETING'}"/>
+                                  rendered="#{authorBean.viewState.deleting}"/>
                     <p:spacer width="5"/>
                     <p:commandButton value="#{menu['yes']}"
                                      action="#{authorBean.doDelete()}" 
                                      styleClass="btn btn-flat btn-danger" 
-                                     rendered="#{authorBean.viewState eq 'DELETING'}"/>
+                                     rendered="#{authorBean.viewState.deleting}"/>
                     <p:spacer width="5" />
                     <p:commandButton immediate="true"
                                      styleClass="btn btn-flat btn-primary"
                                      action="#{authorBean.changeToListing()}" 
-                                     value="#{authorBean.viewState eq 'DETAILING' ? menu['back'] : menu['no']}"/>
+                                     value="#{ authorBean.viewState.detailing ? menu['back'] : menu['no']}"/>
                 </div>
             </div>
         </h:form>
