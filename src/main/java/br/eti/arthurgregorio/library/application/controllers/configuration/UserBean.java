@@ -1,8 +1,8 @@
 package br.eti.arthurgregorio.library.application.controllers.configuration;
 
-import br.eti.arthurgregorio.library.application.components.table.Page;
-import br.eti.arthurgregorio.library.application.controllers.LazyFormBean;
-import br.eti.arthurgregorio.library.application.controllers.ViewState;
+import br.eti.arthurgregorio.library.application.components.ui.LazyFormBean;
+import br.eti.arthurgregorio.library.application.components.ui.ViewState;
+import br.eti.arthurgregorio.library.application.components.ui.table.Page;
 import br.eti.arthurgregorio.library.domain.entities.configuration.Group;
 import br.eti.arthurgregorio.library.domain.entities.configuration.StoreType;
 import br.eti.arthurgregorio.library.domain.entities.configuration.User;
@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
 
-import static br.eti.arthurgregorio.library.application.controllers.NavigationManager.PageType.*;
+import static br.eti.arthurgregorio.library.application.components.ui.NavigationManager.PageType.*;
 
 /**
  * The controller for the user accounts operations

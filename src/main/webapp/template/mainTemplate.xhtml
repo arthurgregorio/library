@@ -20,28 +20,27 @@
         <h:outputStylesheet library="bootstrap" name="css/bootstrap.min.css"/>
         <h:outputStylesheet library="adminlte" name="css/adminlte.min.css"/>
         <h:outputStylesheet library="adminlte" name="css/all-skins.min.css"/>
-        <h:outputStylesheet library="pace" name="css/theme.css"/>
         <h:outputStylesheet library="application" name="css/pf-custom.css"/>
         <h:outputStylesheet library="application" name="css/lte-custom.css"/>
         <h:outputStylesheet library="application" name="css/common.css"/>
+        <h:outputStylesheet library="pace" name="css/theme.css"/>
 
-        <link rel="stylesheet"
-              crossorigin="anonymous"
-              href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-              integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" />
-        
-        <ui:insert name="head" />
+        <h:outputStylesheet library="webjars" name="font-awesome/5.8.2/css/solid-jsf.css"/>
+        <h:outputStylesheet library="webjars" name="font-awesome/5.8.2/css/fontawesome-jsf.css"/>
+
+        <ui:insert name="head"/>
     </h:head>
-    
+
     <h:body styleClass="hold-transition layout-top-nav wysihtml5-supported #{profileBean.currentTheme}">
         <div class="wrapper">
             <header class="main-header">
                 <nav class="navbar navbar-static-top">
                     <div class="navbar-header">
-                        <a href="/secured/dashboard.xhtml" class="navbar-brand">
-                            #{messages['application.name']}
-                        </a>
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                        <h:link class="navbar-brand"
+                                outcome="/secured/dashboard.xhtml"
+                                value="#{messages['application.name']}"/>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                data-target="#navbar-collapse">
                             <i class="fa fa-bars"/>
                         </button>
                     </div>
@@ -69,8 +68,8 @@
                                         <h:form>
                                             <div class="pull-left">
                                                 <p:commandLink value="#{menu['change-password']}"
-                                                               styleClass="btn btn-flat btn-primary" 
-                                                               actionListener="#{profileBean.showChangePasswordPopup()}"
+                                                               styleClass="btn btn-flat btn-primary"
+                                                               actionListener="#{profileBean.showChangePasswordDialog()}"
                                                                rendered="#{userSessionBean.principal.storeType eq 'LOCAL'}"/>
                                             </div>
                                             <div class="pull-right">
@@ -90,8 +89,8 @@
             <div class="content-wrapper">
                 <section class="content-header">
                     <h1>
-                        <ui:insert name="pageTitle" />
-                        <small><ui:insert name="pageDescription" /></small>
+                        <ui:insert name="pageTitle"/>
+                        <small><ui:insert name="pageDescription"/></small>
                     </h1>
                     <ol class="breadcrumb">
                         <li>
@@ -100,11 +99,11 @@
                                 Home
                             </p:link>
                         </li>
-                        <ui:insert name="breadcrumb" />
+                        <ui:insert name="breadcrumb"/>
                     </ol>
                 </section>
                 <section class="content">
-                    <ui:insert name="content" />
+                    <ui:insert name="content"/>
                 </section>
             </div>
             <footer class="main-footer">
@@ -114,18 +113,18 @@
                     <strong>#{utilitiesBean.applicationVersion}</strong>
                 </div>
             </footer>
-            <ui:include src="sidebar.xhtml"/>
+            <ui:include src="../secured/sidebar/sidebar.xhtml"/>
         </div>
 
-        <ui:insert name="popups" />      
+        <ui:insert name="popups"/>
         <ui:include src="/secured/dialogChangePassword.xhtml"/>
     </h:body>
 
-    <h:outputScript library="primefaces" name="primefaces-locale.js" target="head"/>
     <h:outputScript library="bootstrap" name="js/bootstrap.min.js" target="head"/>
-    <h:outputScript library="pace" name="js/pace.min.js" target="head"/>
+    <h:outputScript library="primefaces" name="primefaces-locale.js" target="head"/>
     <h:outputScript library="adminlte" name="js/adminlte.min.js" target="head"/>
+    <h:outputScript library="webjars" name="pace/1.0.2/pace.min.js" target="head"/>
     <h:outputScript library="application" name="js/application.js" target="head"/>
 
-    <ui:insert name="scripts" />
+    <ui:insert name="scripts"/>
 </html>

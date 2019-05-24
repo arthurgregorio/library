@@ -1,5 +1,6 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
+import br.eti.arthurgregorio.library.application.components.ui.AbstractBean;
 import br.eti.arthurgregorio.library.domain.services.RecoverPasswordService;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,27 +24,27 @@ public class RecoverPasswordBean extends AbstractBean {
     @Getter
     @Setter
     private String email;
-    
+
     @Inject
     private RecoverPasswordService recoverPasswordService;
-    
+
     /**
      * Call the service to reset the user password
      */
     public void recoverPassword() {
-        
+
         this.recoverPasswordService.recover(this.email);
-        
+
         this.closeDialog("dialogRecoverPassword");
         this.addInfoAndKeep("recover-password.email-sent");
         this.temporizeHiding("messages");
     }
-    
+
     /**
      * Open the recover password dialog
      */
     public void showRecoverPassDialog() {
         this.email = null;
-        this.updateAndOpenDialog("recoverPasswordDialog", "dialogRecoverPassword"); 
+        this.updateAndOpenDialog("recoverPasswordDialog", "dialogRecoverPassword");
     }
 }

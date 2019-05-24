@@ -1,13 +1,13 @@
 package br.eti.arthurgregorio.library.application.controllers.registration;
 
-import br.eti.arthurgregorio.library.application.components.table.Page;
-import br.eti.arthurgregorio.library.application.controllers.LazyFormBean;
-import br.eti.arthurgregorio.library.application.controllers.ViewState;
+import br.eti.arthurgregorio.library.application.components.ui.LazyFormBean;
+import br.eti.arthurgregorio.library.application.components.ui.ViewState;
+import br.eti.arthurgregorio.library.application.components.ui.table.Page;
 import br.eti.arthurgregorio.library.domain.entities.registration.Author;
 import br.eti.arthurgregorio.library.domain.entities.registration.Book;
+import br.eti.arthurgregorio.library.domain.logics.registration.book.BookSavingLogic;
 import br.eti.arthurgregorio.library.domain.repositories.registration.AuthorRepository;
 import br.eti.arthurgregorio.library.domain.repositories.registration.BookRepository;
-import br.eti.arthurgregorio.library.domain.validators.registration.book.BookSavingLogic;
 import lombok.Getter;
 import org.primefaces.model.SortOrder;
 
@@ -19,7 +19,7 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.util.List;
 
-import static br.eti.arthurgregorio.library.application.controllers.NavigationManager.PageType.*;
+import static br.eti.arthurgregorio.library.application.components.ui.NavigationManager.PageType.*;
 
 /**
  * The {@link Book} maintenance controller

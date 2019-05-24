@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <aside class="control-sidebar #{profileBean.profile.userDarkSidebar ? 'control-sidebar-dark': 'control-sidebar-light'}">
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li class="active">
+                <a href="#control-sidebar-user-settings-tab" data-toggle="tab"><i class="fa fa-users-cog"/></a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="control-sidebar-user-settings-tab">
+                <ui:include src="formUserConfigs.xhtml"/>
+            </div>
+        </div>
+    </aside>
+    <div class="control-sidebar-bg"></div>
+</ui:composition>

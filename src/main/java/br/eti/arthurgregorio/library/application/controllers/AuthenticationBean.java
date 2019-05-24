@@ -1,5 +1,6 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
+import br.eti.arthurgregorio.library.application.components.ui.AbstractBean;
 import br.eti.arthurgregorio.shiroee.auth.Authenticator;
 import br.eti.arthurgregorio.shiroee.auth.Credential;
 import lombok.Getter;
@@ -22,7 +23,7 @@ import javax.inject.Named;
 @Named
 @ViewScoped
 public class AuthenticationBean extends AbstractBean {
-    
+
     @Getter
     private Credential credential;
 
@@ -32,7 +33,7 @@ public class AuthenticationBean extends AbstractBean {
     /**
      * Initialize the controller, if the user is already logged-in this method return the url to the dashboard page,
      * if not, stay in the login page
-     * 
+     *
      * @return the dashboard outcome or empty to stay in the login page
      */
     public String initialize() {
@@ -46,7 +47,7 @@ public class AuthenticationBean extends AbstractBean {
 
     /**
      * Process the login request
-     * 
+     *
      * @return the url of the success page
      */
     public String doLogin() {
@@ -65,7 +66,7 @@ public class AuthenticationBean extends AbstractBean {
 
     /**
      * Process the logout request
-     * 
+     *
      * @return the url to the login page
      */
     public String doLogout() {

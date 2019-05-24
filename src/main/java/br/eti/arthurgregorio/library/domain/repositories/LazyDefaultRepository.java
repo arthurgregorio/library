@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.domain.repositories;
 
-import br.eti.arthurgregorio.library.application.components.table.Page;
+import br.eti.arthurgregorio.library.application.components.ui.table.Page;
 import br.eti.arthurgregorio.library.domain.entities.PersistentEntity;
 import br.eti.arthurgregorio.library.domain.entities.PersistentEntity_;
 import org.apache.deltaspike.data.api.criteria.Criteria;

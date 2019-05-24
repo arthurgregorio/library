@@ -1,5 +1,6 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
+import br.eti.arthurgregorio.library.application.components.ui.AbstractBean;
 import br.eti.arthurgregorio.library.infrastructure.misc.Configurations;
 
 import javax.enterprise.context.RequestScoped;
@@ -25,7 +26,7 @@ public class UtilitiesBean extends AbstractBean {
     public String getApplicationVersion() {
         return Configurations.get("application.version");
     }
-    
+
     /**
      * @return the current year for the copyright text
      */

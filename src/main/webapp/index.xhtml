@@ -13,8 +13,6 @@
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="mobile-web-app-capable" content="yes"/>
-        <meta name="description" content="JEE demo Application" />
-        <meta name="keywords" content="some, key, words" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 
         <link rel="shortcut icon" type="image/x-icon" href="#{resource['application:images/favicon.png']}"/>
@@ -26,6 +24,9 @@
         <h:outputStylesheet library="application" name="css/pf-custom.css"/>
         <h:outputStylesheet library="application" name="css/lte-custom.css"/>
         <h:outputStylesheet library="application" name="css/common.css"/>
+
+        <h:outputStylesheet library="webjars" name="font-awesome/5.8.2/css/fontawesome-jsf.css"/>
+        <h:outputStylesheet library="webjars" name="font-awesome/5.8.2/css/solid-jsf.css"/>
 
         <f:metadata>
             <f:viewAction action="#{authenticationBean.initialize()}"/>
@@ -79,9 +80,10 @@
         </div>
 
         <ui:include src="dialogRecoverPassword.xhtml"/>
-        
+
         <h:outputScript library="bootstrap" name="js/bootstrap.min.js" target="head"/>
-        <h:outputScript library="pace" name="js/pace.min.js" target="head"/>
         <h:outputScript library="adminlte" name="js/adminlte.min.js" target="head"/>
+
+        <h:outputScript library="webjars" name="pace/1.0.2/pace.min.js" target="head"/>
     </h:body>
 </html>

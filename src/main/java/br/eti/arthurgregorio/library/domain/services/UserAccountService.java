@@ -1,13 +1,13 @@
 package br.eti.arthurgregorio.library.domain.services;
 
-import br.eti.arthurgregorio.library.application.controllers.ProfileBean.PasswordChangeDTO;
+import br.eti.arthurgregorio.library.application.controllers.configuration.ProfileBean.PasswordChangeDTO;
 import br.eti.arthurgregorio.library.domain.entities.configuration.*;
 import br.eti.arthurgregorio.library.domain.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.*;
-import br.eti.arthurgregorio.library.domain.validators.configuration.group.GroupDeletingLogic;
-import br.eti.arthurgregorio.library.domain.validators.configuration.user.UserDeletingLogic;
-import br.eti.arthurgregorio.library.domain.validators.configuration.user.UserSavingLogic;
-import br.eti.arthurgregorio.library.domain.validators.configuration.user.UserUpdatingLogic;
+import br.eti.arthurgregorio.library.domain.logics.configuration.group.GroupDeletingLogic;
+import br.eti.arthurgregorio.library.domain.logics.configuration.user.UserDeletingLogic;
+import br.eti.arthurgregorio.library.domain.logics.configuration.user.UserSavingLogic;
+import br.eti.arthurgregorio.library.domain.logics.configuration.user.UserUpdatingLogic;
 import br.eti.arthurgregorio.shiroee.auth.PasswordEncoder;
 import br.eti.arthurgregorio.shiroee.config.jdbc.UserDetails;
 import br.eti.arthurgregorio.shiroee.config.jdbc.UserDetailsProvider;

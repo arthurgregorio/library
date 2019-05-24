@@ -1,12 +1,12 @@
 package br.eti.arthurgregorio.library.application.controllers.registration;
 
-import br.eti.arthurgregorio.library.application.components.table.Page;
-import br.eti.arthurgregorio.library.application.controllers.LazyFormBean;
-import br.eti.arthurgregorio.library.application.controllers.ViewState;
+import br.eti.arthurgregorio.library.application.components.ui.LazyFormBean;
+import br.eti.arthurgregorio.library.application.components.ui.ViewState;
+import br.eti.arthurgregorio.library.application.components.ui.table.Page;
 import br.eti.arthurgregorio.library.domain.entities.registration.Author;
+import br.eti.arthurgregorio.library.domain.logics.registration.author.AuthorSavingLogic;
+import br.eti.arthurgregorio.library.domain.logics.registration.author.AuthorUpdatingLogic;
 import br.eti.arthurgregorio.library.domain.repositories.registration.AuthorRepository;
-import br.eti.arthurgregorio.library.domain.validators.registration.author.AuthorSavingLogic;
-import br.eti.arthurgregorio.library.domain.validators.registration.author.AuthorUpdatingLogic;
 import org.primefaces.model.SortOrder;
 
 import javax.enterprise.inject.Any;
@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 
-import static br.eti.arthurgregorio.library.application.controllers.NavigationManager.PageType.*;
+import static br.eti.arthurgregorio.library.application.components.ui.NavigationManager.PageType.*;
 
 /**
  * The {@link Author} maintenance controller

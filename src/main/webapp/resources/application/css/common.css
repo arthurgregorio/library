@@ -7,21 +7,9 @@
     Created on : 19/01/2016
 */
 
-/*some misc*/
-.align-right {
-    text-align: right;
-}
-.align-center {
-    text-align: center;
-}
-.margin-t-15 {
-    margin-top: 15px;
-}
-.margin-t-30 {
-    margin-top: 30px;
-}
-.padding-t-25 {
-    padding-top: 25px;
+/*all dialogs must use this class to be well positioned in the screen*/
+.dialog-margin {
+    margin-top: 100px;
 }
 
 /*theme selection block*/
