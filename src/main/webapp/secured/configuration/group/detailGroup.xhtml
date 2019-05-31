@@ -103,15 +103,29 @@
                     </div>
                 </div>
                 <div class="box-footer text-right">
-                    <h:outputText styleClass="text-red text-bold"
-                                  value="#{messages['delete-message']}"
-                                  rendered="#{groupBean.viewState.deleting}"/>
-                    <p:spacer width="5"/>
-                    <p:commandButton value="#{menu['yes']}"
-                                     action="#{groupBean.doDelete()}" 
-                                     styleClass="btn btn-flat btn-danger" 
-                                     rendered="#{groupBean.viewState.deleting}"/>
-                    <p:spacer width="5" />
+                    <ui:fragment rendered="#{groupBean.viewState.deleting}">
+                        <h:outputText styleClass="text-red text-bold"
+                                      value="#{messages['delete-message']}"/>
+                        <p:spacer width="5"/>
+                        <p:commandButton value="#{menu['yes']}"
+                                         action="#{groupBean.doDelete()}"
+                                         styleClass="btn btn-flat btn-danger"/>
+                        <p:spacer width="5"/>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{groupBean.viewState.detailing}">
+                        <p:commandButton value="#{menu['edit']}"
+                                         styleClass="btn btn-flat btn-success"
+                                         action="#{groupBean.changeToEdit(groupBean.value.id)}"
+                                         rendered="#{userSessionBean.isPermitted(permissions.GROUP_UPDATE)}"/>
+                        <p:spacer width="5"
+                                  rendered="#{userSessionBean.isPermitted(permissions.GROUP_UPDATE)}"/>
+                        <p:commandButton value="#{menu['delete']}"
+                                         styleClass="btn btn-flat btn-danger"
+                                         action="#{groupBean.changeToDelete(groupBean.value.id)}"
+                                         rendered="#{userSessionBean.isPermitted(permissions.GROUP_DELETE)}"/>
+                        <p:spacer width="5"
+                                  rendered="#{userSessionBean.isPermitted(permissions.GROUP_DELETE)}"/>
+                    </ui:fragment>
                     <p:commandButton immediate="true"
                                      styleClass="btn btn-flat btn-primary"
                                      action="#{groupBean.changeToListing()}" 

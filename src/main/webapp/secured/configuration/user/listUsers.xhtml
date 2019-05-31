@@ -97,7 +97,7 @@
 
                         <p:ajax event="rowSelect"
                                 listener="#{userBean.changeToDetail()}"
-                                disabled="#{not userSessionBean.isPermitted(permissions.USER_ACCESS)}"/>
+                                disabled="#{not userSessionBean.isPermitted(permissions.USER_DETAIL)}"/>
 
                         <p:column headerText="#{messages['user.list.name']}">
                             <p:graphicImage width="24"
@@ -139,7 +139,7 @@
                                              rendered="#{userSessionBean.isPermitted(permissions.USER_UPDATE)}"/>
                             <p:spacer width="5"/>
                             <p:commandButton immediate="true"
-                                             icon="fa fa-times"
+                                             icon="fa fa-eraser"
                                              title="#{menu['delete']}"
                                              styleClass="btn btn-flat btn-danger"
                                              action="#{userBean.changeToDelete(user.id)}"

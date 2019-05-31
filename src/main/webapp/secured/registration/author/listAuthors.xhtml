@@ -75,7 +75,7 @@
                                 <p:commandButton value="#{menu['add']}" 
                                                  action="#{authorBean.changeToAdd()}"
                                                  styleClass="btn btn-flat btn-primary"
-                                                 rendered="#{userSessionBean.isPermitted(permissions.USER_ADD)}"/>
+                                                 rendered="#{userSessionBean.isPermitted(permissions.AUTHOR_ADD)}"/>
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
 
                         <p:ajax event="rowSelect"
                                 listener="#{authorBean.changeToDetail()}"
-                                disabled="#{not userSessionBean.isPermitted(permissions.USER_ACCESS)}"/>
+                                disabled="#{not userSessionBean.isPermitted(permissions.AUTHOR_DETAIL)}"/>
 
                         <p:column headerText="#{messages['author.list.name']}">
                             <p:graphicImage width="24"
@@ -127,14 +127,14 @@
                                              title="#{menu['edit']}"
                                              styleClass="btn btn-flat btn-default"
                                              action="#{authorBean.changeToEdit(author.id)}" 
-                                             rendered="#{userSessionBean.isPermitted(permissions.USER_UPDATE)}"/>
+                                             rendered="#{userSessionBean.isPermitted(permissions.AUTHOR_UPDATE)}"/>
                             <p:spacer width="5"/>
                             <p:commandButton immediate="true"
-                                             icon="fa fa-times"
+                                             icon="fa fa-eraser"
                                              title="#{menu['delete']}"
                                              styleClass="btn btn-flat btn-danger"
                                              action="#{authorBean.changeToDelete(author.id)}"
-                                             rendered="#{userSessionBean.isPermitted(permissions.USER_DELETE)}"/>
+                                             rendered="#{userSessionBean.isPermitted(permissions.AUTHOR_DELETE)}"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>

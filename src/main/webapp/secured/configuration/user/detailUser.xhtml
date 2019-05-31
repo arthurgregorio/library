@@ -143,18 +143,32 @@
                     </div>
                 </div>
                 <div class="box-footer text-right">
-                    <h:outputText styleClass="text-red text-bold"
-                                  value="#{messages['delete-message']}"
-                                  rendered="#{userBean.viewState.deleting}"/>
-                    <p:spacer width="5"/>
-                    <p:commandButton value="#{menu['yes']}"
-                                     action="#{userBean.doDelete()}" 
-                                     styleClass="btn btn-flat btn-danger" 
-                                     rendered="#{userBean.viewState.deleting}"/>
-                    <p:spacer width="5" />
+                    <ui:fragment rendered="#{userBean.viewState.deleting}">
+                        <h:outputText styleClass="text-red text-bold"
+                                      value="#{messages['delete-message']}"/>
+                        <p:spacer width="5"/>
+                        <p:commandButton value="#{menu['yes']}"
+                                         action="#{userBean.doDelete()}"
+                                         styleClass="btn btn-flat btn-danger"/>
+                        <p:spacer width="5"/>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{userBean.viewState.detailing}">
+                        <p:commandButton value="#{menu['edit']}"
+                                         styleClass="btn btn-flat btn-success"
+                                         action="#{userBean.changeToEdit(userBean.value.id)}"
+                                         rendered="#{userSessionBean.isPermitted(permissions.USER_UPDATE)}"/>
+                        <p:spacer width="5"
+                                  rendered="#{userSessionBean.isPermitted(permissions.USER_DELETE)}"/>
+                        <p:commandButton value="#{menu['delete']}"
+                                         styleClass="btn btn-flat btn-danger"
+                                         action="#{userBean.changeToDelete(userBean.value.id)}"
+                                         rendered="#{userSessionBean.isPermitted(permissions.GROUP_DELETE)}"/>
+                        <p:spacer width="5"
+                                  rendered="#{userSessionBean.isPermitted(permissions.GROUP_DELETE)}"/>
+                    </ui:fragment>
                     <p:commandButton immediate="true"
                                      styleClass="btn btn-flat btn-primary"
-                                     action="#{userBean.changeToListing()}" 
+                                     action="#{userBean.changeToListing()}"
                                      value="#{userBean.viewState.detailing ? menu['back'] : menu['no']}"/>
                 </div>
             </div>

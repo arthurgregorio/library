@@ -1,16 +1,15 @@
 package br.eti.arthurgregorio.library.domain.services;
 
-import br.eti.arthurgregorio.library.infrastructure.i18n.MessageSource;
 import br.eti.arthurgregorio.library.domain.entities.configuration.StoreType;
 import br.eti.arthurgregorio.library.domain.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
+import br.eti.arthurgregorio.library.infrastructure.i18n.MessageSource;
 import br.eti.arthurgregorio.library.infrastructure.mail.MailContentProvider;
 import br.eti.arthurgregorio.library.infrastructure.mail.MailMessage;
 import br.eti.arthurgregorio.library.infrastructure.mail.MustacheProvider;
 import br.eti.arthurgregorio.library.infrastructure.mail.SimpleMailMessage;
 import br.eti.arthurgregorio.library.infrastructure.misc.CodeGenerator;
-import br.eti.arthurgregorio.library.infrastructure.misc.Configurations;
 import br.eti.arthurgregorio.shiroee.auth.PasswordEncoder;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -36,7 +35,7 @@ public class RecoverPasswordService {
 
     @Inject
     private PasswordEncoder passwordEncoder;
-    
+
     @Inject
     private Event<MailMessage> mailSender;
 
@@ -59,36 +58,33 @@ public class RecoverPasswordService {
         this.userRepository.saveAndFlushAndRefresh(user);
 
         final MailMessage mailMessage = SimpleMailMessage.getBuilder()
-                .from(Configurations.get("email.no-reply-address"))
+                .from("no-reply@webbudget.com.br", "webBudget")
                 .to(user.getEmail())
                 .withTitle(MessageSource.get("recover-password.email.title"))
                 .withContent(this.buildContent(user, newPassword))
                 .build();
 
-        this.mailSender.fireAsync(mailMessage);
+        this.mailSender.fire(mailMessage);
     }
 
     /**
      * Construct the content of the e-mail message
-     * 
+     *
      * @param user the user
      * @param newPassword the new password
      * @return the content provider with the content
      */
     private MailContentProvider buildContent(User user, String newPassword) {
-       
-        final MustacheProvider provider = new MustacheProvider("recover-password.mustache");
 
-        final String date = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm").format(LocalDateTime.now());
-        
+        final MustacheProvider provider = new MustacheProvider("recoverPassword.mustache");
+
+        final String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm"));
+
         provider.addContent("title", MessageSource.get("recover-password.email.title"));
-        provider.addContent("detail", MessageSource.get("recover-password.email.detail"));
-        provider.addContent("on", MessageSource.get("recover-password.email.on"));
-        provider.addContent("requestDate", date);
-        provider.addContent("username", user.getUsername());
-        provider.addContent("message", MessageSource.get("recover-password.email.message"));
-        provider.addContent("newPassword", newPassword);
-        
+        provider.addContent("detail", MessageSource.get("recover-password.email.detail", date));
+        provider.addContent("greetings", MessageSource.get("recover-password.email.greetings", user.getName()));
+        provider.addContent("message", MessageSource.get("recover-password.email.message", newPassword));
+
         return provider;
     }
 }

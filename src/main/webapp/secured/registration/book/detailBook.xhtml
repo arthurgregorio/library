@@ -109,6 +109,7 @@
                                 <p:outputLabel for="inSummary"
                                                value="#{messages['book.form.summary']}"/>
                                 <p:inputTextarea id="inSummary"
+                                                 rows="8"
                                                  maxlength="500"
                                                  autoResize="false"
                                                  styleClass="form-control"
@@ -118,18 +119,32 @@
                     </div>
                 </div>
                 <div class="box-footer text-right">
-                    <h:outputText styleClass="text-red text-bold"
-                                  value="#{messages['delete-message']}"
-                                  rendered="#{bookBean.viewState.deleting}"/>
-                    <p:spacer width="5"/>
-                    <p:commandButton value="#{menu['yes']}"
-                                     action="#{bookBean.doDelete()}" 
-                                     styleClass="btn btn-flat btn-danger" 
-                                     rendered="#{bookBean.viewState.deleting}"/>
-                    <p:spacer width="5" />
+                    <ui:fragment rendered="#{bookBean.viewState.deleting}">
+                        <h:outputText styleClass="text-red text-bold"
+                                      value="#{messages['delete-message']}"/>
+                        <p:spacer width="5"/>
+                        <p:commandButton value="#{menu['yes']}"
+                                         action="#{bookBean.doDelete()}"
+                                         styleClass="btn btn-flat btn-danger"/>
+                        <p:spacer width="5"/>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{bookBean.viewState.detailing}">
+                        <p:commandButton value="#{menu['edit']}"
+                                         styleClass="btn btn-flat btn-success"
+                                         action="#{bookBean.changeToEdit(bookBean.value.id)}"
+                                         rendered="#{userSessionBean.isPermitted(permissions.GROUP_UPDATE)}"/>
+                        <p:spacer width="5"
+                                  rendered="#{userSessionBean.isPermitted(permissions.GROUP_UPDATE)}"/>
+                        <p:commandButton value="#{menu['delete']}"
+                                         styleClass="btn btn-flat btn-danger"
+                                         action="#{bookBean.changeToDelete(bookBean.value.id)}"
+                                         rendered="#{userSessionBean.isPermitted(permissions.GROUP_DELETE)}"/>
+                        <p:spacer width="5"
+                                  rendered="#{userSessionBean.isPermitted(permissions.GROUP_DELETE)}"/>
+                    </ui:fragment>
                     <p:commandButton immediate="true"
                                      styleClass="btn btn-flat btn-primary"
-                                     action="#{bookBean.changeToListing()}" 
+                                     action="#{bookBean.changeToListing()}"
                                      value="#{bookBean.viewState.detailing ? menu['back'] : menu['no']}"/>
                 </div>
             </div>
