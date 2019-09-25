@@ -3,14 +3,15 @@ package br.eti.arthurgregorio.library.domain.services;
 import br.eti.arthurgregorio.library.application.controllers.configuration.ProfileBean.PasswordChangeDTO;
 import br.eti.arthurgregorio.library.domain.entities.configuration.*;
 import br.eti.arthurgregorio.library.domain.exception.BusinessLogicException;
-import br.eti.arthurgregorio.library.domain.repositories.configuration.*;
 import br.eti.arthurgregorio.library.domain.logics.configuration.group.GroupDeletingLogic;
 import br.eti.arthurgregorio.library.domain.logics.configuration.user.UserDeletingLogic;
 import br.eti.arthurgregorio.library.domain.logics.configuration.user.UserSavingLogic;
 import br.eti.arthurgregorio.library.domain.logics.configuration.user.UserUpdatingLogic;
+import br.eti.arthurgregorio.library.domain.repositories.configuration.*;
 import br.eti.arthurgregorio.shiroee.auth.PasswordEncoder;
 import br.eti.arthurgregorio.shiroee.config.jdbc.UserDetails;
 import br.eti.arthurgregorio.shiroee.config.jdbc.UserDetailsProvider;
+import org.apache.shiro.authc.UnknownAccountException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Any;
@@ -18,7 +19,6 @@ import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * The user account service
@@ -174,9 +174,9 @@ public class UserAccountService implements UserDetailsProvider {
 
         // save the new ones
         authorizations.forEach(auth ->
-            this.authorizationRepository
-                    .findByFunctionalityAndPermission(auth.getFunctionality(), auth.getPermission())
-                    .ifPresent(authorization -> this.grantRepository.save(new Grant(group, authorization)))
+                this.authorizationRepository
+                        .findByFunctionalityAndPermission(auth.getFunctionality(), auth.getPermission())
+                        .ifPresent(authorization -> this.grantRepository.save(new Grant(group, authorization)))
         );
     }
 
@@ -203,14 +203,13 @@ public class UserAccountService implements UserDetailsProvider {
     }
 
     /**
-     * Find the {@link UserDetails} of a given username from an {@link User}
      *
-     * @param username the username to search for the details
-     * @return an {@link Optional} of the {@link UserDetails} for the username
+     * @param username
+     * @return
+     * @throws UnknownAccountException
      */
     @Override
-    public Optional<UserDetails> findUserDetailsByUsername(String username) {
-        final Optional<User> user = this.userRepository.findByUsername(username);
-        return Optional.ofNullable(user.orElse(null));
+    public UserDetails findByUsername(String username) throws UnknownAccountException {
+        return this.userRepository.findByUsername(username).orElseThrow(UnknownAccountException::new);
     }
 }
