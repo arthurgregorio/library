@@ -34,8 +34,8 @@
     </developers>
 
     <properties>
-        <jackson.version>2.9.9</jackson.version>
-        <deltaspike.version>1.9.0</deltaspike.version>
+        <jackson.version>2.9.10</jackson.version>
+        <deltaspike.version>1.9.1</deltaspike.version>
         <hibernate.version>5.3.9.Final</hibernate.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -216,7 +216,7 @@
         <dependency>
             <groupId>br.eti.arthurgregorio</groupId>
             <artifactId>shiro-ee</artifactId>
-            <version>1.4.0</version>
+            <version>1.5.0</version>
         </dependency>
 
         <!--SL4J-->
