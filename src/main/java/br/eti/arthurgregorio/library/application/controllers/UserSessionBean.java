@@ -3,7 +3,7 @@ package br.eti.arthurgregorio.library.application.controllers;
 import br.eti.arthurgregorio.library.domain.entities.configuration.Profile;
 import br.eti.arthurgregorio.library.domain.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
-import br.eti.arthurgregorio.library.infrastructure.cdi.qualifier.AuthenticatedUser;
+import br.eti.arthurgregorio.library.application.cdi.qualifier.AuthenticatedUser;
 import lombok.Getter;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;

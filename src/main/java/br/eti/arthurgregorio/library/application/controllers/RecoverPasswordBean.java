@@ -37,7 +37,6 @@ public class RecoverPasswordBean extends AbstractBean {
 
         this.closeDialog("dialogRecoverPassword");
         this.addInfoAndKeep("recover-password.email-sent");
-        this.temporizeHiding("messages");
     }
 
     /**

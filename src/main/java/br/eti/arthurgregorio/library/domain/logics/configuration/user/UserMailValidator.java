@@ -2,12 +2,11 @@ package br.eti.arthurgregorio.library.domain.logics.configuration.user;
 
 import br.eti.arthurgregorio.library.domain.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.exception.BusinessLogicException;
-import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
 import br.eti.arthurgregorio.library.domain.logics.BusinessLogic;
+import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
-import java.util.Optional;
 
 /**
  * {@link BusinessLogic} for the user e-mail validation logic
@@ -30,16 +29,10 @@ public class UserMailValidator implements UserSavingLogic, UserUpdatingLogic {
      */
     @Override
     public void run(User value) {
-
-        final Optional<User> userOptional = this.userRepository.findByEmail(value.getEmail());
-
-        if (userOptional.isPresent()) {
-
-            final User found = userOptional.get();
-
-            if (!found.getUsername().equals(value.getUsername())) {
+        this.userRepository.findByEmail(value.getEmail()).ifPresent(user -> {
+            if (!user.getUsername().equals(value.getUsername())) {
                 throw new BusinessLogicException("error.user.email-duplicated");
             }
-        }
+        });
     }
 }

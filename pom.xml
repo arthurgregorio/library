@@ -255,6 +255,7 @@
             </activation>
             <properties>
                 <application.version>${project.version}-ALPHA</application.version>
+                <application.base-url>https://localhost:8443/</application.base-url>
                 <skip.tests>true</skip.tests>
                 <project.stage>Development</project.stage>
                 <orm.show_sql>true</orm.show_sql>
@@ -270,6 +271,7 @@
             <id>beta</id>
             <properties>
                 <application.version>${project.version}-BETA</application.version>
+                <application.base-url>https://localhost:8443/</application.base-url>
                 <skip.tests>false</skip.tests>
                 <project.stage>SystemTest</project.stage>
                 <orm.show_sql>true</orm.show_sql>
@@ -285,6 +287,7 @@
             <id>release-candidate</id>
             <properties>
                 <application.version>${project.version}-RC</application.version>
+                <application.base-url>https://localhost:8443/</application.base-url>
                 <skip.tests>false</skip.tests>
                 <project.stage>Production</project.stage>
                 <orm.show_sql>false</orm.show_sql>
@@ -300,6 +303,7 @@
             <id>release</id>
             <properties>
                 <application.version>${project.version}-RELEASE</application.version>
+                <application.base-url>https://localhost:8443/</application.base-url>
                 <skip.tests>false</skip.tests>
                 <project.stage>Production</project.stage>
                 <orm.show_sql>false</orm.show_sql>

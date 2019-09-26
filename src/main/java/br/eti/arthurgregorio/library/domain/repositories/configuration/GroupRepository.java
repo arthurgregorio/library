@@ -31,6 +31,14 @@ public interface GroupRepository extends LazyDefaultRepository<Group> {
     Optional<Group> findByName(String name);
 
     /**
+     *
+     * @param name
+     * @param id
+     * @return
+     */
+    Optional<Group> findByNameAndIdNotEqual(String name, Long id);
+
+    /**
      * {@inheritDoc }
      *
      * @param filter

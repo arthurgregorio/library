@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.infrastructure.cdi;
+package br.eti.arthurgregorio.library.application.cdi;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

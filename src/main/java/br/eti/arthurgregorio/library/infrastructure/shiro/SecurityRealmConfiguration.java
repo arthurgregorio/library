@@ -1,6 +1,6 @@
 package br.eti.arthurgregorio.library.infrastructure.shiro;
 
-import br.eti.arthurgregorio.library.domain.services.UserAccountService;
+import br.eti.arthurgregorio.library.domain.services.AccountService;
 import br.eti.arthurgregorio.shiroee.auth.AuthenticationMechanism;
 import br.eti.arthurgregorio.shiroee.auth.DatabaseAuthenticationMechanism;
 import br.eti.arthurgregorio.shiroee.config.RealmConfiguration;
@@ -41,7 +41,7 @@ public class SecurityRealmConfiguration implements RealmConfiguration {
     @Inject
     private LdapUserProvider ldapUserProvider;
     @Inject
-    private UserAccountService userAccountService;
+    private AccountService userAccountService;
 
     /**
      * Initialize the configuration with the default values

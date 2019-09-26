@@ -5,13 +5,11 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
 import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.CONFIGURATION;
-import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.CONFIGURATION_AUDIT;
 
 /**
  * The user profile entity
@@ -26,7 +24,6 @@ import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.C
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "profiles", schema = CONFIGURATION)
-@AuditTable(value = "audit_profiles", schema = CONFIGURATION_AUDIT)
 public class Profile extends PersistentEntity {
 
     @Getter

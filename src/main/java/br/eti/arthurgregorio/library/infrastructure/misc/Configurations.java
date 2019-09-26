@@ -1,7 +1,5 @@
 package br.eti.arthurgregorio.library.infrastructure.misc;
 
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import java.util.MissingResourceException;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -44,7 +42,7 @@ public final class Configurations {
      * @return the value for this configuration
      */
     public static boolean getAsBoolean(String configuration) {
-        return Boolean.valueOf(Objects.requireNonNull(get(configuration)));
+        return Boolean.parseBoolean(Objects.requireNonNull(get(configuration)));
     }
 
     /**
@@ -54,7 +52,7 @@ public final class Configurations {
      * @return the value for this configuration
      */
     public static int getAsInteger(String configuration) {
-        return Integer.valueOf(Objects.requireNonNull(get(configuration)));
+        return Integer.parseInt(Objects.requireNonNull(get(configuration)));
     }
 
     /**
@@ -63,18 +61,6 @@ public final class Configurations {
      * @return the base URL
      */
     public static String getBaseURL() {
-
-        final FacesContext facesContext = FacesContext.getCurrentInstance();
-
-        final HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
-
-        final StringBuilder builder = new StringBuilder();
-
-        String actualPath = request.getRequestURL().toString();
-
-        builder.append(actualPath.replace(request.getRequestURI(), ""));
-        builder.append(request.getContextPath());
-
-        return builder.toString();
+        return Configurations.get("application.url");
     }
 }

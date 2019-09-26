@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.infrastructure.cdi.qualifier;
+package br.eti.arthurgregorio.library.application.cdi.qualifier;
 
 import br.eti.arthurgregorio.library.domain.entities.configuration.User;
 
@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @author Arthur Gregorio
  *
  * @version 1.0.0
- * @since 2.0.0, 23/10/2018
+ * @since 2.2.0, 25/09/2019
  */
 @Qualifier
 @Documented

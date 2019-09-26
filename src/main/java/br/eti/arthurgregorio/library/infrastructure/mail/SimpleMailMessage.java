@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.mail.Address;
 import javax.mail.internet.InternetAddress;
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  *
  * @author Arthur Gregorio
  *
- * @version 1.0.0
+ * @version 1.2.0
  * @since 1.0.0, 03/04/2018
  */
 @ToString
@@ -30,12 +31,16 @@ public class SimpleMailMessage implements MailMessage {
     @Getter
     @Setter
     private String content;
+
     @Getter
     @Setter
     private Address from;
     @Getter
     @Setter
     private Address replyTo;
+
+    @Getter
+    private List<File> attachments;
     @Setter
     private List<InternetAddress> ccs;
     @Setter
@@ -47,31 +52,7 @@ public class SimpleMailMessage implements MailMessage {
     private SimpleMailMessage() {
         this.ccs = new ArrayList<>();
         this.addressees = new ArrayList<>();
-    }
-
-    /**
-     * @return the builder of {@link SimpleMailMessage}
-     */
-    public static SimpleMailMessageBuilder getBuilder() {
-        return new SimpleMailMessageBuilder();
-    }
-
-    /**
-     * Add a cc
-     *
-     * @param cc the cc to add
-     */
-    private void addCc(InternetAddress cc) {
-        this.ccs.add(cc);
-    }
-
-    /**
-     * Add a addressee
-     *
-     * @param addressee the addressee to add
-     */
-    private void addAddressees(InternetAddress addressee) {
-        this.addressees.add(addressee);
+        this.attachments = new ArrayList<>();
     }
 
     /**
@@ -88,6 +69,13 @@ public class SimpleMailMessage implements MailMessage {
     @Override
     public InternetAddress[] getCcs() {
         return this.ccs.toArray(new InternetAddress[]{});
+    }
+
+    /**
+     * @return the builder of {@link SimpleMailMessage}
+     */
+    public static SimpleMailMessageBuilder builder() {
+        return new SimpleMailMessageBuilder();
     }
 
     /**
@@ -111,7 +99,19 @@ public class SimpleMailMessage implements MailMessage {
          * @return this builder
          */
         public SimpleMailMessageBuilder to(String to) {
-            this.message.addAddressees(this.toAddress(to));
+            this.message.addressees.add(this.toAddress(to));
+            return this;
+        }
+
+        /**
+         *
+         * @param addressees
+         * @return
+         */
+        public SimpleMailMessageBuilder to(String... addressees) {
+            for (String addressee : addressees) {
+                this.message.addressees.add(this.toAddress(addressee));
+            }
             return this;
         }
 
@@ -156,7 +156,7 @@ public class SimpleMailMessage implements MailMessage {
          * @return this builder
          */
         public SimpleMailMessageBuilder withCopy(String copy) {
-            this.message.addCc(this.toAddress(copy));
+            this.message.ccs.add(this.toAddress(copy));
             return this;
         }
 
@@ -194,6 +194,16 @@ public class SimpleMailMessage implements MailMessage {
         }
 
         /**
+         *
+         * @param attachment
+         * @return
+         */
+        public SimpleMailMessageBuilder putAttachment(File attachment) {
+            this.message.attachments.add(attachment);
+            return this;
+        }
+
+        /**
          * @return the instance of the {@link SimpleMailMessage} to be created
          */
         public SimpleMailMessage build() {
@@ -226,4 +236,3 @@ public class SimpleMailMessage implements MailMessage {
         }
     }
 }
-

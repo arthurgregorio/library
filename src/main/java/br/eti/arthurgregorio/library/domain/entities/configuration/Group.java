@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -17,7 +16,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.CONFIGURATION;
-import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.CONFIGURATION_AUDIT;
 import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.FetchType.EAGER;
 
@@ -34,7 +32,6 @@ import static javax.persistence.FetchType.EAGER;
 @ToString(exclude = "grants")
 @Table(name = "groups", schema = CONFIGURATION)
 @EqualsAndHashCode(callSuper = true, exclude = "grants")
-@AuditTable(value = "groups", schema = CONFIGURATION_AUDIT)
 public class Group extends PersistentEntity {
 
     @Getter

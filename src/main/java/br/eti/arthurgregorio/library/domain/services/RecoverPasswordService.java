@@ -5,19 +5,15 @@ import br.eti.arthurgregorio.library.domain.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
 import br.eti.arthurgregorio.library.infrastructure.i18n.MessageSource;
-import br.eti.arthurgregorio.library.infrastructure.mail.MailContentProvider;
-import br.eti.arthurgregorio.library.infrastructure.mail.MailMessage;
-import br.eti.arthurgregorio.library.infrastructure.mail.MustacheProvider;
-import br.eti.arthurgregorio.library.infrastructure.mail.SimpleMailMessage;
-import br.eti.arthurgregorio.library.infrastructure.misc.CodeGenerator;
+import br.eti.arthurgregorio.library.infrastructure.mail.*;
+import br.eti.arthurgregorio.library.infrastructure.misc.Configurations;
 import br.eti.arthurgregorio.shiroee.auth.PasswordEncoder;
+import net.bytebuddy.utility.RandomString;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * The service responsible for all the operations about the password recovery process
@@ -51,14 +47,16 @@ public class RecoverPasswordService {
                 .findByEmailAndStoreType(email, StoreType.LOCAL)
                 .orElseThrow(() -> new BusinessLogicException("error.recover-password.user-not-found"));
 
-        final String newPassword = CodeGenerator.alphanumeric(8);
+        final String newPassword = new RandomString(8).nextString();
 
         user.setPassword(this.passwordEncoder.encryptPassword(newPassword));
 
         this.userRepository.saveAndFlushAndRefresh(user);
 
-        final MailMessage mailMessage = SimpleMailMessage.getBuilder()
-                .from("no-reply@webbudget.com.br", "webBudget")
+        final String noReplyAddress = Configurations.get("email.no-reply-address");
+
+        final MailMessage mailMessage = SimpleMailMessage.builder()
+                .from(noReplyAddress, "Meeting - PTI")
                 .to(user.getEmail())
                 .withTitle(MessageSource.get("recover-password.email.title"))
                 .withContent(this.buildContent(user, newPassword))
@@ -76,14 +74,12 @@ public class RecoverPasswordService {
      */
     private MailContentProvider buildContent(User user, String newPassword) {
 
-        final MustacheProvider provider = new MustacheProvider("recoverPassword.mustache");
+        final MustacheProvider provider = new MustacheProvider("recover-password.mustache");
 
-        final String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm"));
-
-        provider.addContent("title", MessageSource.get("recover-password.email.title"));
-        provider.addContent("detail", MessageSource.get("recover-password.email.detail", date));
-        provider.addContent("greetings", MessageSource.get("recover-password.email.greetings", user.getName()));
-        provider.addContent("message", MessageSource.get("recover-password.email.message", newPassword));
+        provider.addContent("user", user);
+        provider.addContent("newPassword", newPassword);
+        provider.addContent("greeting", EmailUtil.getGreeting());
+        provider.addContent("baseUrl", Configurations.getBaseURL());
 
         return provider;
     }

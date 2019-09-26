@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -16,7 +15,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.CONFIGURATION;
-import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.CONFIGURATION_AUDIT;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
@@ -29,10 +27,9 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  */
 @Entity
 @Audited
-@ToString(callSuper = true, exclude = "group")
 @Table(name = "users", schema = CONFIGURATION)
-@EqualsAndHashCode(callSuper = true, exclude = "group")
-@AuditTable(value = "users", schema = CONFIGURATION_AUDIT)
+@EqualsAndHashCode(callSuper = true, of = {"email", "username"})
+@ToString(callSuper = true, exclude = {"profile", "group", "passwordConfirmation"})
 public class User extends PersistentEntity implements UserDetails {
 
     @Getter

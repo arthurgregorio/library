@@ -2,7 +2,6 @@ package br.eti.arthurgregorio.library.domain.entities.configuration;
 
 import br.eti.arthurgregorio.library.domain.entities.PersistentEntity;
 import lombok.*;
-import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.Column;
@@ -10,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.CONFIGURATION;
-import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.CONFIGURATION_AUDIT;
 
 /**
  * The authorization entity
@@ -26,9 +24,8 @@ import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.C
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "authorizations", schema = CONFIGURATION)
-@AuditTable(value = "authorizations", schema = CONFIGURATION_AUDIT)
 public class Authorization extends PersistentEntity {
-    
+
     @Getter
     @Setter
     @Column(name = "functionality", nullable = false, length = 90)
@@ -55,10 +52,10 @@ public class Authorization extends PersistentEntity {
     public String getFullPermission() {
         return this.functionality + ":" + this.permission;
     }
-    
+
     /**
      * Check if this permission if for the given functionality
-     * 
+     *
      * @param functionality the functionality to test
      * @return true if is, false otherwise
      */
@@ -68,7 +65,7 @@ public class Authorization extends PersistentEntity {
 
     /**
      * Compare two permissions
-     * 
+     *
      * @param permission the permission to compare
      * @return true if they ara equal, false otherwise
      */

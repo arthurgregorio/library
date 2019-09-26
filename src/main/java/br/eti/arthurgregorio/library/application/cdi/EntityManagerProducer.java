@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.infrastructure.cdi;
+package br.eti.arthurgregorio.library.application.cdi;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;

@@ -2,7 +2,6 @@ package br.eti.arthurgregorio.library.domain.entities.configuration;
 
 import br.eti.arthurgregorio.library.domain.entities.PersistentEntity;
 import lombok.*;
-import org.hibernate.envers.AuditTable;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.Entity;
@@ -11,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.CONFIGURATION;
-import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.CONFIGURATION_AUDIT;
 
 /**
  * The grant for authorization entity
@@ -27,7 +25,6 @@ import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.C
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "grants", schema = CONFIGURATION)
-@AuditTable(value = "grants", schema = CONFIGURATION_AUDIT)
 public class Grant extends PersistentEntity {
 
     @Getter
@@ -43,7 +40,7 @@ public class Grant extends PersistentEntity {
 
     /**
      * Constructor
-     * 
+     *
      * @param group the {@link Group}
      * @param authorization the {@link Authorization}
      */

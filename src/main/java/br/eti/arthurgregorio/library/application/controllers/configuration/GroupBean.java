@@ -1,23 +1,30 @@
 package br.eti.arthurgregorio.library.application.controllers.configuration;
 
-import br.eti.arthurgregorio.library.application.components.ui.table.Page;
 import br.eti.arthurgregorio.library.application.components.ui.LazyFormBean;
 import br.eti.arthurgregorio.library.application.components.ui.ViewState;
+import br.eti.arthurgregorio.library.application.components.ui.table.Page;
 import br.eti.arthurgregorio.library.domain.entities.configuration.Authorization;
 import br.eti.arthurgregorio.library.domain.entities.configuration.Grant;
 import br.eti.arthurgregorio.library.domain.entities.configuration.Group;
 import br.eti.arthurgregorio.library.domain.entities.configuration.Permissions;
+import br.eti.arthurgregorio.library.domain.logics.configuration.group.GroupDeletingLogic;
+import br.eti.arthurgregorio.library.domain.logics.configuration.group.GroupSavingLogic;
+import br.eti.arthurgregorio.library.domain.logics.configuration.group.GroupUpdatingLogic;
+import br.eti.arthurgregorio.library.domain.repositories.configuration.AuthorizationRepository;
+import br.eti.arthurgregorio.library.domain.repositories.configuration.GrantRepository;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.GroupRepository;
-import br.eti.arthurgregorio.library.domain.services.UserAccountService;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.SortOrder;
 import org.primefaces.model.TreeNode;
 
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -48,18 +55,20 @@ public class GroupBean extends LazyFormBean<Group> {
 
     @Inject
     private GroupRepository groupRepository;
-
     @Inject
-    private UserAccountService userAccountService;
+    private GrantRepository grantRepository;
+    @Inject
+    private AuthorizationRepository authorizationRepository;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void initialize() {
-        super.initialize();
-        this.temporizeHiding(this.getDefaultMessagesComponentId());
-    }
+    @Any
+    @Inject
+    private Instance<GroupSavingLogic> groupSavingLogics;
+    @Any
+    @Inject
+    private Instance<GroupUpdatingLogic> groupUpdatingLogics;
+    @Any
+    @Inject
+    private Instance<GroupDeletingLogic> groupDeletingLogics;
 
     /**
      * {@inheritDoc}
@@ -114,8 +123,18 @@ public class GroupBean extends LazyFormBean<Group> {
      * {@inheritDoc}
      */
     @Override
+    @Transactional
     public void doSave() {
-        this.userAccountService.save(this.value, this.parseAuthorizations());
+
+        this.groupSavingLogics.forEach(logic -> logic.run(this.value));
+
+        final Group saved = this.groupRepository.save(this.value);
+
+        this.parseAuthorizations().forEach(auth -> this.authorizationRepository
+                .findByFunctionalityAndPermission(auth.getFunctionality(), auth.getPermission())
+                .ifPresent(authorization -> this.grantRepository.save(new Grant(saved, authorization)))
+        );
+
         this.value = new Group();
         this.unselectAuthorizations();
         this.addInfo(true, "saved");
@@ -125,8 +144,24 @@ public class GroupBean extends LazyFormBean<Group> {
      * {@inheritDoc}
      */
     @Override
+    @Transactional
     public void doUpdate() {
-        this.userAccountService.update(this.value, this.parseAuthorizations());
+
+        this.groupUpdatingLogics.forEach(logic -> logic.run(this.value));
+
+        final Group saved = this.groupRepository.saveAndFlushAndRefresh(this.value);
+
+        // list all old grants and delete
+        final List<Grant> oldGrants = this.grantRepository.findByGroup(this.value);
+        oldGrants.forEach(grant -> this.grantRepository.remove(grant));
+
+        // save new authorizations for this group
+        this.parseAuthorizations().forEach(auth ->
+                this.authorizationRepository
+                        .findByFunctionalityAndPermission(auth.getFunctionality(), auth.getPermission())
+                        .ifPresent(authorization -> this.grantRepository.save(new Grant(saved, authorization)))
+        );
+
         this.addInfo(true, "updated");
     }
 
@@ -136,8 +171,10 @@ public class GroupBean extends LazyFormBean<Group> {
      * @return
      */
     @Override
+    @Transactional
     public String doDelete() {
-        this.userAccountService.delete(this.value);
+        this.groupDeletingLogics.forEach(validator -> validator.run(this.value));
+        this.groupRepository.attachAndRemove(this.value);
         this.addInfoAndKeep("deleted");
         return this.changeToListing();
     }
@@ -199,7 +236,6 @@ public class GroupBean extends LazyFormBean<Group> {
      * Remove all the selections on the authorizations tree
      */
     private void unselectAuthorizations() {
-
         this.treeRoot.getChildren()
                 .stream()
                 .peek(root -> root.setSelected(false))
@@ -253,7 +289,7 @@ public class GroupBean extends LazyFormBean<Group> {
      * @return the part of the nod to be parsed in the i18n
      */
     public String split(String nodeDescription) {
-        final String splited[] = nodeDescription.split(":");
+        final String[] splited = nodeDescription.split(":");
         return splited.length > 1 ? splited[1] : splited[0];
     }
 }

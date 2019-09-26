@@ -3,7 +3,7 @@ package br.eti.arthurgregorio.library.domain.logics.configuration.user;
 import br.eti.arthurgregorio.library.domain.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.logics.BusinessLogic;
-import br.eti.arthurgregorio.library.infrastructure.cdi.qualifier.AuthenticatedUser;
+import br.eti.arthurgregorio.library.application.cdi.qualifier.AuthenticatedUser;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;

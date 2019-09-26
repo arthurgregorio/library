@@ -1,5 +1,7 @@
 package br.eti.arthurgregorio.library.application.controllers.configuration;
 
+import br.eti.arthurgregorio.library.application.cdi.qualifier.UserCreated;
+import br.eti.arthurgregorio.library.application.cdi.qualifier.UserUpdated;
 import br.eti.arthurgregorio.library.application.components.ui.LazyFormBean;
 import br.eti.arthurgregorio.library.application.components.ui.ViewState;
 import br.eti.arthurgregorio.library.application.components.ui.table.Page;
@@ -7,18 +9,24 @@ import br.eti.arthurgregorio.library.domain.entities.configuration.Group;
 import br.eti.arthurgregorio.library.domain.entities.configuration.StoreType;
 import br.eti.arthurgregorio.library.domain.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.exception.BusinessLogicException;
+import br.eti.arthurgregorio.library.domain.logics.configuration.user.UserDeletingLogic;
+import br.eti.arthurgregorio.library.domain.logics.configuration.user.UserSavingLogic;
+import br.eti.arthurgregorio.library.domain.logics.configuration.user.UserUpdatingLogic;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.GroupRepository;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
-import br.eti.arthurgregorio.library.domain.services.UserAccountService;
 import br.eti.arthurgregorio.library.infrastructure.misc.Configurations;
 import br.eti.arthurgregorio.shiroee.config.ldap.LdapUser;
 import br.eti.arthurgregorio.shiroee.config.ldap.LdapUserProvider;
 import lombok.Getter;
 import org.primefaces.model.SortOrder;
 
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static br.eti.arthurgregorio.library.application.components.ui.NavigationManager.PageType.*;
@@ -44,19 +52,24 @@ public class UserBean extends LazyFormBean<User> {
     private GroupRepository groupRepository;
 
     @Inject
-    private UserAccountService userAccountService;
-
-    @Inject
     private LdapUserProvider ldapUserProvider;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void initialize() {
-        super.initialize();
-        this.temporizeHiding(this.getDefaultMessagesComponentId());
-    }
+    @Any
+    @Inject
+    private Instance<UserSavingLogic> userSavingValidators;
+    @Any
+    @Inject
+    private Instance<UserUpdatingLogic> userUpdatingValidators;
+    @Any
+    @Inject
+    private Instance<UserDeletingLogic> userDeletingValidators;
+
+    @Inject
+    @UserCreated
+    private Event<User> userCreatedEvent;
+    @Inject
+    @UserUpdated
+    private Event<User> userUpdatedEvent;
 
     /**
      * {@inheritDoc}
@@ -101,8 +114,10 @@ public class UserBean extends LazyFormBean<User> {
      * {@inheritDoc}
      */
     @Override
+    @Transactional
     public void doSave() {
-        this.userAccountService.save(this.value);
+        this.userSavingValidators.forEach(validator -> validator.run(this.value));
+        this.userCreatedEvent.fire(this.userRepository.save(this.value));
         this.value = new User();
         this.addInfo(true, "saved");
     }
@@ -111,8 +126,10 @@ public class UserBean extends LazyFormBean<User> {
      * {@inheritDoc}
      */
     @Override
+    @Transactional
     public void doUpdate() {
-        this.userAccountService.update(this.value);
+        this.userUpdatingValidators.forEach(validator -> validator.run(this.value));
+        this.userRepository.saveAndFlushAndRefresh(this.value);
         this.addInfo(true, "updated");
     }
 
@@ -122,8 +139,10 @@ public class UserBean extends LazyFormBean<User> {
      * @return
      */
     @Override
+    @Transactional
     public String doDelete() {
-        this.userAccountService.delete(this.value);
+        this.userDeletingValidators.forEach(validator -> validator.run(this.value));
+        this.userRepository.attachAndRemove(this.value);
         this.addInfoAndKeep("deleted");
         return this.changeToListing();
     }

@@ -5,7 +5,8 @@ import br.eti.arthurgregorio.library.application.controllers.UserSessionBean;
 import br.eti.arthurgregorio.library.domain.entities.configuration.Profile;
 import br.eti.arthurgregorio.library.domain.entities.configuration.ThemeType;
 import br.eti.arthurgregorio.library.domain.entities.configuration.User;
-import br.eti.arthurgregorio.library.domain.services.UserAccountService;
+import br.eti.arthurgregorio.library.domain.repositories.configuration.ProfileRepository;
+import br.eti.arthurgregorio.library.domain.services.AccountService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -34,7 +36,10 @@ public class ProfileBean extends AbstractBean {
     private UserSessionBean userSessionBean;
 
     @Inject
-    private UserAccountService userAccountService;
+    private AccountService accountService;
+
+    @Inject
+    private ProfileRepository profileRepository;
 
     @Getter
     private PasswordChangeDTO passwordChangeDTO;
@@ -50,8 +55,9 @@ public class ProfileBean extends AbstractBean {
     /**
      * Update the user profile
      */
+    @Transactional
     public void updateProfile() {
-        this.profile = this.userAccountService.updateUserProfile(this.profile);
+        this.profile = this.profileRepository.saveAndFlushAndRefresh(this.profile);
         this.addInfo(true, "info.profile.updated");
     }
 
@@ -91,7 +97,7 @@ public class ProfileBean extends AbstractBean {
 
         final User principal = this.userSessionBean.getPrincipal();
 
-        this.userAccountService.changePassword(this.passwordChangeDTO, principal);
+        this.accountService.changePassword(this.passwordChangeDTO, principal);
 
         this.passwordChangeDTO = new PasswordChangeDTO();
         this.addInfo(true, "profile.password-changed");
@@ -108,7 +114,7 @@ public class ProfileBean extends AbstractBean {
     /**
      * A simple DTO to transfer the password change data through the application layers
      */
-    public class PasswordChangeDTO {
+    public static class PasswordChangeDTO {
 
         @Getter
         @Setter
