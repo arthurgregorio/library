@@ -17,11 +17,15 @@ import java.io.Serializable;
 public interface IPersistentEntity<T extends Serializable> {
 
     /**
+     * Get the current entity ID
+     *
      * @return the ID of the entity
      */
     T getId();
 
     /**
+     * Use this method to check if this entity is saved or not
+     *
      * @return if the entity is saved or not
      */
     @JsonIgnore

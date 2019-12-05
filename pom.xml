@@ -34,9 +34,9 @@
     </developers>
 
     <properties>
-        <jackson.version>2.9.10</jackson.version>
+        <jackson.version>2.10.0</jackson.version>
         <deltaspike.version>1.9.1</deltaspike.version>
-        <hibernate.version>5.3.9.Final</hibernate.version>
+        <hibernate.version>5.3.13.Final</hibernate.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -45,7 +45,7 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
-            <version>8.0</version>
+            <version>8.0.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -96,7 +96,7 @@
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.0.14.Final</version>
+            <version>6.0.18.Final</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -110,7 +110,7 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>5.2.4</version>
+            <version>6.0.8</version>
         </dependency>
 
         <!--deltaspike-->
@@ -146,7 +146,7 @@
         <dependency>
             <groupId>org.primefaces.extensions</groupId>
             <artifactId>primefaces-extensions</artifactId>
-            <version>7.0</version>
+            <version>7.0.2</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.primefaces</groupId>
@@ -192,7 +192,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.8</version>
+            <version>1.18.10</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -202,7 +202,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>27.1-jre</version>
+            <version>28.1-jre</version>
         </dependency>
 
         <!--mustache-->
@@ -231,7 +231,7 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>font-awesome</artifactId>
-            <version>5.8.2</version>
+            <version>5.10.1</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
