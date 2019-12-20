@@ -5,8 +5,6 @@ import br.eti.arthurgregorio.library.infrastructure.misc.Configurations;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Utilities controller to provide common data to all the pages in the application
@@ -21,16 +19,11 @@ import java.time.format.DateTimeFormatter;
 public class UtilitiesBean extends AbstractBean {
 
     /**
-     * @return the application version from the configurations
+     * Used to retrieve the application version
+     *
+     * @return application version text from configurations
      */
     public String getApplicationVersion() {
         return Configurations.get("application.version");
-    }
-
-    /**
-     * @return the current year for the copyright text
-     */
-    public String getCurrentYear() {
-        return DateTimeFormatter.ofPattern("yyyy").format(LocalDate.now());
     }
 }

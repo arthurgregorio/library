@@ -1,13 +1,11 @@
 package br.eti.arthurgregorio.library.application.controllers;
 
-import br.eti.arthurgregorio.library.domain.entities.configuration.Profile;
+import br.eti.arthurgregorio.library.application.cdi.qualifier.AuthenticatedUser;
 import br.eti.arthurgregorio.library.domain.entities.configuration.User;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
-import br.eti.arthurgregorio.library.application.cdi.qualifier.AuthenticatedUser;
 import lombok.Getter;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.subject.Subject;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -17,7 +15,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 
 /**
- * The controller of the session bean. This class hold the current user on the application and his data
+ * Session controller, this class hold the current user and provide simple utilities to check his authorizations
  *
  * @author Arthur Gregorio
  *
@@ -35,41 +33,16 @@ public class UserSessionBean implements Serializable {
     private UserRepository userRepository;
 
     /**
-     * Initialize the session
+     * Initialize session
      */
     @PostConstruct
     protected void initialize() {
 
         final String principalUsername = String.valueOf(
-                this.getSubject().getPrincipal());
+                SecurityUtils.getSubject().getPrincipal());
 
         this.principal = this.userRepository.findByUsername(principalUsername)
-                .orElseThrow(() -> new AuthenticationException(String.format("User %s has no local user", principalUsername)));
-    }
-
-    /**
-     * @return the current user profile
-     */
-    public Profile getPrincipalProfile() {
-        return this.principal.getProfile();
-    }
-
-    /**
-     * @return if the current session of the user is valid or not 
-     */
-    public boolean isValid() {
-        final Subject subject = this.getSubject();
-        return subject.isAuthenticated() && subject.getPrincipal() != null;
-    }
-
-    /**
-     * To check if the given role is permitted to the current user
-     *
-     * @param role the role to be tested
-     * @return true if is permitted, false otherwise
-     */
-    public boolean hasRole(String role) {
-        return this.getSubject().hasRole(role);
+                .orElseThrow(() -> new AuthenticationException(String.format("User %s has no local account", principalUsername)));
     }
 
     /**
@@ -79,21 +52,13 @@ public class UserSessionBean implements Serializable {
      * @return true if is granted, false otherwise
      */
     public boolean isPermitted(String permission) {
-        return this.getSubject().isPermitted(permission);
+        return SecurityUtils.getSubject().isPermitted(permission);
     }
 
     /**
-     * @return return the current {@link Subject} of the application
-     */
-    private Subject getSubject() {
-        return SecurityUtils.getSubject();
-    }
-
-    /**
-     * Simple producer to make the user object of the current principal available 
-     * to other functionalities of the system, like the audit mechanism
+     * CDI producer used by the application when we want an instance of the current logged-in user
      *
-     * @return the current principal user object
+     * @return the current user in session
      */
     @Produces
     @AuthenticatedUser

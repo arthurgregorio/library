@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * The controller of the recover password process
+ * Controller of the recover password process
  *
  * @author Arthur Gregorio
  *
