@@ -41,11 +41,11 @@ public final class EmailUtil {
         final LocalTime now = LocalTime.now();
 
         if (now.isAfter(LocalTime.of(12, 0))) {
-            return MessageSource.get("meeting.email.good-evening");
+            return MessageSource.get("mail.good-evening");
         } else if (now.isBefore(LocalTime.of(12, 0))) {
-            return MessageSource.get("meeting.email.good-morning");
+            return MessageSource.get("mail.good-morning");
         } else {
-            return MessageSource.get("meeting.email.good-night");
+            return MessageSource.get("mail.good-night");
         }
     }
 

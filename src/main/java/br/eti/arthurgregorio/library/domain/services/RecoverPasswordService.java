@@ -7,8 +7,8 @@ import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepos
 import br.eti.arthurgregorio.library.infrastructure.i18n.MessageSource;
 import br.eti.arthurgregorio.library.infrastructure.mail.*;
 import br.eti.arthurgregorio.library.infrastructure.misc.Configurations;
+import br.eti.arthurgregorio.library.infrastructure.misc.RandomString;
 import br.eti.arthurgregorio.shiroee.auth.PasswordEncoder;
-import net.bytebuddy.utility.RandomString;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
@@ -56,9 +56,9 @@ public class RecoverPasswordService {
         final String noReplyAddress = Configurations.get("email.no-reply-address");
 
         final MailMessage mailMessage = SimpleMailMessage.builder()
-                .from(noReplyAddress, "Meeting - PTI")
+                .from("noreply@pti.org.br", MessageSource.get("application.name"))
                 .to(user.getEmail())
-                .withTitle(MessageSource.get("recover-password.email.title"))
+                .withTitle(MessageSource.get("mail.recover-password.title"))
                 .withContent(this.buildContent(user, newPassword))
                 .build();
 
@@ -80,6 +80,8 @@ public class RecoverPasswordService {
         provider.addContent("newPassword", newPassword);
         provider.addContent("greeting", EmailUtil.getGreeting());
         provider.addContent("baseUrl", Configurations.getBaseURL());
+
+        provider.addContent("translate", EmailUtil.translateFunction());
 
         return provider;
     }
