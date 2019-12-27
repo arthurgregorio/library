@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.infrastructure.shiro;
+package br.eti.arthurgregorio.library.infrastructure.security;
 
 import br.eti.arthurgregorio.library.domain.entities.configuration.Permissions;
 import br.eti.arthurgregorio.shiroee.config.HttpSecurityConfiguration;
@@ -10,7 +10,7 @@ import javax.inject.Inject;
 
 /**
  * The implementation of the {@link HttpSecurityConfiguration} for this project
- * 
+ *
  * @author Arthur Gregorio
  *
  * @version 1.0.0
@@ -27,12 +27,14 @@ public class PathSecurityConfiguration implements HttpSecurityConfiguration {
      */
     @Override
     public HttpSecurityBuilder configureHttpSecurity() {
-        
+
         final HttpSecurityBuilder builder = new PermissionHttpSecurityBuilder();
-        
+
         builder.add("/secured/configuration/users/**", this.permissions.getUSER_ACCESS(), true)
-                .add("/secured/configuration/groups/**", this.permissions.getGROUP_ACCESS(), true);
-        
+                .add("/secured/configuration/groups/**", this.permissions.getGROUP_ACCESS(), true)
+                .add("/secured/registration/authors/**", this.permissions.getAUTHOR_ACCESS(), true)
+                .add("/secured/registration/books/**", this.permissions.getBOOK_ACCESS(), true);
+
         return builder;
-    }    
+    }
 }

@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.infrastructure.shiro;
+package br.eti.arthurgregorio.library.infrastructure.security;
 
 import br.eti.arthurgregorio.library.domain.services.AccountService;
 import br.eti.arthurgregorio.shiroee.auth.AuthenticationMechanism;
@@ -21,7 +21,7 @@ import java.util.Set;
 
 /**
  * The main security configuration of this application.
- * 
+ *
  * With this class we configure all the realms to use and the data/cache providers for store or provide
  * authorization/authentication information
  *
@@ -33,11 +33,11 @@ import java.util.Set;
 @ApplicationScoped
 public class SecurityRealmConfiguration implements RealmConfiguration {
 
-    private Set<Realm> realms;     
+    private Set<Realm> realms;
     private CacheManager cacheManager;
 
     private AuthenticationMechanism<UserDetails> mechanism;
-    
+
     @Inject
     private LdapUserProvider ldapUserProvider;
     @Inject
@@ -48,44 +48,44 @@ public class SecurityRealmConfiguration implements RealmConfiguration {
      */
     @PostConstruct
     protected void initialize() {
-        
+
         this.realms = new HashSet<>();
         this.cacheManager = new EhCacheManager();
-        
+
         this.mechanism = new DatabaseAuthenticationMechanism(this.userAccountService);
-        
+
         this.configureJdbcRealm();
         this.configureLdapRealm();
     }
-    
+
     /**
      * @return all the realms to use with this application
      */
     @Override
     public Set<Realm> configureRealms() {
         return Collections.unmodifiableSet(this.realms);
-    }    
-    
+    }
+
     /**
      * Configure the JDBC (local database) authentication realm
      */
     private void configureJdbcRealm() {
 
         final JdbcSecurityRealm realm = new JdbcSecurityRealm(this.mechanism);
-        
+
         realm.setCachingEnabled(true);
         realm.setCacheManager(this.cacheManager);
 
         this.realms.add(realm);
     }
-    
+
     /**
      * Configure the LDAP authentication realm
      */
     private void configureLdapRealm() {
-                
+
         final LdapSecurityRealm realm = new LdapSecurityRealm(this.ldapUserProvider, this.mechanism);
-        
+
         realm.setCachingEnabled(true);
         realm.setCacheManager(this.cacheManager);
 
