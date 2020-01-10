@@ -2,6 +2,7 @@ package br.eti.arthurgregorio.library.domain.repositories;
 
 import br.eti.arthurgregorio.library.domain.entities.PersistentEntity;
 import br.eti.arthurgregorio.library.domain.entities.PersistentEntity_;
+import br.eti.arthurgregorio.library.infrastructure.deltaspike.QueryDSLSupport;
 import org.apache.deltaspike.data.api.EntityRepository;
 import org.apache.deltaspike.data.api.criteria.Criteria;
 import org.apache.deltaspike.data.api.criteria.CriteriaSupport;
@@ -23,7 +24,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  * @version 1.0.0
  * @since 1.0.0, 21/03/2018
  */
-public interface DefaultRepository<T extends PersistentEntity> extends EntityRepository<T, Long>, CriteriaSupport<T> {
+public interface DefaultRepository<T extends PersistentEntity> extends EntityRepository<T, Long>, CriteriaSupport<T>, QueryDSLSupport<T> {
 
     /**
      * Generic method to find a entity by Id
