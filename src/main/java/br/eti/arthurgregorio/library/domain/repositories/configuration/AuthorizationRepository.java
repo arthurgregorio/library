@@ -1,7 +1,7 @@
 package br.eti.arthurgregorio.library.domain.repositories.configuration;
 
 import br.eti.arthurgregorio.library.domain.entities.configuration.Authorization;
-import br.eti.arthurgregorio.library.domain.repositories.LazyDefaultRepository;
+import br.eti.arthurgregorio.library.infrastructure.deltaspike.repositories.DeltaSpikeRepository;
 import org.apache.deltaspike.data.api.Repository;
 
 import java.util.Optional;
@@ -15,7 +15,7 @@ import java.util.Optional;
  * @since 1.0.0, 28/12/2017
  */
 @Repository
-public interface AuthorizationRepository extends LazyDefaultRepository<Authorization> {
+public interface AuthorizationRepository extends DeltaSpikeRepository<Authorization> {
 
     /**
      * Find an {@link Authorization} by the functionality and the permission

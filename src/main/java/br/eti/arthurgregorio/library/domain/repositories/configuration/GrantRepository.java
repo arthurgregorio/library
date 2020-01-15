@@ -2,7 +2,7 @@ package br.eti.arthurgregorio.library.domain.repositories.configuration;
 
 import br.eti.arthurgregorio.library.domain.entities.configuration.Grant;
 import br.eti.arthurgregorio.library.domain.entities.configuration.Group;
-import br.eti.arthurgregorio.library.domain.repositories.LazyDefaultRepository;
+import br.eti.arthurgregorio.library.infrastructure.deltaspike.repositories.DeltaSpikeRepository;
 import org.apache.deltaspike.data.api.Repository;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  * @since 1.0.0, 28/12/2017
  */
 @Repository
-public interface GrantRepository extends LazyDefaultRepository<Grant> {
+public interface GrantRepository extends DeltaSpikeRepository<Grant> {
 
     /**
      * Find a list o {@link Grant} from a given {@link Group}

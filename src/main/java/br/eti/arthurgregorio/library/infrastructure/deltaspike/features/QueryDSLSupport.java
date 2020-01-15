@@ -1,9 +1,10 @@
-package br.eti.arthurgregorio.library.infrastructure.deltaspike;
+package br.eti.arthurgregorio.library.infrastructure.deltaspike.features;
 
 import br.eti.arthurgregorio.library.domain.entities.PersistentEntity;
 import com.querydsl.jpa.impl.JPAQuery;
 
 /**
+ * DeltaSpike extension to support
  *
  * @author Arthur Gregorio
  *
@@ -13,8 +14,9 @@ import com.querydsl.jpa.impl.JPAQuery;
 public interface QueryDSLSupport<T extends PersistentEntity> {
 
     /**
+     * Create a new QueryDSL {@link JPAQuery}
      *
-     * @return
+     * @return {@link JPAQuery} object
      */
     JPAQuery<T> jpaQuery();
 }

@@ -24,7 +24,7 @@ public final class Page<T extends PersistentEntity> {
     @Getter
     public final List<T> content;
     @Getter
-    public final int totalPages;
+    public final long totalPages;
 
     /**
      * Create a new page
@@ -32,7 +32,7 @@ public final class Page<T extends PersistentEntity> {
      * @param content the content
      * @param totalPages the total of possible pages
      */
-    private Page(List<T> content, int totalPages) {
+    private Page(List<T> content, long totalPages) {
         this.content = Objects.requireNonNull(content);
         this.totalPages = totalPages;
     }
@@ -54,7 +54,7 @@ public final class Page<T extends PersistentEntity> {
      * @param totalPages the total count of pages
      * @return the page with the given content
      */
-    public static <V extends PersistentEntity> Page<V> of(List<V> content, int totalPages) {
+    public static <V extends PersistentEntity> Page<V> of(List<V> content, long totalPages) {
         return new Page<>(content, totalPages);
     }
 }

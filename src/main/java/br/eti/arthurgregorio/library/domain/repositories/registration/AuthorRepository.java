@@ -1,14 +1,14 @@
 package br.eti.arthurgregorio.library.domain.repositories.registration;
 
 import br.eti.arthurgregorio.library.domain.entities.registration.Author;
-import br.eti.arthurgregorio.library.domain.entities.registration.Author_;
-import br.eti.arthurgregorio.library.domain.repositories.LazyDefaultRepository;
+import br.eti.arthurgregorio.library.domain.entities.registration.QAuthor;
+import br.eti.arthurgregorio.library.infrastructure.deltaspike.repositories.QueryDSLRepository;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanPath;
+import com.querydsl.core.types.dsl.EntityPathBase;
 import org.apache.deltaspike.data.api.Repository;
-import org.apache.deltaspike.data.api.criteria.Criteria;
 
-import javax.persistence.metamodel.SingularAttribute;
-import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,7 +20,7 @@ import java.util.Optional;
  * @since 2.0.0, 14/11/2018
  */
 @Repository
-public interface AuthorRepository extends LazyDefaultRepository<Author> {
+public interface AuthorRepository extends QueryDSLRepository<Author> {
 
     /**
      * Find an {@link Author} by the e-mail address
@@ -36,8 +36,28 @@ public interface AuthorRepository extends LazyDefaultRepository<Author> {
      * @return
      */
     @Override
-    default SingularAttribute<Author, Boolean> getEntityStateProperty() {
-        return Author_.active;
+    default BooleanPath getQStateProperty() {
+        return QAuthor.author.active;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
+    @Override
+    default EntityPathBase<Author> getQType() {
+        return QAuthor.author;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return
+     */
+    @Override
+    default OrderSpecifier<?>[] getQOrders() {
+        return new OrderSpecifier<?>[]{QAuthor.author.id.asc()};
     }
 
     /**
@@ -47,9 +67,11 @@ public interface AuthorRepository extends LazyDefaultRepository<Author> {
      * @return
      */
     @Override
-    default Collection<Criteria<Author, Author>> getRestrictions(String filter) {
-        return List.of(
-                this.criteria().likeIgnoreCase(Author_.name, this.likeAny(filter)),
-                this.criteria().likeIgnoreCase(Author_.email, this.likeAny(filter)));
+    default Predicate getQPredicate(String filter) {
+
+        final QAuthor author = QAuthor.author;
+
+        return author.name.likeIgnoreCase(this.likeAny(filter))
+                .or(author.email.likeIgnoreCase(this.likeAny(filter)));
     }
 }

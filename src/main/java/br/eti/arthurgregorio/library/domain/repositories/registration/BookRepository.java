@@ -2,7 +2,7 @@ package br.eti.arthurgregorio.library.domain.repositories.registration;
 
 import br.eti.arthurgregorio.library.domain.entities.registration.Book;
 import br.eti.arthurgregorio.library.domain.entities.registration.Book_;
-import br.eti.arthurgregorio.library.domain.repositories.LazyDefaultRepository;
+import br.eti.arthurgregorio.library.infrastructure.deltaspike.repositories.DeltaSpikeRepository;
 import org.apache.deltaspike.data.api.Repository;
 import org.apache.deltaspike.data.api.criteria.Criteria;
 
@@ -20,7 +20,7 @@ import java.util.Optional;
  * @since 2.0.0, 14/11/2018
  */
 @Repository
-public interface BookRepository extends LazyDefaultRepository<Book> {
+public interface BookRepository extends DeltaSpikeRepository<Book> {
 
     /**
      * Find a {@link Book} by the ISBN
