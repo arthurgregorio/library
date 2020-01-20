@@ -1,0 +1,12 @@
+thorntail:
+  datasources:
+    data-sources:
+      LibraryDS:
+        driver-name: postgresql
+        connection-url: jdbc:postgresql://localhost:5432/library
+        user-name: sa_library
+        password: sa_library
+        valid-connection-checker-class-name: org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker
+        validate-on-match: true
+        background-validation: false
+        exception-sorter-class-name: org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter

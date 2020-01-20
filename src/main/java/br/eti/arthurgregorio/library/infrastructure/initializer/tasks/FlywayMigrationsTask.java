@@ -31,7 +31,7 @@ public class FlywayMigrationsTask implements InitializationTask {
     @Inject
     private Logger logger;
 
-    @Resource(lookup = "java:/datasources/LibraryDS")
+    @Resource(lookup = "java:jboss/datasources/LibraryDS")
     private DataSource dataSource;
 
     /**

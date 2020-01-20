@@ -34,12 +34,26 @@
     </developers>
 
     <properties>
+        <postgresql.version>42.2.9</postgresql.version>
         <jackson.version>2.10.1</jackson.version>
         <query-dsl.version>4.2.2</query-dsl.version>
         <deltaspike.version>1.9.2</deltaspike.version>
         <hibernate.version>5.3.13.Final</hibernate.version>
+        <thorntail.version>2.6.0.Final</thorntail.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.thorntail</groupId>
+                <artifactId>bom-all</artifactId>
+                <version>${thorntail.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!--jee web api-->
@@ -60,6 +74,44 @@
             <artifactId>javax.faces</artifactId>
             <version>2.3.9</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!--thorntail-->
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>bean-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>datasources</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>cdi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>jsf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>hibernate</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>undertow</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>logging</artifactId>
         </dependency>
 
         <!--hibernate-->
@@ -91,6 +143,13 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
             <version>${hibernate.version}</version>
+        </dependency>
+
+        <!--postgres-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
         </dependency>
 
         <!--hibernate validator-->
@@ -263,11 +322,11 @@
                 <project.stage>Development</project.stage>
                 <orm.show_sql>true</orm.show_sql>
                 <orm.ddl_auto>update</orm.ddl_auto>
-                <ldap.enabled>false</ldap.enabled>
-                <ldap.url>ldap://localhost</ldap.url>
-                <ldap.baseDn>OU=Users,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
-                <ldap.user>CN=bind-user,OU=Applications,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
-                <ldap.password>my-bind-password</ldap.password>
+                <ldap.enabled>true</ldap.enabled>
+                <ldap.url>ldap://dc01.fpti.pti.org.br</ldap.url>
+                <ldap.baseDn>OU=Colaboradores,DC=fpti,DC=pti,DC=org,DC=br</ldap.baseDn>
+                <ldap.user>CN=bindreunioest,OU=Aplicacoes,DC=fpti,DC=pti,DC=org,DC=br</ldap.user>
+                <ldap.password>zAGWOlN0d71iPOa4Eo88aK</ldap.password>
             </properties>
         </profile>
         <profile>
@@ -327,6 +386,18 @@
     <build>
         <finalName>${project.artifactId}-${application.version}</finalName>
         <plugins>
+            <plugin>
+                <groupId>io.thorntail</groupId>
+                <artifactId>thorntail-maven-plugin</artifactId>
+                <version>${thorntail.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

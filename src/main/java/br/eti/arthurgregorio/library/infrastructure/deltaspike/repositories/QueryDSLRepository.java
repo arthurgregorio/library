@@ -94,20 +94,6 @@ public interface QueryDSLRepository<T extends PersistentEntity> extends QueryDSL
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @param filter
-     * @param active
-     * @return
-     */
-    @Override
-    default long countPages(String filter, Boolean active) {
-        return this.jpaQueryFor(this.getQType())
-                .where(this.applyPredicates(filter, active))
-                .fetchCount();
-    }
-
-    /**
      * Method used to apply the predicates defined by the method {@link #getQPredicate(String)} into the query
      *
      * @param filter used to create the predicate condition

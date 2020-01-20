@@ -14,17 +14,20 @@
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
     
-    <!--ferce https-->
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>App</web-resource-name>
-            <url-pattern>/*</url-pattern>
-        </web-resource-collection>
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
-    </security-constraint>
-    
+    <!--
+        If you have SSL on your server and want to force all connections coming from 8080 port to be redirected to
+        8443, enable the configuration below
+    -->
+<!--    <security-constraint>-->
+<!--        <web-resource-collection>-->
+<!--            <web-resource-name>App</web-resource-name>-->
+<!--            <url-pattern>/*</url-pattern>-->
+<!--        </web-resource-collection>-->
+<!--        <user-data-constraint>-->
+<!--            <transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
+<!--        </user-data-constraint>-->
+<!--    </security-constraint>-->
+
     <!--gzip compression filter for requests-->
     <filter>
         <filter-name>gzipResponseFilter</filter-name>
