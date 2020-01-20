@@ -326,11 +326,11 @@
                 <project.stage>Development</project.stage>
                 <orm.show_sql>true</orm.show_sql>
                 <orm.ddl_auto>update</orm.ddl_auto>
-                <ldap.enabled>true</ldap.enabled>
-                <ldap.url>ldap://dc01.fpti.pti.org.br</ldap.url>
-                <ldap.baseDn>OU=Colaboradores,DC=fpti,DC=pti,DC=org,DC=br</ldap.baseDn>
-                <ldap.user>CN=bindreunioest,OU=Aplicacoes,DC=fpti,DC=pti,DC=org,DC=br</ldap.user>
-                <ldap.password>zAGWOlN0d71iPOa4Eo88aK</ldap.password>
+                <ldap.enabled>false</ldap.enabled>
+                <ldap.url>ldap://localhost</ldap.url>
+                <ldap.baseDn>OU=Users,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
+                <ldap.user>CN=bind-user,OU=Applications,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
+                <ldap.password>my-bind-password</ldap.password>
             </properties>
         </profile>
         <profile>
