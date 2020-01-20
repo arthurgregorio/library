@@ -100,18 +100,14 @@
                                 disabled="#{not userSessionBean.isPermitted(permissions.AUTHOR_DETAIL)}"/>
 
                         <p:column headerText="#{messages['author.list.name']}">
-                            <p:graphicImage width="24"
-                                            height="32"
-                                            library="application" 
-                                            name="images/inactive.png" 
-                                            rendered="#{not author.active}"
-                                            title="#{messages['list.inactive']}"/>
-                            <p:graphicImage width="24"
-                                            height="32"
-                                            library="application" 
-                                            name="images/active.png" 
-                                            rendered="#{author.active}"
-                                            title="#{messages['list.active']}"/>
+                            <span jsf:rendered="#{not author.active}"
+                                  class="badge bg-red badge-row-fix">
+                                #{messages['list.inactive']}
+                            </span>
+                            <span jsf:rendered="#{author.active}"
+                                  class="badge bg-green badge-row-fix">
+                                #{messages['list.active']}
+                            </span>
                             <p:spacer width="5"/>
                             #{author.name}
                         </p:column>
