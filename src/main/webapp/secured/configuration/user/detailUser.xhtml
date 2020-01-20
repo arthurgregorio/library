@@ -57,115 +57,104 @@
                                                  itemLabel="#{messages['form.active']}"/>
                     </h3>
                 </div>
-                <div class="box-body row">
-                    <div class="form-group col-md-12">
-                        <div class="row">
-                            <div class="form-group col-md-4">
-                                <p:outputLabel for="inStoreType" 
-                                               value="#{messages['user.form.authetication-method']}"/>
-                                <p:selectOneMenu id="inStoreType" 
-                                                 value="#{userBean.value.storeType}"
-                                                 converter="omnifaces.GenericEnumConverter"
-                                                 disabled="#{userBean.viewState.editing}">
-                                    <p:ajax event="change" update="userForm" />
-                                    <f:selectItems var="storeType"
-                                                   itemValue="#{storeType}"
-                                                   itemLabel="#{enums[storeType]}"
-                                                   value="#{userBean.storeTypes}"/>
-                                </p:selectOneMenu>
-                            </div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <p:outputLabel for="inGroup"
+                                           value="#{messages['user.form.group']}:"/>
+                            <p:selectOneMenu id="inGroup"
+                                             value="#{userBean.value.group}"
+                                             converter="omnifaces.SelectItemsConverter">
+                                <f:selectItem itemValue="#{null}"
+                                              noSelectionOption="true"
+                                              itemLabel="#{menu['select-one']}"/>
+                                <f:selectItems var="group"
+                                               itemValue="#{group}"
+                                               itemLabel="#{group.name}"
+                                               value="#{userBean.groups}"/>
+                            </p:selectOneMenu>
                         </div>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <p:outputLabel for="inUsername"
-                                       value="#{messages['user.form.username']}" />
-                        <div class="input-group">
+                        <div class="form-group col-md-4">
+                            <p:outputLabel for="inStoreType"
+                                           value="#{messages['user.form.authetication-method']}:"/>
+                            <p:selectOneMenu id="inStoreType"
+                                             value="#{userBean.value.storeType}"
+                                             disabled="#{userBean.viewState.editing}"
+                                             converter="omnifaces.GenericEnumConverter">
+                                <f:selectItems var="storeType"
+                                               itemValue="#{storeType}"
+                                               value="#{userBean.storeTypes}"
+                                               itemLabel="#{enums[storeType]}"/>
+                            </p:selectOneMenu>
+                        </div>
+                        <div jsf:id="usernameBox" class="form-group col-md-4">
+                            <p:outputLabel for="inUsername"
+                                           value="#{messages['user.form.username']}:"/>
                             <p:inputText id="inUsername"
                                          styleClass="form-control"
                                          value="#{userBean.value.username}"
                                          readonly="#{userBean.viewState.editing}"/>
-                            <div class="input-group-btn">
-                                <p:commandButton update="userForm"
-                                                 icon="fa fa-search"
-                                                 process="@this, inUsername"
-                                                 styleClass="btn btn-flat btn-warning"
-                                                 actionListener="#{userBean.findUserOnLdap()}"
-                                                 disabled="#{userBean.value.storeType eq 'LOCAL'}"/>
-                            </div>
                         </div>
                     </div>
-                    <div class="form-group col-md-4">
-                        <p:outputLabel for="inName"
-                                       value="#{messages['user.form.name']}" /> 
-                        <p:inputText id="inName"
-                                     styleClass="form-control"
-                                     value="#{userBean.value.name}"
-                                     readonly="#{userBean.value.storeType ne 'LOCAL'}"/>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <p:outputLabel for="inEmail"
-                                       value="#{messages['user.form.email']}" />
-                        <p:inputText id="inEmail"
-                                     styleClass="form-control"
-                                     value="#{userBean.value.email}"
-                                     readonly="#{userBean.value.storeType ne 'LOCAL'}"/>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <p:outputLabel for="inPassword" 
-                                       value="#{messages['user.form.password']}"/>
-                        <p:password id="inPassword" 
-                                    styleClass="form-control"
-                                    value="#{userBean.value.password}"
-                                    readonly="#{userBean.value.storeType ne 'LOCAL'}"/>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <p:outputLabel for="inConfirmPassword" 
-                                       value="#{messages['user.form.password-confirmation']}"/>
-                        <p:password id="inConfirmPassword"
-                                    styleClass="form-control"
-                                    value="#{userBean.value.passwordConfirmation}"
-                                    readonly="#{userBean.value.storeType ne 'LOCAL'}"/>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <p:outputLabel for="inGroup" 
-                                       value="#{messages['user.form.group']}"/>
-                        <p:selectOneMenu id="inGroup" 
-                                         value="#{userBean.value.group}" 
-                                         converter="omnifaces.SelectItemsConverter">
-                            <f:selectItem itemValue="#{null}"
-                                          noSelectionOption="true"
-                                          itemLabel="#{menu['select-one']}" />
-                            <f:selectItems var="group" 
-                                           itemValue="#{group}"
-                                           itemLabel="#{group.name}"
-                                           value="#{userBean.groups}" /> 
-                        </p:selectOneMenu>
+                    <div jsf:id="dataBox" class="row">
+                        <div class="form-group col-md-4">
+                            <p:outputLabel for="inName"
+                                           value="#{messages['user.form.name']}:"/>
+                            <p:inputText id="inName"
+                                         styleClass="form-control"
+                                         value="#{userBean.value.name}"
+                                         readonly="#{userBean.value.storeType ne 'LOCAL'}"/>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <p:outputLabel for="inEmail"
+                                           value="#{messages['user.form.email']}:"/>
+                            <p:inputText id="inEmail"
+                                         styleClass="form-control"
+                                         value="#{userBean.value.email}"
+                                         readonly="#{userBean.value.storeType ne 'LOCAL'}"/>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <p:outputLabel for="inDepartment"
+                                           value="#{messages['user.form.department']}:"/>
+                            <p:inputText id="inDepartment"
+                                         styleClass="form-control"
+                                         value="#{userBean.value.department}"/>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <p:outputLabel for="inTelephone"
+                                           value="#{messages['user.form.telephone']}:"/>
+                            <p:inputText id="inTelephone"
+                                         styleClass="form-control"
+                                         value="#{userBean.value.telephone}"/>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <p:outputLabel for="inPassword"
+                                           value="#{messages['user.form.password']}:"/>
+                            <p:password id="inPassword"
+                                        styleClass="form-control"
+                                        value="#{userBean.value.password}"
+                                        readonly="#{userBean.value.storeType ne 'LOCAL'}"/>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <p:outputLabel for="inConfirmPassword"
+                                           value="#{messages['user.form.password-confirmation']}:"/>
+                            <p:password id="inConfirmPassword"
+                                        styleClass="form-control"
+                                        value="#{userBean.value.passwordConfirmation}"
+                                        readonly="#{userBean.value.storeType ne 'LOCAL'}"/>
+                        </div>
                     </div>
                 </div>
                 <div class="box-footer text-right">
-                    <ui:fragment rendered="#{userBean.viewState.deleting}">
-                        <h:outputText styleClass="text-red text-bold"
-                                      value="#{messages['delete-message']}"/>
-                        <p:spacer width="5"/>
-                        <p:commandButton value="#{menu['yes']}"
-                                         action="#{userBean.doDelete()}"
-                                         styleClass="btn btn-flat btn-danger"/>
-                        <p:spacer width="5"/>
-                    </ui:fragment>
-                    <ui:fragment rendered="#{userBean.viewState.detailing}">
-                        <p:commandButton value="#{menu['edit']}"
-                                         styleClass="btn btn-flat btn-success"
-                                         action="#{userBean.changeToEdit(userBean.value.id)}"
-                                         rendered="#{userSessionBean.isPermitted(permissions.USER_UPDATE)}"/>
-                        <p:spacer width="5"
-                                  rendered="#{userSessionBean.isPermitted(permissions.USER_DELETE)}"/>
-                        <p:commandButton value="#{menu['delete']}"
-                                         styleClass="btn btn-flat btn-danger"
-                                         action="#{userBean.changeToDelete(userBean.value.id)}"
-                                         rendered="#{userSessionBean.isPermitted(permissions.GROUP_DELETE)}"/>
-                        <p:spacer width="5"
-                                  rendered="#{userSessionBean.isPermitted(permissions.GROUP_DELETE)}"/>
-                    </ui:fragment>
+                    <h:outputText styleClass="text-red text-bold"
+                                  value="#{messages['delete-message']}"
+                                  rendered="#{userBean.viewState.deleting}"/>
+                    <p:spacer width="5"/>
+                    <p:commandButton value="#{menu['yes']}"
+                                     action="#{userBean.doDelete()}"
+                                     styleClass="btn btn-flat btn-danger"
+                                     rendered="#{userBean.viewState.deleting}"/>
+                    <p:spacer width="5" />
                     <p:commandButton immediate="true"
                                      styleClass="btn btn-flat btn-primary"
                                      action="#{userBean.changeToListing()}"

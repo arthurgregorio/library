@@ -27,7 +27,7 @@
     <ui:define name="content">
         <div class="row">
             <div class="col-md-12">
-                <p:messages id="messages" closable="true" />
+                <p:messages id="messages" closable="true"/>
             </div>
         </div>
         <div class="box box-#{profileBean.currentThemeColorName}">
@@ -41,21 +41,21 @@
                                 <f:selectItems var="entityStatus"
                                                itemValue="#{entityStatus}"
                                                itemLabel="#{enums[entityStatus]}"
-                                               value="#{userBean.filter.entityStatusValues}"/> 
+                                               value="#{userBean.filter.entityStatusValues}"/>
                             </p:selectOneMenu>
                         </div>
-                        <div class="col-xs-7">
+                        <div class="col-xs-6">
                             <div class="input-group">
                                 <p:inputText id="inSearch"
-                                             size="50" 
+                                             size="50"
                                              styleClass="form-control"
                                              value="#{userBean.filter.value}"
-                                             placeholder="#{messages['filter.user']}" />
+                                             placeholder="#{messages['filter.user']}"/>
                                 <div class="input-group-btn">
                                     <p:commandButton id="btSearch"
                                                      process="@form"
                                                      update="itemsList"
-                                                     value="#{menu['search']}" 
+                                                     value="#{menu['search']}"
                                                      onstart="PF('blocker').show()"
                                                      oncomplete="PF('blocker').hide()"
                                                      styleClass="btn btn-flat btn-primary"/>
@@ -70,9 +70,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-3">
+                        <div class="col-xs-4">
                             <div class="box-configuration pull-right">
-                                <p:commandButton value="#{menu['add']}" 
+                                <p:commandButton value="#{menu['add']}"
                                                  action="#{userBean.changeToAdd()}"
                                                  styleClass="btn btn-flat btn-primary"
                                                  rendered="#{userSessionBean.isPermitted(permissions.USER_ADD)}"/>
@@ -83,15 +83,15 @@
             </div>
             <div jsf:id="boxBody" class="box-body">
                 <h:form id="itemsList">
-                    <p:dataTable rows="20" 
-                                 var="user" 
+                    <p:dataTable rows="20"
+                                 var="user"
                                  lazy="true"
                                  paginator="true"
                                  rowKey="#{user.id}"
-                                 selectionMode="single" 
+                                 selectionMode="single"
                                  paginatorPosition="bottom"
                                  selection="#{userBean.value}"
-                                 value="#{userBean.dataModel}" 
+                                 value="#{userBean.dataModel}"
                                  paginatorAlwaysVisible="false"
                                  emptyMessage="#{messages['list.empty']}">
 
@@ -100,24 +100,20 @@
                                 disabled="#{not userSessionBean.isPermitted(permissions.USER_DETAIL)}"/>
 
                         <p:column headerText="#{messages['user.list.name']}">
-                            <p:graphicImage width="24"
-                                            height="32"
-                                            library="application" 
-                                            name="images/inactive.png" 
-                                            rendered="#{not user.active}"
-                                            title="#{messages['list.inactive']}"/>
-                            <p:graphicImage width="24"
-                                            height="32"
-                                            library="application" 
-                                            name="images/active.png" 
-                                            rendered="#{user.active}"
-                                            title="#{messages['list.active']}"/>
+                            <span jsf:rendered="#{not user.active}"
+                                  class="badge bg-red badge-row-fix">
+                                #{messages['list.inactive']}
+                            </span>
+                            <span jsf:rendered="#{user.active}"
+                                  class="badge bg-green badge-row-fix">
+                                #{messages['list.active']}
+                            </span>
                             <p:spacer width="5"/>
                             #{user.name}
                         </p:column>
                         <p:column width="15%"
                                   styleClass="text-center"
-                                  headerText="#{messages['user.list.username']}" >
+                                  headerText="#{messages['user.list.username']}">
                             #{user.username}
                         </p:column>
                         <p:column styleClass="text-center"
@@ -135,11 +131,11 @@
                                              icon="fa fa-edit"
                                              title="#{menu['edit']}"
                                              styleClass="btn btn-flat btn-default"
-                                             action="#{userBean.changeToEdit(user.id)}" 
+                                             action="#{userBean.changeToEdit(user.id)}"
                                              rendered="#{userSessionBean.isPermitted(permissions.USER_UPDATE)}"/>
                             <p:spacer width="5"/>
                             <p:commandButton immediate="true"
-                                             icon="fa fa-eraser"
+                                             icon="fa fa-times"
                                              title="#{menu['delete']}"
                                              styleClass="btn btn-flat btn-danger"
                                              action="#{userBean.changeToDelete(user.id)}"

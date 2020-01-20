@@ -3,20 +3,17 @@ package br.eti.arthurgregorio.library.application.controllers.configuration;
 import br.eti.arthurgregorio.library.application.cdi.qualifier.UserCreated;
 import br.eti.arthurgregorio.library.application.cdi.qualifier.UserUpdated;
 import br.eti.arthurgregorio.library.application.components.ui.LazyFormBean;
+import br.eti.arthurgregorio.library.application.components.ui.NavigationManager;
 import br.eti.arthurgregorio.library.application.components.ui.ViewState;
 import br.eti.arthurgregorio.library.application.components.ui.table.Page;
 import br.eti.arthurgregorio.library.domain.entities.configuration.Group;
 import br.eti.arthurgregorio.library.domain.entities.configuration.StoreType;
 import br.eti.arthurgregorio.library.domain.entities.configuration.User;
-import br.eti.arthurgregorio.library.domain.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.logics.configuration.user.UserDeletingLogic;
 import br.eti.arthurgregorio.library.domain.logics.configuration.user.UserSavingLogic;
 import br.eti.arthurgregorio.library.domain.logics.configuration.user.UserUpdatingLogic;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.GroupRepository;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
-import br.eti.arthurgregorio.library.infrastructure.misc.Configurations;
-import br.eti.arthurgregorio.shiroee.config.ldap.LdapUser;
-import br.eti.arthurgregorio.shiroee.config.ldap.LdapUserProvider;
 import lombok.Getter;
 import org.primefaces.model.SortOrder;
 
@@ -29,14 +26,12 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.util.List;
 
-import static br.eti.arthurgregorio.library.application.components.ui.NavigationManager.PageType.*;
-
 /**
  * The controller for the user accounts operations
  *
  * @author Arthur Gregorio
  *
- * @version 1.0.0
+ * @version 1.1.0
  * @since 1.0.0, 09/01/2018
  */
 @Named
@@ -50,9 +45,6 @@ public class UserBean extends LazyFormBean<User> {
     private UserRepository userRepository;
     @Inject
     private GroupRepository groupRepository;
-
-    @Inject
-    private LdapUserProvider ldapUserProvider;
 
     @Any
     @Inject
@@ -89,11 +81,11 @@ public class UserBean extends LazyFormBean<User> {
      */
     @Override
     protected void initializeNavigationManager() {
-        this.navigation.addPage(LIST_PAGE, "listUsers.xhtml");
-        this.navigation.addPage(ADD_PAGE, "formUser.xhtml");
-        this.navigation.addPage(UPDATE_PAGE, "formUser.xhtml");
-        this.navigation.addPage(DETAIL_PAGE, "detailUser.xhtml");
-        this.navigation.addPage(DELETE_PAGE, "detailUser.xhtml");
+        this.navigation.addPage(NavigationManager.PageType.LIST_PAGE, "listUsers.xhtml");
+        this.navigation.addPage(NavigationManager.PageType.ADD_PAGE, "formUser.xhtml");
+        this.navigation.addPage(NavigationManager.PageType.UPDATE_PAGE, "formUser.xhtml");
+        this.navigation.addPage(NavigationManager.PageType.DETAIL_PAGE, "detailUser.xhtml");
+        this.navigation.addPage(NavigationManager.PageType.DELETE_PAGE, "detailUser.xhtml");
     }
 
     /**
@@ -145,28 +137,6 @@ public class UserBean extends LazyFormBean<User> {
         this.userRepository.attachAndRemove(this.value);
         this.addInfoAndKeep("deleted");
         return this.changeToListing();
-    }
-
-    /**
-     * Method to find a given user on the LDAP/AD directory
-     */
-    public void findUserOnLdap() {
-
-        final boolean ldapEnable = Configurations.getAsBoolean("ldap.enabled");
-
-        if (!ldapEnable) {
-            throw new IllegalStateException("error.user.ldap-not-enabled");
-        }
-
-        final String username = this.value.getUsername();
-
-        final LdapUser userDetails = this.ldapUserProvider
-                .search(username)
-                .orElseThrow(() -> new BusinessLogicException("error.user.not-found-ldap", username));
-
-        this.value.setUsername(userDetails.getSAMAccountName());
-        this.value.setEmail(userDetails.getMail());
-        this.value.setName(userDetails.getName());
     }
 
     /**

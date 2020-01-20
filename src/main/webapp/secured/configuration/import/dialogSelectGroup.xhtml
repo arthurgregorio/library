@@ -1,0 +1,57 @@
+<p:dialog xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:p="http://primefaces.org/ui"
+          xmlns:h="http://xmlns.jcp.org/jsf/html"
+          xmlns:f="http://xmlns.jcp.org/jsf/core"
+          xmlns:ap="http://xmlns.jcp.org/jsf/composite/application/ui"
+          id="selectGroupDialog"
+          width="500"
+          modal="true"
+          closable="true"
+          resizable="false"
+          closeOnEscape="true"
+          widgetVar="dialogSelectGroup"
+          header="#{messages['select-group.dialog.title']}">
+
+    <h:form id="groupForm">
+        <div class="row">
+            <div class="col-md-12">
+                <p:messages closable="true"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 form-group">
+                #{messages['select-group.tip']}
+            </div>
+            <div class="col-md-12 form-group">
+                <p:selectOneMenu id="inGroup"
+                                 value="#{userImportBean.selectedGroup}"
+                                 converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem itemValue="#{null}"
+                                  noSelectionOption="true"
+                                  itemLabel="#{menu['select-one']}"/>
+                    <f:selectItems var="group"
+                                   itemValue="#{group}"
+                                   itemLabel="#{group.name}"
+                                   value="#{userImportBean.groups}"/>
+                </p:selectOneMenu>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <p:commandButton update="groupForm"
+                                 value="#{menu['import']}"
+                                 styleClass="btn btn-flat btn-success"
+                                 onstart="PF('importingBlocker').show()"
+                                 oncomplete="PF('importingBlocker').hide()"
+                                 actionListener="#{userImportBean.importSelected()}"/>
+                <p:spacer width="5"/>
+                <p:commandButton immediate="true"
+                                 value="#{menu['cancel']}"
+                                 styleClass="btn btn-flat btn-primary"
+                                 onclick="PF('dialogSelectGroup').hide()"/>
+
+            </div>
+        </div>
+        <ap:blocker target="boxBody" name="importingBlocker"/>
+    </h:form>
+</p:dialog>

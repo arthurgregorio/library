@@ -99,18 +99,14 @@
                                 disabled="#{not userSessionBean.isPermitted(permissions.GROUP_DETAIL)}"/>
 
                         <p:column headerText="#{messages['group.list.name']}">
-                            <p:graphicImage width="24"
-                                            height="32"
-                                            library="application" 
-                                            name="images/inactive.png" 
-                                            rendered="#{not group.active}"
-                                            title="#{messages['list.inactive']}"/>
-                            <p:graphicImage width="24"
-                                            height="32"
-                                            library="application" 
-                                            name="images/active.png" 
-                                            rendered="#{group.active}"
-                                            title="#{messages['list.active']}"/>
+                            <span jsf:rendered="#{not group.active}"
+                                  class="badge bg-red badge-row-fix">
+                                #{messages['list.inactive']}
+                            </span>
+                            <span jsf:rendered="#{group.active}"
+                                  class="badge bg-green badge-row-fix">
+                                #{messages['list.active']}
+                            </span>
                             <p:spacer width="5"/>
                             #{group.name}
                         </p:column>
@@ -128,7 +124,7 @@
                                              rendered="#{userSessionBean.isPermitted(permissions.GROUP_UPDATE)}"/>
                             <p:spacer width="5"/>
                             <p:commandButton immediate="true"
-                                             icon="fa fa-eraser"
+                                             icon="fa fa-times"
                                              title="#{menu['delete']}"
                                              styleClass="btn btn-flat btn-danger"
                                              action="#{groupBean.changeToDelete(group.id)}"

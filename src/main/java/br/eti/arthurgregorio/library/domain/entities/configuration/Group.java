@@ -1,6 +1,7 @@
 package br.eti.arthurgregorio.library.domain.entities.configuration;
 
 import br.eti.arthurgregorio.library.domain.entities.PersistentEntity;
+import br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +16,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.CONFIGURATION;
 import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.FetchType.EAGER;
 
@@ -30,8 +30,8 @@ import static javax.persistence.FetchType.EAGER;
 @Entity
 @Audited
 @ToString(exclude = "grants")
-@Table(name = "groups", schema = CONFIGURATION)
 @EqualsAndHashCode(callSuper = true, exclude = "grants")
+@Table(name = "groups", schema = DefaultSchemes.CONFIGURATION)
 public class Group extends PersistentEntity {
 
     @Getter
@@ -83,7 +83,9 @@ public class Group extends PersistentEntity {
     }
 
     /**
-     * @return this group {@link Grant} for authorization process
+     * Method to list all {@link Grant} of this group
+     *
+     * @return {@link List} of this group {@link Grant}
      */
     public List<Grant> getGrants() {
 
@@ -96,9 +98,11 @@ public class Group extends PersistentEntity {
     }
 
     /**
-     * @return this group {@link Permissions}
+     * Method to get all permissions of this group
+     *
+     * @return all {@link Permissions}
      */
-    Set<String> getPermissions() {
+    public Set<String> getPermissions() {
         return this.getGrants().stream()
                 .map(Grant::getAuthorization)
                 .map(Authorization::getFullPermission)
@@ -106,7 +110,9 @@ public class Group extends PersistentEntity {
     }
 
     /**
-     * @return if this is the administrators {@link Group}
+     * Method to check if this is an administrators group
+     *
+     * @return if is the administrators {@link Group}
      */
     public boolean isAdministrator() {
         return this.name.equals("Administradores");

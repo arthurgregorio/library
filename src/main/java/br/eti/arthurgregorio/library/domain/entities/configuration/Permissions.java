@@ -86,6 +86,10 @@ public class Permissions implements Serializable {
     @PermissionGrouper("group")
     private final String GROUP_ACCESS = "group:access";
 
+    @Getter
+    @PermissionGrouper("import-user")
+    private final String IMPORT_USER_ACCESS = "import-user:access";
+
     /**
      * @return a permission list in the {@link Authorization} format
      */

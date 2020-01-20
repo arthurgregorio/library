@@ -1,0 +1,144 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:jsf="http://xmlns.jcp.org/jsf"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:ap="http://xmlns.jcp.org/jsf/composite/application/ui"
+                template="/template/mainTemplate.xhtml">
+
+    <f:metadata>
+        <f:viewAction action="#{userImportBean.initialize()}"/>
+    </f:metadata>
+
+    <ui:define name="pageTitle">
+        #{messages['import-user.page-title']}
+    </ui:define>
+
+    <ui:define name="pageDescription">
+        #{messages['import-user.page-description']}
+    </ui:define>
+
+    <ui:define name="breadcrumb">
+        <li><a href="#">#{breadcrumb['configuration']}</a></li>
+        <li class="active"><a href="importUsers.xhtml">#{breadcrumb['configuration.import-users']}</a></li>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="row">
+            <div class="col-md-12">
+                <p:messages id="messages" closable="true"/>
+            </div>
+        </div>
+        <div class="box box-#{profileBean.currentThemeColorName}">
+            <div class="box-header with-border">
+                <div class="row">
+                    <h:form id="controlsForm">
+                        <p:defaultCommand target="btSearch"/>
+                        <div class="col-xs-2">
+                            <p:selectOneMenu value="#{userImportBean.ldapSearchOption}"
+                                             converter="omnifaces.GenericEnumConverter">
+                                <f:selectItems var="searchOption"
+                                               itemValue="#{searchOption}"
+                                               itemLabel="#{enums[searchOption]}"
+                                               value="#{userImportBean.ldapSearchOptions}"/>
+                                <p:ajax event="change" update="searchBox" process="@this"/>
+                            </p:selectOneMenu>
+                        </div>
+                        <div jsf:id="searchBox" class="col-xs-6">
+                            <div class="input-group">
+                                <p:inputText id="inSearch"
+                                             size="50"
+                                             styleClass="form-control"
+                                             value="#{userImportBean.filter}"
+                                             placeholder="#{messages['filter.import-user']}"
+                                             readonly="#{userImportBean.ldapSearchOption eq 'ALL_ACTIVE'}"/>
+                                <div class="input-group-btn">
+                                    <p:commandButton id="btSearch"
+                                                     process="@form"
+                                                     update="boxBody"
+                                                     value="#{menu['search']}"
+                                                     onstart="PF('blocker').show()"
+                                                     oncomplete="PF('blocker').hide()"
+                                                     styleClass="btn btn-flat btn-primary"
+                                                     actionListener="#{userImportBean.search()}"/>
+                                    <p:spacer width="5"/>
+                                    <p:commandButton icon="fa fa-trash"
+                                                     update="controlsForm boxBody"
+                                                     onstart="PF('blocker').show()"
+                                                     title="#{menu['clear-filters']}"
+                                                     oncomplete="PF('blocker').hide()"
+                                                     styleClass="btn btn-flat btn-danger"
+                                                     actionListener="#{userImportBean.clearFilters()}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                    <div class="col-xs-4">
+                        <div class="box-configuration pull-right">
+                            <h:form>
+                                <p:commandButton update="messages"
+                                                 onclick="processTable()"
+                                                 value="#{menu['import']}"
+                                                 styleClass="btn btn-flat btn-success"
+                                                 actionListener="#{userImportBean.showSelectGroupDialog()}"/>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div jsf:id="boxBody" class="box-body">
+                <h:form id="usersForm">
+                    <p:dataTable rows="30"
+                                 var="user"
+                                 paginator="true"
+                                 rowKey="#{user.username}"
+                                 paginatorPosition="bottom"
+                                 paginatorAlwaysVisible="false"
+                                 value="#{userImportBean.users}"
+                                 disabledSelection="#{user.imported}"
+                                 emptyMessage="#{messages['list.empty']}"
+                                 selection="#{userImportBean.selectedUsers}">
+                        <p:column width="3%"
+                                  selectionMode="multiple"
+                                  styleClass="text-center"/>
+                        <p:column sortBy="#{user.name}"
+                                  headerText="#{messages['import-user.list.name']}">
+                            #{user.name}
+                            <p:spacer width="5"/>
+                            <span class="badge bg-red badge-row-fix"
+                                  jsf:rendered="#{not user.active}">
+                                #{messages['import-user.list.inactive']}
+                            </span>
+                            <p:spacer width="5"/>
+                            <span class="badge bg-aqua badge-row-fix"
+                                  jsf:rendered="#{user.imported}">
+                                #{messages['import-user.list.imported']}
+                            </span>
+                        </p:column>
+                        <p:column width="15%"
+                                  sortBy="#{user.email}"
+                                  headerText="#{messages['import-user.list.email']}">
+                            #{user.email}
+                        </p:column>
+                        <p:column width="30%"
+                                  sortBy="#{user.department}"
+                                  headerText="#{messages['import-user.list.department']}">
+                            #{user.department}
+                        </p:column>
+                        <p:column width="15%"
+                                  styleClass="text-center"
+                                  headerText="#{messages['import-user.list.phone-number']}">
+                            #{user.telephone}
+                        </p:column>
+                    </p:dataTable>
+                    <p:remoteCommand name="processTable" process="@form"/>
+                </h:form>
+                <ap:blocker target="boxBody"/>
+            </div>
+        </div>
+    </ui:define>
+    <ui:define name="popups">
+        <ui:include src="dialogSelectGroup.xhtml"/>
+    </ui:define>
+</ui:composition>

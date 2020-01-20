@@ -1,6 +1,7 @@
 package br.eti.arthurgregorio.library.application.controllers.configuration;
 
 import br.eti.arthurgregorio.library.application.components.ui.LazyFormBean;
+import br.eti.arthurgregorio.library.application.components.ui.NavigationManager;
 import br.eti.arthurgregorio.library.application.components.ui.ViewState;
 import br.eti.arthurgregorio.library.application.components.ui.table.Page;
 import br.eti.arthurgregorio.library.domain.entities.configuration.Authorization;
@@ -30,14 +31,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static br.eti.arthurgregorio.library.application.components.ui.NavigationManager.PageType.*;
-
 /**
  * The controller for the user groups operations
  *
  * @author Arthur Gregorio
  *
- * @version 1.0.0
+ * @version 1.1.0
  * @since 1.0.0, 09/01/2018
  */
 @Named
@@ -97,11 +96,11 @@ public class GroupBean extends LazyFormBean<Group> {
      */
     @Override
     protected void initializeNavigationManager() {
-        this.navigation.addPage(LIST_PAGE, "listGroups.xhtml");
-        this.navigation.addPage(ADD_PAGE, "formGroup.xhtml");
-        this.navigation.addPage(UPDATE_PAGE, "formGroup.xhtml");
-        this.navigation.addPage(DETAIL_PAGE, "detailGroup.xhtml");
-        this.navigation.addPage(DELETE_PAGE, "detailGroup.xhtml");
+        this.navigation.addPage(NavigationManager.PageType.LIST_PAGE, "listGroups.xhtml");
+        this.navigation.addPage(NavigationManager.PageType.ADD_PAGE, "formGroup.xhtml");
+        this.navigation.addPage(NavigationManager.PageType.UPDATE_PAGE, "formGroup.xhtml");
+        this.navigation.addPage(NavigationManager.PageType.DETAIL_PAGE, "detailGroup.xhtml");
+        this.navigation.addPage(NavigationManager.PageType.DELETE_PAGE, "detailGroup.xhtml");
     }
 
     /**
@@ -289,7 +288,7 @@ public class GroupBean extends LazyFormBean<Group> {
      * @return the part of the nod to be parsed in the i18n
      */
     public String split(String nodeDescription) {
-        final String[] splited = nodeDescription.split(":");
+        final String splited[] = nodeDescription.split(":");
         return splited.length > 1 ? splited[1] : splited[0];
     }
 }

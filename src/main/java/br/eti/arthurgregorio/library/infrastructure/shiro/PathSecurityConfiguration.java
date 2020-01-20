@@ -1,4 +1,4 @@
-package br.eti.arthurgregorio.library.infrastructure.security;
+package br.eti.arthurgregorio.library.infrastructure.shiro;
 
 import br.eti.arthurgregorio.library.domain.entities.configuration.Permissions;
 import br.eti.arthurgregorio.shiroee.config.HttpSecurityConfiguration;

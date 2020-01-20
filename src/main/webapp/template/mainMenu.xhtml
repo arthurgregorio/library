@@ -37,6 +37,12 @@
                         <span>#{menu['configuration.users']}</span>
                     </p:link>
                 </li>
+                <li jsf:rendered="#{userSessionBean.isPermitted(permissions.IMPORT_USER_ACCESS)}">
+                    <p:link outcome="/secured/configuration/import/importUsers.xhtml">
+                        <i class="fa fa-users-cog" />
+                        <span>#{menu['configuration.import-users']}</span>
+                    </p:link>
+                </li>
             </ul>
         </li>
     </ul>

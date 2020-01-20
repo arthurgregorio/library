@@ -7,6 +7,12 @@
     Created on : 19/01/2016
 */
 
+/*when a badge is used in a datatable row, this will adjust the spaces*/
+.badge-row-fix {
+    top: -2px;
+    position: relative;
+}
+
 /*some utilities*/
 .margin-b-10 {
     margin-bottom: 10px;

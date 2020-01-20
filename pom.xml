@@ -113,6 +113,10 @@
             <groupId>io.thorntail</groupId>
             <artifactId>logging</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>ejb</artifactId>
+        </dependency>
 
         <!--hibernate-->
         <dependency>

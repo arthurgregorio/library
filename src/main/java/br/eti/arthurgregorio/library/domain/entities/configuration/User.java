@@ -1,6 +1,8 @@
 package br.eti.arthurgregorio.library.domain.entities.configuration;
 
 import br.eti.arthurgregorio.library.domain.entities.PersistentEntity;
+import br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes;
+import br.eti.arthurgregorio.library.infrastructure.shiro.ldap.LdapAttribute;
 import br.eti.arthurgregorio.shiroee.config.jdbc.UserDetails;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,7 +16,6 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
-import static br.eti.arthurgregorio.library.infrastructure.misc.DefaultSchemes.CONFIGURATION;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
@@ -27,23 +28,36 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  */
 @Entity
 @Audited
-@Table(name = "users", schema = CONFIGURATION)
+@Table(name = "users", schema = DefaultSchemes.CONFIGURATION)
 @EqualsAndHashCode(callSuper = true, of = {"email", "username"})
 @ToString(callSuper = true, exclude = {"profile", "group", "passwordConfirmation"})
 public class User extends PersistentEntity implements UserDetails {
 
     @Getter
     @Setter
+    @LdapAttribute("displayName")
     @NotBlank(message = "{user.name}")
     @Column(name = "name", length = 90, nullable = false)
     private String name;
     @Getter
     @Setter
+    @LdapAttribute("mail")
     @NotBlank(message = "{user.email}")
     @Column(name = "email", length = 90, nullable = false)
     private String email;
     @Getter
     @Setter
+    @LdapAttribute("department")
+    @Column(name = "department", length = 90)
+    private String department;
+    @Getter
+    @Setter
+    @LdapAttribute("telephoneNumber")
+    @Column(name = "telephone", length = 90)
+    private String telephone;
+    @Getter
+    @Setter
+    @LdapAttribute("sAMAccountName")
     @NotBlank(message = "{user.username}")
     @Column(name = "username", length = 20, nullable = false)
     private String username;
@@ -79,9 +93,17 @@ public class User extends PersistentEntity implements UserDetails {
     @Setter
     @Transient
     private String passwordConfirmation;
+    @Getter
+    @Setter
+    @Transient
+    private boolean selected;
+    @Getter
+    @Setter
+    @Transient
+    private boolean imported;
 
     /**
-     *
+     * Constructor...
      */
     public User() {
         this.active = true;
@@ -120,31 +142,36 @@ public class User extends PersistentEntity implements UserDetails {
     }
 
     /**
-     * @return the {@link Group} for this user
+     * Use this method to get the user {@link Group} name
+     *
+     * @return {@link Group} name for this user
      */
     public String getGroupName() {
         return this.group != null ? this.group.getName() : null;
     }
 
     /**
-     * @return if the user password is valid
+     * To check if the password of this user is valid in case of account creation or password change
+     *
+     * @return true if is, false otherwise
      */
     public boolean isPasswordValid() {
-        return isNotBlank(this.password)
-                && isNotBlank(this.passwordConfirmation)
-                && this.password.equals(this.passwordConfirmation);
+        return isNotBlank(this.password) && isNotBlank(this.passwordConfirmation) && this.password.equals(this.passwordConfirmation);
     }
 
     /**
-     * @return if the password has changed
+     * Method to check if the user changed his password
+     *
+     * @return true if changed, false otherwise
      */
     public boolean hasChangedPasswords() {
-        return isNotBlank(this.password)
-                && isNotBlank(this.passwordConfirmation);
+        return isNotBlank(this.password) && isNotBlank(this.passwordConfirmation);
     }
 
     /**
-     * @return if this user is an administrator
+     * Method to check if this user is an administrator
+     *
+     * @return true if is, false otherwise
      */
     public boolean isAdministrator() {
         return this.username.equals("admin");
