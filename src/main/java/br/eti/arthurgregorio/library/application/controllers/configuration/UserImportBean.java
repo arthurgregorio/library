@@ -7,6 +7,7 @@ import br.eti.arthurgregorio.library.domain.exception.BusinessLogicException;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.GroupRepository;
 import br.eti.arthurgregorio.library.domain.repositories.configuration.UserRepository;
 import br.eti.arthurgregorio.library.domain.services.AccountService;
+import br.eti.arthurgregorio.library.infrastructure.misc.Configurations;
 import br.eti.arthurgregorio.library.infrastructure.shiro.ldap.LdapObjectMapper;
 import br.eti.arthurgregorio.library.infrastructure.shiro.ldap.LdapRepository;
 import br.eti.arthurgregorio.library.infrastructure.shiro.ldap.LdapSearchOption;
@@ -30,6 +31,9 @@ import java.util.List;
 @Named
 @ViewScoped
 public class UserImportBean extends AbstractBean {
+
+    @Getter
+    private boolean ldapEnabled;
 
     @Getter
     @Setter
@@ -64,6 +68,9 @@ public class UserImportBean extends AbstractBean {
      *
      */
     public void initialize() {
+
+        this.ldapEnabled = Configurations.getAsBoolean("ldap.enabled");
+
         this.users = new ArrayList<>();
         this.selectedUsers = new ArrayList<>();
         this.ldapSearchOption = LdapSearchOption.BY_EMAIL;

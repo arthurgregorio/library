@@ -30,6 +30,15 @@
                 <p:messages id="messages" closable="true"/>
             </div>
         </div>
+        <div class="row" jsf:rendered="#{not userImportBean.ldapEnabled}">
+            <div class="col-md-12">
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <span class="text-bold">#{messages['import-user.warning']}</span>
+                    <br/>
+                    <span class="margin-t-10">#{messages['import-user.warning-tip']}</span>
+                </div>
+            </div>
+        </div>
         <div class="box box-#{profileBean.currentThemeColorName}">
             <div class="box-header with-border">
                 <div class="row">
@@ -61,7 +70,8 @@
                                                      onstart="PF('blocker').show()"
                                                      oncomplete="PF('blocker').hide()"
                                                      styleClass="btn btn-flat btn-primary"
-                                                     actionListener="#{userImportBean.search()}"/>
+                                                     actionListener="#{userImportBean.search()}"
+                                                     disabled="#{not userImportBean.ldapEnabled}"/>
                                     <p:spacer width="5"/>
                                     <p:commandButton icon="fa fa-trash"
                                                      update="controlsForm boxBody"
@@ -69,6 +79,7 @@
                                                      title="#{menu['clear-filters']}"
                                                      oncomplete="PF('blocker').hide()"
                                                      styleClass="btn btn-flat btn-danger"
+                                                     disabled="#{not userImportBean.ldapEnabled}"
                                                      actionListener="#{userImportBean.clearFilters()}"/>
                                 </div>
                             </div>
@@ -81,6 +92,7 @@
                                                  onclick="processTable()"
                                                  value="#{menu['import']}"
                                                  styleClass="btn btn-flat btn-success"
+                                                 disabled="#{not userImportBean.ldapEnabled}"
                                                  actionListener="#{userImportBean.showSelectGroupDialog()}"/>
                             </h:form>
                         </div>
