@@ -27,7 +27,7 @@ import java.util.Date;
 @ApplicationScoped
 public class Postman {
 
-    @Resource(name = "java:/mail/mailService")
+    @Resource(name = "java:jboss/mail/ApplicationMail")
     private Session mailSession;
 
     /**

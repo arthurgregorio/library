@@ -1,11 +1,27 @@
 thorntail:
+  network:
+    socket-binding-groups:
+      standard-sockets:
+        outbound-socket-bindings:
+          mail-smtp:
+            remote-host: ${mail.host}
+            remote-port: ${mail.port}
+  mail:
+    mail-sessions:
+      ApplicationMail:
+        debug: ${mail.debug}
+        from: ${mail.from-address}
+        smtp-server:
+          outbound-socket-binding-ref: mail-smtp
+          username: ${mail.username}
+          password: ${mail.password}
   datasources:
     data-sources:
-      LibraryDS:
+      ApplicationDS:
         driver-name: postgresql
-        connection-url: jdbc:postgresql://localhost:5432/library
-        user-name: sa_library
-        password: sa_library
+        connection-url: jdbc:postgresql://${database.host}:${database.port}/${database.name}
+        user-name: ${database.username}
+        password: ${database.password}
         valid-connection-checker-class-name: org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker
         validate-on-match: true
         background-validation: false

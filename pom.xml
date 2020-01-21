@@ -95,27 +95,15 @@
         </dependency>
         <dependency>
             <groupId>io.thorntail</groupId>
-            <artifactId>hibernate-validator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.thorntail</groupId>
             <artifactId>jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>io.thorntail</groupId>
-            <artifactId>hibernate</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.thorntail</groupId>
-            <artifactId>undertow</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.thorntail</groupId>
-            <artifactId>logging</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.thorntail</groupId>
             <artifactId>ejb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>mail</artifactId>
         </dependency>
 
         <!--hibernate-->
@@ -324,6 +312,17 @@
                 <application.base-url>https://localhost:8443/</application.base-url>
                 <skip.tests>true</skip.tests>
                 <project.stage>Development</project.stage>
+                <mail.host>my-mail-host</mail.host>
+                <mail.port>587</mail.port>
+                <mail.debug>false</mail.debug>
+                <mail.from-address>noreply@your-domain.com</mail.from-address>
+                <mail.username>my@account.com</mail.username>
+                <mail.password>secret</mail.password>
+                <database.host>localhost</database.host>
+                <database.port>5432</database.port>
+                <database.name>library</database.name>
+                <database.username>sa_library</database.username>
+                <database.password>sa_library</database.password>
                 <orm.show_sql>true</orm.show_sql>
                 <orm.ddl_auto>update</orm.ddl_auto>
                 <ldap.enabled>false</ldap.enabled>
@@ -340,6 +339,17 @@
                 <application.base-url>https://localhost:8443/</application.base-url>
                 <skip.tests>false</skip.tests>
                 <project.stage>SystemTest</project.stage>
+                <mail.host>my-mail-host</mail.host>
+                <mail.port>587</mail.port>
+                <mail.debug>false</mail.debug>
+                <mail.from-address>noreply@your-domain.com</mail.from-address>
+                <mail.username>my@account.com</mail.username>
+                <mail.password>secret</mail.password>
+                <database.host>localhost</database.host>
+                <database.port>5432</database.port>
+                <database.name>library</database.name>
+                <database.username>sa_library</database.username>
+                <database.password>sa_library</database.password>
                 <orm.show_sql>true</orm.show_sql>
                 <orm.ddl_auto>none</orm.ddl_auto>
                 <ldap.enabled>false</ldap.enabled>
@@ -356,6 +366,17 @@
                 <application.base-url>https://localhost:8443/</application.base-url>
                 <skip.tests>false</skip.tests>
                 <project.stage>Production</project.stage>
+                <mail.host>my-mail-host</mail.host>
+                <mail.port>587</mail.port>
+                <mail.debug>false</mail.debug>
+                <mail.from-address>noreply@your-domain.com</mail.from-address>
+                <mail.username>my@account.com</mail.username>
+                <mail.password>secret</mail.password>
+                <database.host>localhost</database.host>
+                <database.port>5432</database.port>
+                <database.name>library</database.name>
+                <database.username>sa_library</database.username>
+                <database.password>sa_library</database.password>
                 <orm.show_sql>false</orm.show_sql>
                 <orm.ddl_auto>none</orm.ddl_auto>
                 <ldap.enabled>false</ldap.enabled>
@@ -372,6 +393,17 @@
                 <application.base-url>https://localhost:8443/</application.base-url>
                 <skip.tests>false</skip.tests>
                 <project.stage>Production</project.stage>
+                <mail.host>my-mail-host</mail.host>
+                <mail.port>587</mail.port>
+                <mail.debug>false</mail.debug>
+                <mail.from-address>noreply@your-domain.com</mail.from-address>
+                <mail.username>my@account.com</mail.username>
+                <mail.password>secret</mail.password>
+                <database.host>localhost</database.host>
+                <database.port>5432</database.port>
+                <database.name>library</database.name>
+                <database.username>sa_library</database.username>
+                <database.password>sa_library</database.password>
                 <orm.show_sql>false</orm.show_sql>
                 <orm.ddl_auto>none</orm.ddl_auto>
                 <ws.base-url>https://my-webservice-server.com</ws.base-url>
