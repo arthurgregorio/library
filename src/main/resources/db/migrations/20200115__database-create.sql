@@ -5,7 +5,7 @@
 -- Dumped from database version 10.7 (Debian 10.7-1.pgdg90+1)
 -- Dumped by pg_dump version 11.3
 
--- Started on 2020-01-15 13:43:54 UTC
+-- Started on 2020-01-21 20:47:41 UTC
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,7 +19,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 4 (class 2615 OID 94814)
+-- TOC entry 4 (class 2615 OID 103236)
 -- Name: configuration; Type: SCHEMA; Schema: -; Owner: -
 --
 
@@ -27,7 +27,7 @@ CREATE SCHEMA configuration;
 
 
 --
--- TOC entry 5 (class 2615 OID 94815)
+-- TOC entry 9 (class 2615 OID 103237)
 -- Name: registration; Type: SCHEMA; Schema: -; Owner: -
 --
 
@@ -37,7 +37,7 @@ CREATE SCHEMA registration;
 SET default_with_oids = false;
 
 --
--- TOC entry 201 (class 1259 OID 94826)
+-- TOC entry 198 (class 1259 OID 103238)
 -- Name: authorizations; Type: TABLE; Schema: configuration; Owner: -
 --
 
@@ -51,7 +51,7 @@ CREATE TABLE configuration.authorizations (
 
 
 --
--- TOC entry 202 (class 1259 OID 94831)
+-- TOC entry 199 (class 1259 OID 103243)
 -- Name: authorizations_audit; Type: TABLE; Schema: configuration; Owner: -
 --
 
@@ -65,7 +65,7 @@ CREATE TABLE configuration.authorizations_audit (
 
 
 --
--- TOC entry 203 (class 1259 OID 94836)
+-- TOC entry 200 (class 1259 OID 103248)
 -- Name: grants; Type: TABLE; Schema: configuration; Owner: -
 --
 
@@ -79,7 +79,7 @@ CREATE TABLE configuration.grants (
 
 
 --
--- TOC entry 204 (class 1259 OID 94841)
+-- TOC entry 201 (class 1259 OID 103253)
 -- Name: grants_audit; Type: TABLE; Schema: configuration; Owner: -
 --
 
@@ -93,7 +93,7 @@ CREATE TABLE configuration.grants_audit (
 
 
 --
--- TOC entry 205 (class 1259 OID 94846)
+-- TOC entry 202 (class 1259 OID 103258)
 -- Name: groups; Type: TABLE; Schema: configuration; Owner: -
 --
 
@@ -108,7 +108,7 @@ CREATE TABLE configuration.groups (
 
 
 --
--- TOC entry 206 (class 1259 OID 94851)
+-- TOC entry 203 (class 1259 OID 103263)
 -- Name: groups_audit; Type: TABLE; Schema: configuration; Owner: -
 --
 
@@ -123,7 +123,7 @@ CREATE TABLE configuration.groups_audit (
 
 
 --
--- TOC entry 207 (class 1259 OID 94856)
+-- TOC entry 204 (class 1259 OID 103268)
 -- Name: profiles; Type: TABLE; Schema: configuration; Owner: -
 --
 
@@ -137,7 +137,7 @@ CREATE TABLE configuration.profiles (
 
 
 --
--- TOC entry 208 (class 1259 OID 94861)
+-- TOC entry 205 (class 1259 OID 103273)
 -- Name: profiles_audit; Type: TABLE; Schema: configuration; Owner: -
 --
 
@@ -151,7 +151,7 @@ CREATE TABLE configuration.profiles_audit (
 
 
 --
--- TOC entry 209 (class 1259 OID 94866)
+-- TOC entry 206 (class 1259 OID 103278)
 -- Name: users; Type: TABLE; Schema: configuration; Owner: -
 --
 
@@ -160,10 +160,12 @@ CREATE TABLE configuration.users (
                                      created_on timestamp without time zone NOT NULL,
                                      updated_on timestamp without time zone,
                                      active boolean NOT NULL,
+                                     department character varying(90),
                                      email character varying(90) NOT NULL,
                                      name character varying(90) NOT NULL,
                                      password character varying(60),
                                      store_type character varying(255) NOT NULL,
+                                     telephone character varying(90),
                                      username character varying(20) NOT NULL,
                                      id_group bigint NOT NULL,
                                      id_profile bigint NOT NULL
@@ -171,7 +173,7 @@ CREATE TABLE configuration.users (
 
 
 --
--- TOC entry 210 (class 1259 OID 94874)
+-- TOC entry 207 (class 1259 OID 103286)
 -- Name: users_audit; Type: TABLE; Schema: configuration; Owner: -
 --
 
@@ -180,10 +182,12 @@ CREATE TABLE configuration.users_audit (
                                            revision bigint NOT NULL,
                                            revision_type smallint,
                                            active boolean,
+                                           department character varying(90),
                                            email character varying(90),
                                            name character varying(90),
                                            password character varying(60),
                                            store_type character varying(255),
+                                           telephone character varying(90),
                                            username character varying(20),
                                            id_group bigint,
                                            id_profile bigint
@@ -191,7 +195,7 @@ CREATE TABLE configuration.users_audit (
 
 
 --
--- TOC entry 200 (class 1259 OID 94824)
+-- TOC entry 214 (class 1259 OID 103330)
 -- Name: pooled_sequence_generator; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -204,7 +208,7 @@ CREATE SEQUENCE public.pooled_sequence_generator
 
 
 --
--- TOC entry 199 (class 1259 OID 94818)
+-- TOC entry 213 (class 1259 OID 103324)
 -- Name: revisions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -216,7 +220,7 @@ CREATE TABLE public.revisions (
 
 
 --
--- TOC entry 198 (class 1259 OID 94816)
+-- TOC entry 212 (class 1259 OID 103322)
 -- Name: revisions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -230,7 +234,7 @@ CREATE SEQUENCE public.revisions_id_seq
 
 --
 -- TOC entry 2978 (class 0 OID 0)
--- Dependencies: 198
+-- Dependencies: 212
 -- Name: revisions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
@@ -238,7 +242,7 @@ ALTER SEQUENCE public.revisions_id_seq OWNED BY public.revisions.id;
 
 
 --
--- TOC entry 211 (class 1259 OID 94884)
+-- TOC entry 208 (class 1259 OID 103296)
 -- Name: authors; Type: TABLE; Schema: registration; Owner: -
 --
 
@@ -254,7 +258,7 @@ CREATE TABLE registration.authors (
 
 
 --
--- TOC entry 212 (class 1259 OID 94889)
+-- TOC entry 209 (class 1259 OID 103301)
 -- Name: authors_audit; Type: TABLE; Schema: registration; Owner: -
 --
 
@@ -270,7 +274,7 @@ CREATE TABLE registration.authors_audit (
 
 
 --
--- TOC entry 213 (class 1259 OID 94894)
+-- TOC entry 210 (class 1259 OID 103306)
 -- Name: books; Type: TABLE; Schema: registration; Owner: -
 --
 
@@ -289,7 +293,7 @@ CREATE TABLE registration.books (
 
 
 --
--- TOC entry 214 (class 1259 OID 94902)
+-- TOC entry 211 (class 1259 OID 103314)
 -- Name: books_audit; Type: TABLE; Schema: registration; Owner: -
 --
 
@@ -308,7 +312,7 @@ CREATE TABLE registration.books_audit (
 
 
 --
--- TOC entry 2789 (class 2604 OID 94821)
+-- TOC entry 2789 (class 2604 OID 103327)
 -- Name: revisions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -316,36 +320,37 @@ ALTER TABLE ONLY public.revisions ALTER COLUMN id SET DEFAULT nextval('public.re
 
 
 --
--- TOC entry 2959 (class 0 OID 94826)
--- Dependencies: 201
+-- TOC entry 2956 (class 0 OID 103238)
+-- Dependencies: 198
 -- Data for Name: authorizations; Type: TABLE DATA; Schema: configuration; Owner: -
 --
 
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (1, '2020-01-15 10:31:50.455188', NULL, 'author', 'add');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (2, '2020-01-15 10:31:50.500249', NULL, 'author', 'update');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (3, '2020-01-15 10:31:50.505233', NULL, 'author', 'delete');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (4, '2020-01-15 10:31:50.510058', NULL, 'author', 'detail');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (5, '2020-01-15 10:31:50.514973', NULL, 'author', 'access');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (6, '2020-01-15 10:31:50.520006', NULL, 'book', 'add');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (7, '2020-01-15 10:31:50.525522', NULL, 'book', 'update');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (8, '2020-01-15 10:31:50.529965', NULL, 'book', 'delete');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (9, '2020-01-15 10:31:50.540733', NULL, 'book', 'detail');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (10, '2020-01-15 10:31:50.548937', NULL, 'book', 'access');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (11, '2020-01-15 10:31:50.55679', NULL, 'user', 'add');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (12, '2020-01-15 10:31:50.569024', NULL, 'user', 'update');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (13, '2020-01-15 10:31:50.575349', NULL, 'user', 'delete');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (14, '2020-01-15 10:31:50.580265', NULL, 'user', 'detail');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (15, '2020-01-15 10:31:50.584915', NULL, 'user', 'access');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (16, '2020-01-15 10:31:50.591807', NULL, 'group', 'add');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (17, '2020-01-15 10:31:50.599619', NULL, 'group', 'update');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (18, '2020-01-15 10:31:50.603829', NULL, 'group', 'delete');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (19, '2020-01-15 10:31:50.608126', NULL, 'group', 'detail');
-INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (20, '2020-01-15 10:31:50.613064', NULL, 'group', 'access');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (1, '2020-01-21 17:47:06.290137', NULL, 'author', 'add');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (2, '2020-01-21 17:47:06.320577', NULL, 'author', 'update');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (3, '2020-01-21 17:47:06.326245', NULL, 'author', 'delete');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (4, '2020-01-21 17:47:06.33517', NULL, 'author', 'detail');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (5, '2020-01-21 17:47:06.341582', NULL, 'author', 'access');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (6, '2020-01-21 17:47:06.346728', NULL, 'book', 'add');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (7, '2020-01-21 17:47:06.350992', NULL, 'book', 'update');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (8, '2020-01-21 17:47:06.353885', NULL, 'book', 'delete');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (9, '2020-01-21 17:47:06.357381', NULL, 'book', 'detail');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (10, '2020-01-21 17:47:06.36095', NULL, 'book', 'access');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (11, '2020-01-21 17:47:06.364492', NULL, 'user', 'add');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (12, '2020-01-21 17:47:06.368923', NULL, 'user', 'update');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (13, '2020-01-21 17:47:06.37441', NULL, 'user', 'delete');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (14, '2020-01-21 17:47:06.381461', NULL, 'user', 'detail');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (15, '2020-01-21 17:47:06.390153', NULL, 'user', 'access');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (16, '2020-01-21 17:47:06.400172', NULL, 'group', 'add');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (17, '2020-01-21 17:47:06.410657', NULL, 'group', 'update');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (18, '2020-01-21 17:47:06.416575', NULL, 'group', 'delete');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (19, '2020-01-21 17:47:06.420194', NULL, 'group', 'detail');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (20, '2020-01-21 17:47:06.423355', NULL, 'group', 'access');
+INSERT INTO configuration.authorizations (id, created_on, updated_on, functionality, permission) VALUES (21, '2020-01-21 17:47:06.426301', NULL, 'import-user', 'access');
 
 
 --
--- TOC entry 2960 (class 0 OID 94831)
--- Dependencies: 202
+-- TOC entry 2957 (class 0 OID 103243)
+-- Dependencies: 199
 -- Data for Name: authorizations_audit; Type: TABLE DATA; Schema: configuration; Owner: -
 --
 
@@ -369,156 +374,159 @@ INSERT INTO configuration.authorizations_audit (id, revision, revision_type, fun
 INSERT INTO configuration.authorizations_audit (id, revision, revision_type, functionality, permission) VALUES (18, 1, 0, 'group', 'delete');
 INSERT INTO configuration.authorizations_audit (id, revision, revision_type, functionality, permission) VALUES (19, 1, 0, 'group', 'detail');
 INSERT INTO configuration.authorizations_audit (id, revision, revision_type, functionality, permission) VALUES (20, 1, 0, 'group', 'access');
+INSERT INTO configuration.authorizations_audit (id, revision, revision_type, functionality, permission) VALUES (21, 1, 0, 'import-user', 'access');
 
 
 --
--- TOC entry 2961 (class 0 OID 94836)
--- Dependencies: 203
+-- TOC entry 2958 (class 0 OID 103248)
+-- Dependencies: 200
 -- Data for Name: grants; Type: TABLE DATA; Schema: configuration; Owner: -
 --
 
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (26, '2020-01-15 10:31:50.727558', NULL, 1, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (27, '2020-01-15 10:31:50.73003', NULL, 2, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (28, '2020-01-15 10:31:50.730674', NULL, 3, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (29, '2020-01-15 10:31:50.731232', NULL, 4, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (30, '2020-01-15 10:31:50.731781', NULL, 5, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (31, '2020-01-15 10:31:50.732385', NULL, 6, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (32, '2020-01-15 10:31:50.735501', NULL, 7, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (33, '2020-01-15 10:31:50.736172', NULL, 8, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (34, '2020-01-15 10:31:50.736772', NULL, 9, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (35, '2020-01-15 10:31:50.737383', NULL, 10, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (36, '2020-01-15 10:31:50.738036', NULL, 11, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (37, '2020-01-15 10:31:50.741126', NULL, 12, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (38, '2020-01-15 10:31:50.74176', NULL, 13, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (39, '2020-01-15 10:31:50.742298', NULL, 14, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (40, '2020-01-15 10:31:50.742893', NULL, 15, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (41, '2020-01-15 10:31:50.743564', NULL, 16, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (42, '2020-01-15 10:31:50.74772', NULL, 17, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (43, '2020-01-15 10:31:50.748329', NULL, 18, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (44, '2020-01-15 10:31:50.74892', NULL, 19, 21);
-INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (45, '2020-01-15 10:31:50.749426', NULL, 20, 21);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (31, '2020-01-21 17:47:06.506248', NULL, 1, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (32, '2020-01-21 17:47:06.507491', NULL, 2, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (33, '2020-01-21 17:47:06.507781', NULL, 3, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (34, '2020-01-21 17:47:06.508072', NULL, 4, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (35, '2020-01-21 17:47:06.508371', NULL, 5, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (36, '2020-01-21 17:47:06.508644', NULL, 6, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (37, '2020-01-21 17:47:06.509676', NULL, 7, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (38, '2020-01-21 17:47:06.509954', NULL, 8, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (39, '2020-01-21 17:47:06.510241', NULL, 9, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (40, '2020-01-21 17:47:06.510576', NULL, 10, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (41, '2020-01-21 17:47:06.510871', NULL, 11, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (42, '2020-01-21 17:47:06.511873', NULL, 12, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (43, '2020-01-21 17:47:06.512206', NULL, 13, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (44, '2020-01-21 17:47:06.512504', NULL, 14, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (45, '2020-01-21 17:47:06.512768', NULL, 15, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (46, '2020-01-21 17:47:06.513034', NULL, 16, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (47, '2020-01-21 17:47:06.513997', NULL, 17, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (48, '2020-01-21 17:47:06.514283', NULL, 18, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (49, '2020-01-21 17:47:06.514551', NULL, 19, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (50, '2020-01-21 17:47:06.514828', NULL, 20, 26);
+INSERT INTO configuration.grants (id, created_on, updated_on, id_authorization, id_group) VALUES (51, '2020-01-21 17:47:06.515139', NULL, 21, 26);
 
 
 --
--- TOC entry 2962 (class 0 OID 94841)
--- Dependencies: 204
+-- TOC entry 2959 (class 0 OID 103253)
+-- Dependencies: 201
 -- Data for Name: grants_audit; Type: TABLE DATA; Schema: configuration; Owner: -
 --
 
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (26, 2, 0, 1, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (27, 2, 0, 2, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (28, 2, 0, 3, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (29, 2, 0, 4, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (30, 2, 0, 5, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (31, 2, 0, 6, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (32, 2, 0, 7, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (33, 2, 0, 8, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (34, 2, 0, 9, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (35, 2, 0, 10, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (36, 2, 0, 11, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (37, 2, 0, 12, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (38, 2, 0, 13, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (39, 2, 0, 14, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (40, 2, 0, 15, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (41, 2, 0, 16, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (42, 2, 0, 17, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (43, 2, 0, 18, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (44, 2, 0, 19, 21);
-INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (45, 2, 0, 20, 21);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (31, 2, 0, 1, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (32, 2, 0, 2, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (33, 2, 0, 3, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (34, 2, 0, 4, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (35, 2, 0, 5, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (36, 2, 0, 6, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (37, 2, 0, 7, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (38, 2, 0, 8, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (39, 2, 0, 9, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (40, 2, 0, 10, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (41, 2, 0, 11, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (42, 2, 0, 12, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (43, 2, 0, 13, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (44, 2, 0, 14, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (45, 2, 0, 15, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (46, 2, 0, 16, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (47, 2, 0, 17, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (48, 2, 0, 18, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (49, 2, 0, 19, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (50, 2, 0, 20, 26);
+INSERT INTO configuration.grants_audit (id, revision, revision_type, id_authorization, id_group) VALUES (51, 2, 0, 21, 26);
 
 
 --
--- TOC entry 2963 (class 0 OID 94846)
--- Dependencies: 205
+-- TOC entry 2960 (class 0 OID 103258)
+-- Dependencies: 202
 -- Data for Name: groups; Type: TABLE DATA; Schema: configuration; Owner: -
 --
 
-INSERT INTO configuration.groups (id, created_on, updated_on, active, name, id_parent) VALUES (21, '2020-01-15 10:31:50.703812', NULL, true, 'Administradores', NULL);
+INSERT INTO configuration.groups (id, created_on, updated_on, active, name, id_parent) VALUES (26, '2020-01-21 17:47:06.490228', NULL, true, 'Administradores', NULL);
 
 
 --
--- TOC entry 2964 (class 0 OID 94851)
--- Dependencies: 206
+-- TOC entry 2961 (class 0 OID 103263)
+-- Dependencies: 203
 -- Data for Name: groups_audit; Type: TABLE DATA; Schema: configuration; Owner: -
 --
 
-INSERT INTO configuration.groups_audit (id, revision, revision_type, active, name, id_parent) VALUES (21, 2, 0, true, 'Administradores', NULL);
+INSERT INTO configuration.groups_audit (id, revision, revision_type, active, name, id_parent) VALUES (26, 2, 0, true, 'Administradores', NULL);
 
 
 --
--- TOC entry 2965 (class 0 OID 94856)
--- Dependencies: 207
+-- TOC entry 2962 (class 0 OID 103268)
+-- Dependencies: 204
 -- Data for Name: profiles; Type: TABLE DATA; Schema: configuration; Owner: -
 --
 
-INSERT INTO configuration.profiles (id, created_on, updated_on, active_theme, dark_sidebar) VALUES (51, '2020-01-15 10:31:51.054872', NULL, 'BLACK', true);
+INSERT INTO configuration.profiles (id, created_on, updated_on, active_theme, dark_sidebar) VALUES (61, '2020-01-21 17:47:06.741211', NULL, 'BLACK', true);
 
 
 --
--- TOC entry 2966 (class 0 OID 94861)
--- Dependencies: 208
+-- TOC entry 2963 (class 0 OID 103273)
+-- Dependencies: 205
 -- Data for Name: profiles_audit; Type: TABLE DATA; Schema: configuration; Owner: -
 --
 
-INSERT INTO configuration.profiles_audit (id, revision, revision_type, active_theme, dark_sidebar) VALUES (51, 3, 0, 'BLACK', true);
+INSERT INTO configuration.profiles_audit (id, revision, revision_type, active_theme, dark_sidebar) VALUES (61, 3, 0, 'BLACK', true);
 
 
 --
--- TOC entry 2967 (class 0 OID 94866)
--- Dependencies: 209
+-- TOC entry 2964 (class 0 OID 103278)
+-- Dependencies: 206
 -- Data for Name: users; Type: TABLE DATA; Schema: configuration; Owner: -
 --
 
-INSERT INTO configuration.users (id, created_on, updated_on, active, email, name, password, store_type, username, id_group, id_profile) VALUES (46, '2020-01-15 10:31:51.053133', NULL, true, 'contato@arthurgregorio.eti.br', 'Administrador', '$2a$10$ekrCZUh/xTO400/hSoTUC.0bBosfYuH0IxdET/LsFd2mEAEcQKaga', 'LOCAL', 'admin', 21, 51);
+INSERT INTO configuration.users (id, created_on, updated_on, active, department, email, name, password, store_type, telephone, username, id_group, id_profile) VALUES (56, '2020-01-21 17:47:06.739788', NULL, true, NULL, 'contato@arthurgregorio.eti.br', 'Administrador', '$2a$10$kaSKMDf8vtaoAmn8bPJYAee7jrui5.Icq2AsYz2KbKN3WmN.F/o.6', 'LOCAL', NULL, 'admin', 26, 61);
 
 
 --
--- TOC entry 2968 (class 0 OID 94874)
--- Dependencies: 210
+-- TOC entry 2965 (class 0 OID 103286)
+-- Dependencies: 207
 -- Data for Name: users_audit; Type: TABLE DATA; Schema: configuration; Owner: -
 --
 
-INSERT INTO configuration.users_audit (id, revision, revision_type, active, email, name, password, store_type, username, id_group, id_profile) VALUES (46, 3, 0, true, 'contato@arthurgregorio.eti.br', 'Administrador', '$2a$10$ekrCZUh/xTO400/hSoTUC.0bBosfYuH0IxdET/LsFd2mEAEcQKaga', 'LOCAL', 'admin', 21, 51);
+INSERT INTO configuration.users_audit (id, revision, revision_type, active, department, email, name, password, store_type, telephone, username, id_group, id_profile) VALUES (56, 3, 0, true, NULL, 'contato@arthurgregorio.eti.br', 'Administrador', '$2a$10$kaSKMDf8vtaoAmn8bPJYAee7jrui5.Icq2AsYz2KbKN3WmN.F/o.6', 'LOCAL', NULL, 'admin', 26, 61);
 
 
 --
--- TOC entry 2957 (class 0 OID 94818)
--- Dependencies: 199
+-- TOC entry 2971 (class 0 OID 103324)
+-- Dependencies: 213
 -- Data for Name: revisions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.revisions (id, created_by, created_on) VALUES (1, 'unknown', '2020-01-15 10:31:50.617');
-INSERT INTO public.revisions (id, created_by, created_on) VALUES (2, 'unknown', '2020-01-15 10:31:50.799');
-INSERT INTO public.revisions (id, created_by, created_on) VALUES (3, 'unknown', '2020-01-15 10:31:51.061');
+INSERT INTO public.revisions (id, created_by, created_on) VALUES (1, 'unknown', '2020-01-21 17:47:06.43');
+INSERT INTO public.revisions (id, created_by, created_on) VALUES (2, 'unknown', '2020-01-21 17:47:06.542');
+INSERT INTO public.revisions (id, created_by, created_on) VALUES (3, 'unknown', '2020-01-21 17:47:06.756');
 
 
 --
--- TOC entry 2969 (class 0 OID 94884)
--- Dependencies: 211
+-- TOC entry 2966 (class 0 OID 103296)
+-- Dependencies: 208
 -- Data for Name: authors; Type: TABLE DATA; Schema: registration; Owner: -
 --
 
 
 
 --
--- TOC entry 2970 (class 0 OID 94889)
--- Dependencies: 212
+-- TOC entry 2967 (class 0 OID 103301)
+-- Dependencies: 209
 -- Data for Name: authors_audit; Type: TABLE DATA; Schema: registration; Owner: -
 --
 
 
 
 --
--- TOC entry 2971 (class 0 OID 94894)
--- Dependencies: 213
+-- TOC entry 2968 (class 0 OID 103306)
+-- Dependencies: 210
 -- Data for Name: books; Type: TABLE DATA; Schema: registration; Owner: -
 --
 
 
 
 --
--- TOC entry 2972 (class 0 OID 94902)
--- Dependencies: 214
+-- TOC entry 2969 (class 0 OID 103314)
+-- Dependencies: 211
 -- Data for Name: books_audit; Type: TABLE DATA; Schema: registration; Owner: -
 --
 
@@ -526,16 +534,16 @@ INSERT INTO public.revisions (id, created_by, created_on) VALUES (3, 'unknown', 
 
 --
 -- TOC entry 2979 (class 0 OID 0)
--- Dependencies: 200
+-- Dependencies: 214
 -- Name: pooled_sequence_generator; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.pooled_sequence_generator', 51, true);
+SELECT pg_catalog.setval('public.pooled_sequence_generator', 61, true);
 
 
 --
 -- TOC entry 2980 (class 0 OID 0)
--- Dependencies: 198
+-- Dependencies: 212
 -- Name: revisions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -543,7 +551,7 @@ SELECT pg_catalog.setval('public.revisions_id_seq', 3, true);
 
 
 --
--- TOC entry 2795 (class 2606 OID 94835)
+-- TOC entry 2793 (class 2606 OID 103247)
 -- Name: authorizations_audit authorizations_audit_pkey; Type: CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -552,7 +560,7 @@ ALTER TABLE ONLY configuration.authorizations_audit
 
 
 --
--- TOC entry 2793 (class 2606 OID 94830)
+-- TOC entry 2791 (class 2606 OID 103242)
 -- Name: authorizations authorizations_pkey; Type: CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -561,7 +569,7 @@ ALTER TABLE ONLY configuration.authorizations
 
 
 --
--- TOC entry 2799 (class 2606 OID 94845)
+-- TOC entry 2797 (class 2606 OID 103257)
 -- Name: grants_audit grants_audit_pkey; Type: CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -570,7 +578,7 @@ ALTER TABLE ONLY configuration.grants_audit
 
 
 --
--- TOC entry 2797 (class 2606 OID 94840)
+-- TOC entry 2795 (class 2606 OID 103252)
 -- Name: grants grants_pkey; Type: CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -579,7 +587,7 @@ ALTER TABLE ONLY configuration.grants
 
 
 --
--- TOC entry 2803 (class 2606 OID 94855)
+-- TOC entry 2801 (class 2606 OID 103267)
 -- Name: groups_audit groups_audit_pkey; Type: CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -588,7 +596,7 @@ ALTER TABLE ONLY configuration.groups_audit
 
 
 --
--- TOC entry 2801 (class 2606 OID 94850)
+-- TOC entry 2799 (class 2606 OID 103262)
 -- Name: groups groups_pkey; Type: CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -597,7 +605,7 @@ ALTER TABLE ONLY configuration.groups
 
 
 --
--- TOC entry 2807 (class 2606 OID 94865)
+-- TOC entry 2805 (class 2606 OID 103277)
 -- Name: profiles_audit profiles_audit_pkey; Type: CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -606,7 +614,7 @@ ALTER TABLE ONLY configuration.profiles_audit
 
 
 --
--- TOC entry 2805 (class 2606 OID 94860)
+-- TOC entry 2803 (class 2606 OID 103272)
 -- Name: profiles profiles_pkey; Type: CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -615,7 +623,7 @@ ALTER TABLE ONLY configuration.profiles
 
 
 --
--- TOC entry 2809 (class 2606 OID 94883)
+-- TOC entry 2807 (class 2606 OID 103295)
 -- Name: users uk_rcle35tk5t6py9hf7uow9qkcw; Type: CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -624,7 +632,7 @@ ALTER TABLE ONLY configuration.users
 
 
 --
--- TOC entry 2813 (class 2606 OID 94881)
+-- TOC entry 2811 (class 2606 OID 103293)
 -- Name: users_audit users_audit_pkey; Type: CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -633,7 +641,7 @@ ALTER TABLE ONLY configuration.users_audit
 
 
 --
--- TOC entry 2811 (class 2606 OID 94873)
+-- TOC entry 2809 (class 2606 OID 103285)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -642,7 +650,7 @@ ALTER TABLE ONLY configuration.users
 
 
 --
--- TOC entry 2791 (class 2606 OID 94823)
+-- TOC entry 2821 (class 2606 OID 103329)
 -- Name: revisions revisions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -651,7 +659,7 @@ ALTER TABLE ONLY public.revisions
 
 
 --
--- TOC entry 2817 (class 2606 OID 94893)
+-- TOC entry 2815 (class 2606 OID 103305)
 -- Name: authors_audit authors_audit_pkey; Type: CONSTRAINT; Schema: registration; Owner: -
 --
 
@@ -660,7 +668,7 @@ ALTER TABLE ONLY registration.authors_audit
 
 
 --
--- TOC entry 2815 (class 2606 OID 94888)
+-- TOC entry 2813 (class 2606 OID 103300)
 -- Name: authors authors_pkey; Type: CONSTRAINT; Schema: registration; Owner: -
 --
 
@@ -669,7 +677,7 @@ ALTER TABLE ONLY registration.authors
 
 
 --
--- TOC entry 2821 (class 2606 OID 94909)
+-- TOC entry 2819 (class 2606 OID 103321)
 -- Name: books_audit books_audit_pkey; Type: CONSTRAINT; Schema: registration; Owner: -
 --
 
@@ -678,7 +686,7 @@ ALTER TABLE ONLY registration.books_audit
 
 
 --
--- TOC entry 2819 (class 2606 OID 94901)
+-- TOC entry 2817 (class 2606 OID 103313)
 -- Name: books books_pkey; Type: CONSTRAINT; Schema: registration; Owner: -
 --
 
@@ -687,7 +695,7 @@ ALTER TABLE ONLY registration.books
 
 
 --
--- TOC entry 2822 (class 2606 OID 94910)
+-- TOC entry 2822 (class 2606 OID 103332)
 -- Name: authorizations_audit fk_authorizations_audit_revisions; Type: FK CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -696,7 +704,7 @@ ALTER TABLE ONLY configuration.authorizations_audit
 
 
 --
--- TOC entry 2825 (class 2606 OID 94925)
+-- TOC entry 2825 (class 2606 OID 103347)
 -- Name: grants_audit fk_grants_audit_revisions; Type: FK CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -705,7 +713,7 @@ ALTER TABLE ONLY configuration.grants_audit
 
 
 --
--- TOC entry 2823 (class 2606 OID 94915)
+-- TOC entry 2823 (class 2606 OID 103337)
 -- Name: grants fk_grants_authorizations; Type: FK CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -714,7 +722,7 @@ ALTER TABLE ONLY configuration.grants
 
 
 --
--- TOC entry 2824 (class 2606 OID 94920)
+-- TOC entry 2824 (class 2606 OID 103342)
 -- Name: grants fk_grants_groups; Type: FK CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -723,7 +731,7 @@ ALTER TABLE ONLY configuration.grants
 
 
 --
--- TOC entry 2827 (class 2606 OID 94935)
+-- TOC entry 2827 (class 2606 OID 103357)
 -- Name: groups_audit fk_groups_audit_revisions; Type: FK CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -732,7 +740,7 @@ ALTER TABLE ONLY configuration.groups_audit
 
 
 --
--- TOC entry 2826 (class 2606 OID 94930)
+-- TOC entry 2826 (class 2606 OID 103352)
 -- Name: groups fk_groups_groups; Type: FK CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -741,7 +749,7 @@ ALTER TABLE ONLY configuration.groups
 
 
 --
--- TOC entry 2828 (class 2606 OID 94940)
+-- TOC entry 2828 (class 2606 OID 103362)
 -- Name: profiles_audit fk_profiles_audit_revisions; Type: FK CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -750,7 +758,7 @@ ALTER TABLE ONLY configuration.profiles_audit
 
 
 --
--- TOC entry 2831 (class 2606 OID 94955)
+-- TOC entry 2831 (class 2606 OID 103377)
 -- Name: users_audit fk_users_audit_revisions; Type: FK CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -759,7 +767,7 @@ ALTER TABLE ONLY configuration.users_audit
 
 
 --
--- TOC entry 2829 (class 2606 OID 94945)
+-- TOC entry 2829 (class 2606 OID 103367)
 -- Name: users fk_users_groups; Type: FK CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -768,7 +776,7 @@ ALTER TABLE ONLY configuration.users
 
 
 --
--- TOC entry 2830 (class 2606 OID 94950)
+-- TOC entry 2830 (class 2606 OID 103372)
 -- Name: users fk_users_profiles; Type: FK CONSTRAINT; Schema: configuration; Owner: -
 --
 
@@ -777,7 +785,7 @@ ALTER TABLE ONLY configuration.users
 
 
 --
--- TOC entry 2832 (class 2606 OID 94960)
+-- TOC entry 2832 (class 2606 OID 103382)
 -- Name: authors_audit fk_authors_audit_revisions; Type: FK CONSTRAINT; Schema: registration; Owner: -
 --
 
@@ -786,7 +794,7 @@ ALTER TABLE ONLY registration.authors_audit
 
 
 --
--- TOC entry 2834 (class 2606 OID 94970)
+-- TOC entry 2834 (class 2606 OID 103392)
 -- Name: books_audit fk_books_audit_revisions; Type: FK CONSTRAINT; Schema: registration; Owner: -
 --
 
@@ -795,7 +803,7 @@ ALTER TABLE ONLY registration.books_audit
 
 
 --
--- TOC entry 2833 (class 2606 OID 94965)
+-- TOC entry 2833 (class 2606 OID 103387)
 -- Name: books fk_books_authors; Type: FK CONSTRAINT; Schema: registration; Owner: -
 --
 
@@ -803,7 +811,7 @@ ALTER TABLE ONLY registration.books
     ADD CONSTRAINT fk_books_authors FOREIGN KEY (id_author) REFERENCES registration.authors(id);
 
 
--- Completed on 2020-01-15 13:43:55 UTC
+-- Completed on 2020-01-21 20:47:41 UTC
 
 --
 -- PostgreSQL database dump complete

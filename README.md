@@ -3,90 +3,29 @@
 A simple demo application to show how to work with the default technologies of JavaEE version 8 (or higher). This conceptual 
 architecture makes use of the following technologies:
 
-- Java 11 and Java EE 8 with Wildfly 14+ and PostgreSQL 10+
-- Hibernate 5 for JPA 2.2
+- Java 13+
+- JavaEE 8 with Thorntail 2.6
+- PostgreSQL 11+
+- Hibernate 5 and JPA 2.2
 - Weld 3.0 for CDI 2.0
-- Mojarra for JSF 2.3 + Primefaces 7 + AdminLTE 2.4 + Bootstrap 3
-- Apache Delta Spike JPA and Data Module for database querying and repositories management
-- Apache Shiro 1.4 through [ShiroEE](https://github.com/arthurgregorio/shiro-ee) for Security with LDAP/AD and database 
-authentication support
+- Mojarra for JSF 2.3 + Primefaces 7 + [AdminLTE](https://adminlte.io/) 2.4 + Bootstrap 3
+- Apache Delta Spike JPA + QueryDSL
+- Apache Shiro 1.4 provided by [ShiroEE](https://github.com/arthurgregorio/shiro-ee) extension
+- LDAP and Active Diretory integration for user authentication 
 - Maven for dependency management and build  
-- Flyway 5.2 for database migrations
+- Flyway 6 for database migrations
 - Database audit with Hibernate Envers 5
-- Hibernate Validator for Bean Validation
-- Omnifaces 3 and PrimefacesExt for JSF utilities
-- Jackson for JSON support 
+- Hibernate Validator 6 for Bean Validation
+- Omnifaces 3 and Primefaces Extensions for JSF utilities 
 - Lombok, Google Guava and Apache Commons-lang for class level utilities
 - Mustache for e-mail templating 
 - Webservices with JAX-RS (RestEasy) 
 
-The demo makes use of a custom implementation of [AdminLTE](https://adminlte.io/) integrated with Boostrap 3 and 
-Primefaces for a better UI experience, modern features and mobile support.
+It's not much say that if you want a **production ready architecture**, this is the project you are looking for.
 
-Also, inside the application you can find (already functional) a simple CRUD of Users and User Groups with authentication, 
-permission based authorization, all integrated with LDAP/AD and/or local accounts.
+### Create the database
 
-It's not much say, that if you want a **production ready architecture**, this is the project you are looking for.
-
-## How to: configure
-
-First of all, you will need to download the latest version of Wildfly application server. This is the homologated version, 
-maybe, with a little bit of changes ~~or no~~ you can run this on Payara, Glassfish or any other JEE 7+ server.
-
-Download Wildfly [here](http://wildfly.org/downloads/) and configure the datasource for the application by editing the 
-``` standalone.xml``` or ```standalone-full.xml``` (you will know which one to change) to add this lines to the 
-datasource section in the file:
-
-```xml
-<datasource jta="true" jndi-name="java:/datasources/LibraryDS" pool-name="LibraryDS" enabled="true" use-ccm="false">
-    <connection-url>jdbc:postgresql://localhost:5432/library</connection-url>
-    <driver-class>org.postgresql.Driver</driver-class>
-    <driver>postgresql</driver>
-    <pool>
-        <min-pool-size>10</min-pool-size>
-        <initial-pool-size>5</initial-pool-size>
-        <max-pool-size>30</max-pool-size>
-        <prefill>true</prefill>
-        <flush-strategy>AllInvalidIdleConnections</flush-strategy>
-    </pool>
-    <security>
-        <user-name>sa_library</user-name>
-        <password>sa_library</password>
-    </security>
-    <validation>
-        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
-        <check-valid-connection-sql>SELECT 1</check-valid-connection-sql>
-        <background-validation>true</background-validation>
-        <use-fast-fail>true</use-fast-fail>
-        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
-    </validation>
-</datasource>
-```
-
-> **Quick note**: the datasource will not work if you don't have the PostgreSQL driver enabled in the wildfly modules. 
-To do this, follow [this blog post](https://bok.stenusys.com/index.php/2018/02/12/how_to_setup_postgresql_datasource_with_wildfly/).
-
-
-If you want to send e-mails, these lines should be added to the mail subsystem (search for ```mail-session```):
-
-> **Quick note**: if you are looking for a good fake/development e-mail provider, I can indicate [mailtrap](https://mailtrap.io/)  
-
-```xml
-<mail-session name="my-email" debug="true" jndi-name="java:/mail/library" from="no-reply@my-email-account.com">
-    <smtp-server outbound-socket-binding-ref="my-email-socket" username="my@email-account.com" password="my-secret"/>
-</mail-session>
-```
-
-And the e-mail socket to the ```socket-binding-group``` at the end of the file:
-
-```xml
-<outbound-socket-binding name="my-email-socket">
-    <remote-destination host="my-email-server.com" port="587"/>
-</outbound-socket-binding>
-```
-
-After this, create the database on you local instance of PostgreSQL 10+ to match the Wildfly configurations and enable 
-the deployment of the application:
+Before the configuration step, create the database to used by the application:
 
 ```sql
 -- the user
@@ -99,7 +38,7 @@ CREATE USER sa_library WITH
   NOREPLICATION
   ENCRYPTED PASSWORD 'sa_library';
  
- -- the databse
+ -- the database
  CREATE DATABASE library
     WITH 
     OWNER = sa_library
@@ -112,37 +51,95 @@ CREATE USER sa_library WITH
 
 The tables and the initial data (default user, group and authorizations) should be created by Flyway with the migrations 
 strategy. If you want to run this application in development mode, Hibernate will create the tables, but you must create 
-the schemes by hands on PgAdmin or other similar software:
+the schemes manually on PgAdmin or other similar software:
 
 ```sql
 CREATE SCHEMA configuration AUTHORIZATION sa_library;
 CREATE SCHEMA registration AUTHORIZATION sa_library;
-CREATE SCHEMA configuration_audit AUTHORIZATION sa_library;
-CREATE SCHEMA registration_audit AUTHORIZATION sa_library;
 ```
 
-## How to: run on IDE
+### Configure the application
 
-Just import the maven project and deploy to you (already configured) Wildfly server. Remember: first configure the 
-datasource because application will not start if it is missing.
+The application provides three profiles to build and configure the application:
 
-## How to: run by hands
+- *ALPHA* -for development environments
+- *BETA* - for testing environments
+- *RELEASE_CANDIDATE* - for validation and final testing (approval of changes)
+- *RELEASE* - used in production environments
 
-Build the project. On the root folder run: 
+Every profile has his own configurations, it means that you can have separated environments and to activate them you
+just need to build the application again.
 
-```shell
-mvn clean package -Prelease
+Below we will configure the RELEASE profile and build a production artifact:
+
+```xml
+<profile>
+    <id>release</id>
+    <properties>
+        <application.version>${project.version}-RELEASE</application.version>
+        <application.base-url>https://localhost:8443/</application.base-url>
+        <skip.tests>false</skip.tests>
+        <project.stage>Production</project.stage>
+        <mail.host>my-mail-host</mail.host> 
+        <mail.port>587</mail.port>
+        <mail.debug>false</mail.debug>
+        <mail.from-address>noreply@your-domain.com</mail.from-address>
+        <mail.username>my@account.com</mail.username>
+        <mail.password>secret</mail.password>
+        <database.host>localhost</database.host>
+        <database.port>5432</database.port>
+        <database.name>library</database.name>
+        <database.username>sa_library</database.username>
+        <database.password>sa_library</database.password>
+        <orm.show_sql>false</orm.show_sql>
+        <orm.ddl_auto>none</orm.ddl_auto>
+        <ws.base-url>https://my-webservice-server.com</ws.base-url>
+        <ws.username>admin</ws.username>
+        <ws.password>admin</ws.password>
+        <ws.client-name>admin</ws.client-name>
+        <ldap.enabled>false</ldap.enabled>
+        <ldap.url>ldap://localhost</ldap.url>
+        <ldap.baseDn>OU=Users,DC=arthurgregorio,DC=eti,DC=br</ldap.baseDn>
+        <ldap.user>CN=bind-user,OU=Applications,DC=arthurgregorio,DC=eti,DC=br</ldap.user>
+        <ldap.password>my-bind-password</ldap.password>
+    </properties>
+</profile>
 ```
 
-If no profile is used, this will tell maven to build the development version with no migrations and the database need 
-to be initialized manually like said above. 
+As you can see, just fill the properties with your configurations and build with the command below:
 
-The build configuration also have other profiles for you to configure according your need: 
+```shell script
+mvnw clean package -Prelease
+```
 
-- *BETA* for beta releases, testing the software
-- *RC* for candidate releases, feature validation/approving purpose 
-- *RELEASE* for the final, production ready, releases
+> **Quick tip**!
+>
+> If you are on Windows, used ```mvnw.bat``` and if you are on a linux system, use ```./mvnw```
 
-After the build, open the wildfly admin console on the web browser and in the deployments section, upload the war file 
-created by the build in the target folder (named *library-1.0.0-(selected-profile)*) inside the project and access it on 
-the default URL: https://localhost:8443/, and you're done! Enjoy the demo.
+After the build process, a folder called ```target``` should appear and inside you will find the artifacts 
+```library-x.x.x-RELEASE-thorntail.jar``` and ```library-x.x.x-RELEASE.war```, it means that you are ready to run the 
+application.
+
+To do that, just use:
+
+```shell script
+java -jar target/library-x.x.x-RELEASE-thorntail.jar 
+```
+
+If you have Java JDK installed, the application will start and should be available on ```http://localhost:8080/```, the 
+username and password to access are ```admin```.
+
+> **Quick tip!**
+> 
+> You can run the application directly from the build process using Thorntail Maven Plugin, just use
+> ```mvn clean package -Prelease thorntail:run``` 
+
+### Running inside the IDE
+
+We use maven to build the application and almost all the IDE on the market have a feature to import maven projects.
+
+By that, just import the project and you are ready to go!
+
+### Contact
+
+If you have any problem or want to contact me, send me an e-mail at: contato@arthurgregorio.eti.br
