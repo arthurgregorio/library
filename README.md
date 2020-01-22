@@ -114,7 +114,7 @@ mvnw clean package -Prelease
 
 > **Quick tip**!
 >
-> If you are on Windows, used ```mvnw.bat``` and if you are on a linux system, use ```./mvnw```
+> Windows users should use ```mvnw.bat```, Linux users ```./mvnw```
 
 After the build process, a folder called ```target``` should appear and inside you will find the artifacts 
 ```library-x.x.x-RELEASE-thorntail.jar``` and ```library-x.x.x-RELEASE.war```, it means that you are ready to run the 
