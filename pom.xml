@@ -34,7 +34,7 @@
     </developers>
 
     <properties>
-        <postgresql.version>42.2.9</postgresql.version>
+        <postgresql.version>42.2.13</postgresql.version>
         <jackson.version>2.10.1</jackson.version>
         <query-dsl.version>4.2.2</query-dsl.version>
         <deltaspike.version>1.9.2</deltaspike.version>
@@ -275,7 +275,7 @@
         <dependency>
             <groupId>br.eti.arthurgregorio</groupId>
             <artifactId>shiro-ee</artifactId>
-            <version>1.5.0</version>
+            <version>1.5.1</version>
         </dependency>
 
         <!--SL4J-->
