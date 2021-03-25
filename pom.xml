@@ -205,7 +205,7 @@
         <dependency>
             <groupId>org.primefaces.extensions</groupId>
             <artifactId>primefaces-extensions</artifactId>
-            <version>7.0.3</version>
+            <version>8.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.primefaces</groupId>
