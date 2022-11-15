@@ -35,7 +35,7 @@
 
     <properties>
         <postgresql.version>42.2.9</postgresql.version>
-        <jackson.version>2.10.1</jackson.version>
+        <jackson.version>2.12.7.1</jackson.version>
         <query-dsl.version>4.2.2</query-dsl.version>
         <deltaspike.version>1.9.2</deltaspike.version>
         <hibernate.version>5.3.13.Final</hibernate.version>
