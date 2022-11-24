@@ -38,7 +38,7 @@
         <jackson.version>2.10.1</jackson.version>
         <query-dsl.version>4.2.2</query-dsl.version>
         <deltaspike.version>1.9.2</deltaspike.version>
-        <hibernate.version>5.3.13.Final</hibernate.version>
+        <hibernate.version>5.3.20.Final</hibernate.version>
         <thorntail.version>2.6.0.Final</thorntail.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
