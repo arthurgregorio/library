@@ -34,7 +34,7 @@
     </developers>
 
     <properties>
-        <postgresql.version>42.2.9</postgresql.version>
+        <postgresql.version>42.2.27</postgresql.version>
         <jackson.version>2.10.1</jackson.version>
         <query-dsl.version>4.2.2</query-dsl.version>
         <deltaspike.version>1.9.2</deltaspike.version>
