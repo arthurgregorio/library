@@ -36,7 +36,7 @@
     <properties>
         <postgresql.version>42.2.9</postgresql.version>
         <jackson.version>2.10.1</jackson.version>
-        <query-dsl.version>4.2.2</query-dsl.version>
+        <query-dsl.version>5.0.0</query-dsl.version>
         <deltaspike.version>1.9.2</deltaspike.version>
         <hibernate.version>5.3.13.Final</hibernate.version>
         <thorntail.version>2.6.0.Final</thorntail.version>
@@ -261,7 +261,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>28.1-jre</version>
+            <version>32.0.0-jre</version>
         </dependency>
 
         <!--mustache-->
